@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="130dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#ffffff" />
+                android:background="#4Dffffff" />
 
             <RelativeLayout
                 android:layout_width="280dp"
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#ffffff" />
+                android:background="#4Dffffff" />
 
             <RelativeLayout
                 android:layout_width="280dp"
@@ -114,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#ffffff" />
+                android:background="#4Dffffff" />
 
 
             <RelativeLayout
@@ -146,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#ffffff" />
+                android:background="#4Dffffff" />
 
 
             <RelativeLayout
@@ -178,7 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#ffffff" />
+                android:background="#4Dffffff" />
 
             <RelativeLayout
                 android:layout_width="280dp"
@@ -209,7 +209,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#ffffff" />
+                android:background="#4Dffffff" />
 
         </LinearLayout>
 
@@ -219,7 +219,7 @@
             android:layout_height="40dp"
             android:layout_below="@id/member_activity_login_layout"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="70dp"
             android:background="@drawable/shape_bg_btn_log_reg"
             android:text="注册"
             android:textColor="#FFF"
