@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@mipmap/loginbag"
+    android:orientation="vertical"
     tools:context=".HomeActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,12 +37,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:background="@null"
-                    android:textColor="#ffff"
                     android:digits="0123456789"
                     android:ems="11"
                     android:hint="手机号"
                     android:imeOptions="actionNext"
                     android:paddingLeft="50dp"
+                    android:textColor="#ffff"
                     android:textColorHint="#eeeeee" />
 
             </RelativeLayout>
@@ -66,12 +67,12 @@
                     android:id="@+id/ed_login_password"
                     android:layout_width="200dp"
                     android:layout_height="40dp"
-                    android:textColor="#ffff"
                     android:background="@null"
                     android:ems="11"
                     android:hint="登录密码"
                     android:imeOptions="actionNext"
                     android:paddingLeft="50dp"
+                    android:textColor="#ffff"
                     android:textColorHint="#eeeeee" />
 
                 <ToggleButton
@@ -79,10 +80,10 @@
                     android:layout_width="24dp"
                     android:layout_height="15dp"
                     android:layout_alignParentRight="true"
-                    android:textOff=""
-                    android:textOn=""
+                    android:layout_centerVertical="true"
                     android:background="@drawable/ic_eye"
-                    android:layout_centerVertical="true" />
+                    android:textOff=""
+                    android:textOn="" />
 
             </RelativeLayout>
 
@@ -99,29 +100,29 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/save_pwd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/save_pwd"
+                    android:text="记住密码"
                     android:textColor="#fff"
-                    android:theme="@style/MyCheckBox"
-                    android:text="记住密码"/>
+                    android:theme="@style/MyCheckBox" />
 
                 <CheckBox
+                    android:id="@+id/zd_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:id="@+id/zd_login"
-                    android:theme="@style/MyCheckBox"
+                    android:text="自动登录"
                     android:textColor="#fff"
-                    android:text="自动登录"/>
+                    android:theme="@style/MyCheckBox" />
 
                 <TextView
+                    android:id="@+id/btn_regirect_tiao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:id="@+id/btn_regirect_tiao"
-                    android:textColor="#fff"
-                    android:text="快速注册"/>
+                    android:text="快速注册"
+                    android:textColor="#fff" />
 
             </LinearLayout>
 
@@ -134,7 +135,7 @@
             android:layout_below="@id/member_activity_login_layout"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="130dp"
-            android:background="@drawable/ic_tuo"
+            android:background="@drawable/shape_bg_btn_log_reg"
             android:text="登录"
             android:textColor="#FFF"
             android:textStyle="bold" />
