@@ -2,6 +2,7 @@ package com.baidu.wdyy.http;
 
 
 
+import com.baidu.wdyy.bean.CinemaBean;
 import com.baidu.wdyy.bean.MoiveBean;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
@@ -83,5 +84,19 @@ public interface RequestInterFace {
                                              @Header("sessionId")String sessionId,
                                              @Query("page") int page,
                                              @Query("count") int count);
+    //推荐影院列表
+    @GET("cinema/v1/findRecommendCinemas")
+    Observable<Result<List<CinemaBean>>> Cinema(@Header("userId")int userId,
+                                                @Header("sessionId")String sessionId,
+                                                @Query("page") int page,
+                                                @Query("count") int count);
+    //附近影院列表
+    @GET("cinema/v1/findNearbyCinemas")
+    Observable<Result<List<CinemaBean>>> Nearby(@Header("userId")int userId,
+                                                @Header("sessionId")String sessionId,
+                                                @Query("longitude") String longitude,
+                                                @Query("latitude") String latitude,
+                                                @Query("page") int page,
+                                                @Query("count") int count);
 
 }

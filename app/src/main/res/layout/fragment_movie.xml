@@ -19,7 +19,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="186dp"
-                    android:background="@drawable/ic_location">
+                    android:background="@drawable/icon_show_banner_bag">
 
                 </LinearLayout>
 
