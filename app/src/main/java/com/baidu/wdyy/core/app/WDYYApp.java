@@ -44,6 +44,8 @@ public class WDYYApp extends Application {
         mMainLooper = getMainLooper();
         sharedPreferences = getSharedPreferences("share.xml", MODE_PRIVATE);
 
+        //初始化fresco
+        Fresco.initialize(this);
 
     }
 

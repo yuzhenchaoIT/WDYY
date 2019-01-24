@@ -1,6 +1,7 @@
 package com.baidu.wdyy;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,12 +19,16 @@ import android.widget.ToggleButton;
 
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
+import com.baidu.wdyy.bean.UserInfoBean;
 import com.baidu.wdyy.core.ApiException;
 import com.baidu.wdyy.core.app.WDYYApp;
 import com.baidu.wdyy.core.code.EncryptUtil;
+import com.baidu.wdyy.core.db.DBDao;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.LoginPresenter;
 import com.bw.movie.R;
+
+import java.sql.SQLException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +57,9 @@ public class HomeActivity extends AppCompatActivity {
     ImageView mWeixinLogin;
     //密码是否可见
     private boolean pwdVisibile = false;
+    //登录p层
     private LoginPresenter loginPresenter = new LoginPresenter(new LoginDataCall());
+    private DBDao dbDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +118,6 @@ public class HomeActivity extends AppCompatActivity {
                     WDYYApp.getShare().edit().putString("phone", phone)
                             .putString("pwd", decryptPwd).commit();
                 }
-
                 loginPresenter.request(phone, encryptPwd);
                 break;
             case R.id.weixin_login:
@@ -123,13 +129,24 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void success(Result<UserInfo> data) {
             if (data.getStatus().equals("0000")) {
+                UserInfo userInfo = data.getResult();
+                UserInfoBean userInfoBean = userInfo.getUserInfo();
+                //登录成功  数据添加数据库
+                try {
+                    dbDao = new DBDao(getBaseContext());
+                    dbDao.insertStudent(userInfoBean);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 Toast.makeText(getBaseContext(), data.getMessage() + "", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(HomeActivity.this, ShowActivity.class));
             } else {
                 Toast.makeText(getBaseContext(), data.getStatus() + " " + data.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
+
         }
+
         @Override
         public void fail(ApiException e) {
             Toast.makeText(getBaseContext(), "登录失败,请核实信息" + e, Toast.LENGTH_SHORT).show();

@@ -30,7 +30,8 @@
 
         <activity android:name="com.baidu.wdyy.HomeActivity" />
         <activity android:name="com.baidu.wdyy.RegisterActivity" />
-        <activity android:name="com.baidu.wdyy.ShowActivity"></activity>
+        <activity android:name="com.baidu.wdyy.ShowActivity" />
+        <activity android:name="com.baidu.wdyy.MyInfoActivity"></activity>
     </application>
 
 </manifest>

@@ -1,12 +1,23 @@
 package com.baidu.wdyy.bean;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "user")
 public class UserInfoBean {
 
+    @DatabaseField
     private String headPic;
+    // 只有主键需要加括号里的东西
+    @DatabaseField(generatedId = true)
     private int id;
+    @DatabaseField
     private long lastLoginTime;
+    @DatabaseField
     private String nickName;
+    @DatabaseField
     private String phone;
+    @DatabaseField
     private int sex;
 
     public String getHeadPic() {
