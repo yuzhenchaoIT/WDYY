@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.bw.movie.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

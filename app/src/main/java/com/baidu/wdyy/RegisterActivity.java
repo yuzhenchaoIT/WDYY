@@ -1,5 +1,6 @@
 package com.baidu.wdyy;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,11 @@ import com.baidu.wdyy.core.ApiException;
 import com.baidu.wdyy.core.code.EncryptUtil;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.RegPresenter;
+import com.bigkoo.pickerview.TimePickerView;
+import com.bw.movie.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setStatusColor();
         setSystemInvadeBlack();
+
     }
 
 
@@ -61,8 +68,12 @@ public class RegisterActivity extends AppCompatActivity {
         StatusUtil.setSystemStatus(this, true, true);
     }
 
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
+    }
 
-    @OnClick(R.id.btn_register)
+    @OnClick({R.id.btn_register,R.id.ed_reg_birth_date})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_register:
@@ -83,7 +94,30 @@ public class RegisterActivity extends AppCompatActivity {
                 regPresenter.request(nickName, phone, encryptpwd, encryptpwd,
                         sexInt, birthDate, "123456", "小米", "5.0", "android", mail);
                 break;
+            case R.id.ed_reg_birth_date:
+                TimePickerView pvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {
+                        mEdRegBirthDate.setText(getTime(date));
+                    }
+                })
+                        .setType(new boolean[]{true, true, true, false, false, false})// 默认全部显示
+                        .setCancelText("取消")//取消按钮文字
+                        .setSubmitText("确定")//确认按钮文字
+                        .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                        //.isDialog(true)//是否显示为对话框样式
+                        .build();
+
+                pvTime.show();
+
+                break;
+
+
         }
+    }
+
+    @OnClick(R.id.ed_reg_birth_date)
+    public void onViewClicked() {
     }
 
     class RegDataCall implements DataCall<Result> {
@@ -92,10 +126,11 @@ public class RegisterActivity extends AppCompatActivity {
         public void success(Result data) {
             if (data.getStatus().equals("0000")) {
                 Toast.makeText(RegisterActivity.this,
-                        data.getStatus() + "成功啦" + data.getMessage(), Toast.LENGTH_SHORT).show();
+                        "注册成功啦", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
             } else {
                 Toast.makeText(RegisterActivity.this,
-                        data.getStatus() + "失败啦" + data.getMessage(), Toast.LENGTH_SHORT).show();
+                        data.getStatus() + "注册失败啦" + data.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }

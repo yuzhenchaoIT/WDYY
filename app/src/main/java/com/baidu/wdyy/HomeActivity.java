@@ -20,6 +20,7 @@ import com.baidu.wdyy.core.ApiException;
 import com.baidu.wdyy.core.code.EncryptUtil;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.LoginPresenter;
+import com.bw.movie.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,7 +93,7 @@ public class HomeActivity extends AppCompatActivity {
         public void success(Result<UserInfo> data) {
             if (data.getStatus().equals("0000")) {
                 Toast.makeText(getBaseContext(), data.getStatus() + " " + data.getMessage(), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+                startActivity(new Intent(HomeActivity.this, ShowActivity.class));
             } else {
                 Toast.makeText(getBaseContext(), data.getStatus() + " " + data.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -102,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void fail(ApiException e) {
             Toast.makeText(getBaseContext(), "请求成功", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+            startActivity(new Intent(HomeActivity.this, ShowActivity.class));
         }
     }
 

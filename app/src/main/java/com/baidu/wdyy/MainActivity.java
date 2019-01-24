@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.bw.movie.R;
+
 import crossoverone.statuslib.StatusUtil;
 
 public class MainActivity extends AppCompatActivity {
