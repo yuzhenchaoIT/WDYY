@@ -2,13 +2,19 @@ package com.baidu.wdyy.http;
 
 
 
+import com.baidu.wdyy.bean.MoiveBean;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * @author lmx
@@ -59,5 +65,23 @@ public interface RequestInterFace {
                                 @Field("os") String os,
                                 @Field("email") String email);
 
+    //热门影院列表
+    @GET("movie/v1/findHotMovieList")
+    Observable<Result<List<MoiveBean>>> Popular(@Header("userId")int userId,
+                                                @Header("sessionId")String sessionId,
+                                                @Query("page") int page,
+                                                @Query("count") int count);
+    //正在上映列表
+    @GET("movie/v1/findReleaseMovieList")
+    Observable<Result<List<MoiveBean>>> Being(@Header("userId")int userId,
+                                              @Header("sessionId")String sessionId,
+                                              @Query("page") int page,
+                                              @Query("count") int count);
+    //即将上映列表
+    @GET("movie/v1/findComingSoonMovieList")
+    Observable<Result<List<MoiveBean>>> Soon(@Header("userId")int userId,
+                                             @Header("sessionId")String sessionId,
+                                             @Query("page") int page,
+                                             @Query("count") int count);
 
 }

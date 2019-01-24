@@ -8,51 +8,61 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.wdyy.bean.MoiveBean;
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by chenxiaoping on 2017/3/28.
  */
 
-public class show_binner_adapter extends RecyclerView.Adapter<show_binner_adapter.ViewHolder> {
+public class show_binner_adapter extends RecyclerView.Adapter {
 
-    private Context mContext;
-    private int[] mColors = {R.drawable.baobeier, R.drawable.hutaojiazi};
-    private String[] name = {"宝贝儿", "胡桃夹子与四个王国"};
+    private Context context;
+
+    public show_binner_adapter(Context context) {
+        this.context = context;
+    }
+    private ArrayList<MoiveBean> list = new ArrayList<>();
+    public void addItem(List<MoiveBean> moiveBeans) {
+        if(moiveBeans!=null)
+        {
+            list.addAll(moiveBeans);
+        }
+    }
+
     private onItemClick clickCb;
 
-    public show_binner_adapter(Context c) {
-        mContext = c;
+    public show_binner_adapter(onItemClick clickCb) {
+        this.clickCb = clickCb;
     }
 
-    public show_binner_adapter(Context c, onItemClick cb) {
-        mContext = c;
-        clickCb = cb;
-    }
 
-    public void setOnClickLstn(onItemClick cb) {
-        this.clickCb = cb;
+
+
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder( ViewGroup viewGroup, int i) {
+        View view = View.inflate(context, R.layout.layout_item,null);
+        MovieVH movieVH = new MovieVH(view);
+        return movieVH;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.layout_item, parent, false);
-        return new ViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        Glide.with(mContext).load(mColors[position % mColors.length])
-                .into(holder.img);
-        holder.tv.setBackgroundColor(0x55000000);
-        holder.tv.setText(name[position % name.length]);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder( RecyclerView.ViewHolder viewHolder, final int i) {
+        MoiveBean moiveBean = list.get(i);
+        MovieVH movieVH = (MovieVH) viewHolder;
+        Glide.with(context).load(moiveBean.getImageUrl()).into(movieVH.img);
+        movieVH.populartextviewone.setBackgroundColor(0x55000000);
+        movieVH.populartextviewone.setText(moiveBean.getName());
+        movieVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(mContext, "点击了："+position, Toast.LENGTH_SHORT).show();
                 if (clickCb != null) {
-                    clickCb.clickItem(position);
+                    clickCb.clickItem(i);
                 }
             }
         });
@@ -60,21 +70,22 @@ public class show_binner_adapter extends RecyclerView.Adapter<show_binner_adapte
 
     @Override
     public int getItemCount() {
-        return Integer.MAX_VALUE;
+        return list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView img;
-        TextView tv;
 
-        public ViewHolder(View itemView) {
+
+    class MovieVH extends RecyclerView.ViewHolder {
+        public ImageView img;
+        public TextView populartextviewone;
+        public MovieVH(View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.img);
-            tv = itemView.findViewById(R.id.tv);
+            populartextviewone = (TextView) itemView.findViewById(R.id.tv);
         }
     }
 
     public interface onItemClick {
-        void clickItem(int pos);
+        void clickItem(int position);
     }
 }
