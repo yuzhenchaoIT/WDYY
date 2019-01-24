@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,6 +19,7 @@ import android.widget.ToggleButton;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
 import com.baidu.wdyy.core.ApiException;
+import com.baidu.wdyy.core.app.WDYYApp;
 import com.baidu.wdyy.core.code.EncryptUtil;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.LoginPresenter;
@@ -47,6 +50,8 @@ public class HomeActivity extends AppCompatActivity {
     Button mBtnLogin;
     @BindView(R.id.weixin_login)
     ImageView mWeixinLogin;
+    //密码是否可见
+    private boolean pwdVisibile = false;
     private LoginPresenter loginPresenter = new LoginPresenter(new LoginDataCall());
 
     @Override
@@ -56,7 +61,21 @@ public class HomeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setStatusColor();
         setSystemInvadeBlack();
+        setRememberPwd();
 
+    }
+
+    /**
+     * 记住密码
+     */
+    private void setRememberPwd() {
+        //记住密码操作
+        boolean remPas = WDYYApp.getShare().getBoolean("remPwd", true);
+        if (remPas) {
+            mSavePwd.setChecked(true);
+            mEdLoginNumber.setText(WDYYApp.getShare().getString("phone", ""));
+            mEdLoginPassword.setText(WDYYApp.getShare().getString("pwd", ""));
+        }
     }
 
     protected void setStatusColor() {
@@ -75,12 +94,24 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
                 break;
             case R.id.btn_ying:
+                if (pwdVisibile) {//密码显示，则隐藏
+                    mEdLoginPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    pwdVisibile = false;
+                } else {//密码隐藏则显示
+                    mEdLoginPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    pwdVisibile = true;
+                }
                 break;
             case R.id.btn_login:
                 String phone = mEdLoginNumber.getText().toString();
                 String pwd = mEdLoginPassword.getText().toString();
                 String encryptPwd = EncryptUtil.encrypt(pwd);
-//                String decryptPwd = EncryptUtil.decrypt(pwd);
+                String decryptPwd = EncryptUtil.decrypt(encryptPwd);
+                if (mSavePwd.isChecked()) {
+                    WDYYApp.getShare().edit().putString("phone", phone)
+                            .putString("pwd", decryptPwd).commit();
+                }
+
                 loginPresenter.request(phone, encryptPwd);
                 break;
             case R.id.weixin_login:
@@ -92,18 +123,16 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void success(Result<UserInfo> data) {
             if (data.getStatus().equals("0000")) {
-                Toast.makeText(getBaseContext(), data.getStatus() + " " + data.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), data.getMessage() + "", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(HomeActivity.this, ShowActivity.class));
             } else {
                 Toast.makeText(getBaseContext(), data.getStatus() + " " + data.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }
-
         @Override
         public void fail(ApiException e) {
-            Toast.makeText(getBaseContext(), "请求成功", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(HomeActivity.this, ShowActivity.class));
+            Toast.makeText(getBaseContext(), "登录失败,请核实信息" + e, Toast.LENGTH_SHORT).show();
         }
     }
 

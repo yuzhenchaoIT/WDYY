@@ -1,75 +1,41 @@
 package com.baidu.wdyy.bean;
 
+
+
 public class UserInfo {
 
-    private int birthday;
+    /**
+     * sessionId : 15482980027771784
+     * userId : 1784
+     * userInfo : {"headPic":"http://mobile.bwstudent.com/images/movie/head_pic/bwjy.jpg","id":1784,"lastLoginTime":1548297777000,"nickName":"小小程序猿","phone":"16619785294","sex":1}
+     */
 
-    private int id;
+    private String sessionId;
+    private int userId;
+    private UserInfoBean userInfo;
 
-    private int lastLoginTime;
-
-    private String nickName;
-
-    private String phone;
-
-    private int sex;
-
-    private String headPic;
-
-    public void setBirthday(int birthday) {
-        this.birthday = birthday;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public int getBirthday() {
-        return this.birthday;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getUserId() {
+        return userId;
     }
 
-    public int getId() {
-        return this.id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public void setLastLoginTime(int lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
+    public UserInfoBean getUserInfo() {
+        return userInfo;
     }
 
-    public int getLastLoginTime() {
-        return this.lastLoginTime;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getNickName() {
-        return this.nickName;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPhone() {
-        return this.phone;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
-
-    public int getSex() {
-        return this.sex;
-    }
-
-    public void setHeadPic(String headPic) {
-        this.headPic = headPic;
-    }
-
-    public String getHeadPic() {
-        return this.headPic;
+    public void setUserInfo(UserInfoBean userInfo) {
+        this.userInfo = userInfo;
     }
 
 

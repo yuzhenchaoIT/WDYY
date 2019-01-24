@@ -3,7 +3,7 @@ package com.baidu.wdyy.http;
 
 
 import com.baidu.wdyy.bean.Result;
-import com.baidu.wdyy.bean.UserInfoOut;
+import com.baidu.wdyy.bean.UserInfo;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -25,8 +25,8 @@ public interface RequestInterFace {
      */
     @POST("user/v1/login")
     @FormUrlEncoded
-    Observable<Result<UserInfoOut>> login(@Field("phone") String phone,
-                                          @Field("pwd") String pwd);
+    Observable<Result<UserInfo>> login(@Field("phone") String phone,
+                                       @Field("pwd") String pwd);
 
 
     /**
