@@ -19,7 +19,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="186dp"
-                    android:background="@drawable/ic_location">
+                    android:background="@drawable/icon_show_banner_bag">
 
                 </LinearLayout>
 
@@ -30,7 +30,63 @@
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="85dp"
                     android:layout_marginRight="24dp"></recycler.coverflow.RecyclerCoverFlow>
+
+
             </RelativeLayout>
+            <RadioGroup
+                android:layout_marginTop="20dp"
+                android:id="@+id/home_radio_group"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+
+                android:background="@drawable/lineone"
+                android:layout_height="3dp">
+                <RadioButton
+                    android:id="@+id/home_radio_1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:background="@drawable/radio_selector"
+                    android:layout_height="match_parent"/>
+                <RadioButton
+                    android:id="@+id/home_radio_2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:background="@drawable/radio_selector"
+                    android:layout_height="match_parent"/>
+                <RadioButton
+                    android:id="@+id/home_radio_3"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:background="@drawable/radio_selector"
+                    android:layout_height="match_parent"/>
+                <RadioButton
+                    android:id="@+id/home_radio_4"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:background="@drawable/radio_selector"
+                    android:layout_height="match_parent"/>
+                <RadioButton
+                    android:id="@+id/home_radio_5"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:background="@drawable/radio_selector"
+                    android:layout_height="match_parent"/>
+                <RadioButton
+                    android:id="@+id/home_radio_6"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:background="@drawable/radio_selector"
+                    android:layout_height="match_parent"/>
+
+
+            </RadioGroup>
 
 
 
@@ -44,87 +100,55 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="热门电影"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
+                    android:textColor="#333333"
                     android:drawableRight="@drawable/ic_next"
-                    android:padding="10dp"
+                    android:layout_margin="20dp"
                     />
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_hotmovie"
                     android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+
                     android:layout_height="150dp"/>
                 <TextView
                     android:id="@+id/tv_nowplaying"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="正在热映"
-                    android:textSize="15sp"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
                     android:drawableRight="@drawable/ic_next"
-                    android:padding="10dp"
+                    android:layout_margin="20dp"
+
                     />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_playingmovie"
                     android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+
                     android:layout_height="150dp"/>
                 <TextView
                     android:id="@+id/tv_sooning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="即将上映"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
+                    android:textColor="#333333"
+                    android:layout_margin="20dp"
                     android:drawableRight="@drawable/ic_next"
-                    android:padding="10dp"
+
                     />
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_sooning"
                     android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+
                     android:layout_height="150dp"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-        <LinearLayout
-            android:id="@+id/ll_all2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-                        <TextView
-                            android:id="@+id/tv_location2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="北京"
-                            android:textSize="20sp"
-                            android:gravity="center"
-                            android:layout_margin="10dp"
-                            android:drawableLeft="@drawable/ic_location"
-                            />
 
-                        <TextView
-                            android:id="@+id/tv_search2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#ffee00"
-                            android:layout_alignParentRight="true"
-                            android:layout_margin="10dp"
-                            android:drawableLeft="@drawable/ic_search"
-                            android:textSize="20sp" />
-                    </RelativeLayout>
-                    <TableLayout
-                        android:background="#ededed"
-                        android:id="@+id/list_tab_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    </TableLayout>
-                        <android.support.v4.view.ViewPager
-                            android:id="@+id/list_view_pager"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            />
-        </LinearLayout>
 
 </LinearLayout>
