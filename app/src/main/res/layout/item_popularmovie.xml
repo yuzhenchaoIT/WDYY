@@ -12,7 +12,7 @@
         android:background="@drawable/baobeier"
         android:layout_width="126dp"
         app:roundedCornerRadius="8dp"
-
+        app:roundWithOverlayColor="@android:color/white"
         android:layout_height="164dp" />
 
     <TextView

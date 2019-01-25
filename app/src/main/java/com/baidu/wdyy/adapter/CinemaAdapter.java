@@ -1,6 +1,7 @@
 package com.baidu.wdyy.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.baidu.wdyy.DetailActivity;
 import com.baidu.wdyy.bean.CinemaBean;
+import com.baidu.wdyy.bean.MoiveBean;
 import com.bw.movie.R;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -47,6 +50,7 @@ public class CinemaAdapter extends RecyclerView.Adapter {
         cinemaVH.cinematextviewone.setText(cinemaBean.getName());
         cinemaVH.cinematextviewtwo.setText(cinemaBean.getAddress());
         cinemaVH.cinematextviewthree.setText(cinemaBean.getCommentTotal()+"km");
+
     }
 
     @Override

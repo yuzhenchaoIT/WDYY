@@ -20,7 +20,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="186dp"
                     android:background="@drawable/icon_show_banner_bag">
-
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="20dp">
+                        <com.baidu.wdyy.Utils.MySearchLayout
+                            android:id="@+id/one_my_search"
+                            android:layout_width="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="-170dp"
+                            ></com.baidu.wdyy.Utils.MySearchLayout>
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <recycler.coverflow.RecyclerCoverFlow
