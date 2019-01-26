@@ -1,5 +1,6 @@
 package com.baidu.wdyy.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 
+import com.baidu.wdyy.DetailActivity;
 import com.baidu.wdyy.adapter.BeingAdapter;
 import com.baidu.wdyy.adapter.PopularAdapter;
 import com.baidu.wdyy.adapter.SoonAdapter;
@@ -62,6 +64,7 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
             @Override
             public void onItemSelected(int position) {
                 homeRadioGroup.check(homeRadioGroup.getChildAt(position).getId());
+
                // Toast.makeText(getActivity(), ""+(position+1)+"/"+movieflow.getLayoutManager().getItemCount(),Toast.LENGTH_SHORT).show();
             }
         });
@@ -79,6 +82,7 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
         popularRecycleView.setLayoutManager(linearLayoutManager);
         popularAdapter = new PopularAdapter(getActivity());
         popularRecycleView.setAdapter(popularAdapter);
+        
         //正在上映
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity());
         linearLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);

@@ -2,6 +2,7 @@ package com.baidu.wdyy.http;
 
 
 import com.baidu.wdyy.bean.CinemaBean;
+import com.baidu.wdyy.bean.IDMoiveDetalisOne;
 import com.baidu.wdyy.bean.MoiveBean;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
@@ -104,6 +105,11 @@ public interface RequestInterFace {
                                                 @Query("latitude") String latitude,
                                                 @Query("page") int page,
                                                 @Query("count") int count);
+    //根据电影id查询电影信息
+    @GET("movie/v1/findMoviesDetail")
+    Observable<Result<IDMoiveDetalisOne>> IDMoivedetalis(@Header("userId")int userId,
+                                                         @Header("sessionId")String sessionId,
+                                                         @Query("movieId") int movieId);
 
     /**
      * 查询用户关注的影片列表

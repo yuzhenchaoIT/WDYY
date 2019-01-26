@@ -1,6 +1,7 @@
 package com.baidu.wdyy.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.wdyy.DetailActivity;
 import com.baidu.wdyy.bean.MoiveBean;
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
@@ -53,7 +55,7 @@ public class show_binner_adapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder( RecyclerView.ViewHolder viewHolder, final int i) {
-        MoiveBean moiveBean = list.get(i);
+        final MoiveBean moiveBean = list.get(i);
         MovieVH movieVH = (MovieVH) viewHolder;
         Glide.with(context).load(moiveBean.getImageUrl()).into(movieVH.img);
         movieVH.populartextviewone.setBackgroundColor(0x55000000);
@@ -64,6 +66,14 @@ public class show_binner_adapter extends RecyclerView.Adapter {
                 if (clickCb != null) {
                     clickCb.clickItem(i);
                 }
+            }
+        });
+        movieVH.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("id",moiveBean.getId()+"");
+                context.startActivity(intent);
             }
         });
     }
