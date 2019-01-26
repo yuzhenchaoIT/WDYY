@@ -1,12 +1,12 @@
 package com.baidu.wdyy.http;
 
 
-
 import com.baidu.wdyy.bean.CinemaBean;
 import com.baidu.wdyy.bean.MoiveBean;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
 
+import java.io.File;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -14,7 +14,9 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -68,35 +70,85 @@ public interface RequestInterFace {
 
     //热门影院列表
     @GET("movie/v1/findHotMovieList")
-    Observable<Result<List<MoiveBean>>> Popular(@Header("userId")int userId,
-                                                @Header("sessionId")String sessionId,
+    Observable<Result<List<MoiveBean>>> Popular(@Header("userId") int userId,
+                                                @Header("sessionId") String sessionId,
                                                 @Query("page") int page,
                                                 @Query("count") int count);
+
     //正在上映列表
     @GET("movie/v1/findReleaseMovieList")
-    Observable<Result<List<MoiveBean>>> Being(@Header("userId")int userId,
-                                              @Header("sessionId")String sessionId,
+    Observable<Result<List<MoiveBean>>> Being(@Header("userId") int userId,
+                                              @Header("sessionId") String sessionId,
                                               @Query("page") int page,
                                               @Query("count") int count);
+
     //即将上映列表
     @GET("movie/v1/findComingSoonMovieList")
-    Observable<Result<List<MoiveBean>>> Soon(@Header("userId")int userId,
-                                             @Header("sessionId")String sessionId,
+    Observable<Result<List<MoiveBean>>> Soon(@Header("userId") int userId,
+                                             @Header("sessionId") String sessionId,
                                              @Query("page") int page,
                                              @Query("count") int count);
+
     //推荐影院列表
     @GET("cinema/v1/findRecommendCinemas")
-    Observable<Result<List<CinemaBean>>> Cinema(@Header("userId")int userId,
-                                                @Header("sessionId")String sessionId,
+    Observable<Result<List<CinemaBean>>> Cinema(@Header("userId") int userId,
+                                                @Header("sessionId") String sessionId,
                                                 @Query("page") int page,
                                                 @Query("count") int count);
+
     //附近影院列表
     @GET("cinema/v1/findNearbyCinemas")
-    Observable<Result<List<CinemaBean>>> Nearby(@Header("userId")int userId,
-                                                @Header("sessionId")String sessionId,
+    Observable<Result<List<CinemaBean>>> Nearby(@Header("userId") int userId,
+                                                @Header("sessionId") String sessionId,
                                                 @Query("longitude") String longitude,
                                                 @Query("latitude") String latitude,
                                                 @Query("page") int page,
                                                 @Query("count") int count);
+
+    /**
+     * 查询用户关注的影片列表
+     *
+     * @param userId
+     * @param sessionId
+     * @param page
+     * @param count
+     * @return
+     */
+    @GET("movie/v1/verify/findMoviePageList")
+    Observable<Result<List<MoiveBean>>> findMovie(@Header("userId") int userId,
+                                                  @Header("sessionId") String sessionId,
+                                                  @Query("page") int page,
+                                                  @Query("count") int count);
+
+    /**
+     * 查询用户关注的影片列表
+     *
+     * @param userId
+     * @param sessionId
+     * @param page
+     * @param count
+     * @return
+     */
+    @GET("cinema/v1/verify/findCinemaPageList")
+    Observable<Result<List<CinemaBean>>> findCinema(@Header("userId") int userId,
+                                                    @Header("sessionId") String sessionId,
+                                                    @Query("page") int page,
+                                                    @Query("count") int count);
+
+    /**
+     * 上传头像
+     *
+     * @param userId
+     * @param sessionId
+     * @param image
+     * @return
+     */
+    @Multipart
+    @POST("user/v1/verify/uploadHeadPic")
+    Observable<Result<UserInfo>> uploadHeadPic(
+            @Header("userId") int userId,
+            @Header("sessionId") String sessionId,
+            @Part("image") File image);
+
 
 }

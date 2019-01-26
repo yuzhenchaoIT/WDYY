@@ -35,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class CinemaFragment extends Fragment implements View.OnClickListener{
+public class CinemaFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.cinemasdv)
     SimpleDraweeView cinemasdv;
     @BindView(R.id.cimema_text)
@@ -54,10 +54,11 @@ public class CinemaFragment extends Fragment implements View.OnClickListener{
     private CinemaMoviePresenter cinemaPresenter;
     private RecyclerView recycleView;
     private NearbyMoivePresenter nearbyMoivePresenter;
-   public LocationClient mLocationClient = null;
-   private MyLocationListener myListener = new MyLocationListener();
+    public LocationClient mLocationClient = null;
+    private MyLocationListener myListener = new MyLocationListener();
 
     private View view;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener{
         initData();
         return view;
     }
+
     private void initData() {
         mLocationClient = new LocationClient(getActivity());
         //声明LocationClient类
@@ -160,6 +162,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener{
 
         }
     }
+
     public class MyLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
@@ -168,7 +171,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener{
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
             String locationDescribe = location.getLocationDescribe();    //获取位置描述信息
             String addr = location.getAddrStr();    //获取详细地址信息
-            Log.i("bb", "onReceiveLocation: "+addr);
+            Log.i("bb", "onReceiveLocation: " + addr);
             cimemaText.setText(locationDescribe + addr);
 
         }

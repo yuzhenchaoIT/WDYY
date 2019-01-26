@@ -131,6 +131,9 @@ public class HomeActivity extends AppCompatActivity {
             if (data.getStatus().equals("0000")) {
                 UserInfo userInfo = data.getResult();
                 UserInfoBean userInfoBean = userInfo.getUserInfo();
+                //登录成功把userId  sessionId存入sp
+                WDYYApp.getShare().edit().putInt("userId", userInfo.getUserId())
+                        .putString("sessionId", userInfo.getSessionId()).commit();
                 //登录成功  数据添加数据库
                 try {
                     dbDao = new DBDao(getBaseContext());

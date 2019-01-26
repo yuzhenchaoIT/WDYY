@@ -122,7 +122,7 @@
             android:paddingBottom="10dp">
 
             <ImageView
-                android:id="@+id/myattention"
+                android:id="@+id/my_attention"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -147,7 +147,7 @@
             android:paddingBottom="10dp">
 
             <ImageView
-                android:id="@+id/mybuyrecord"
+                android:id="@+id/my_buyrecord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
