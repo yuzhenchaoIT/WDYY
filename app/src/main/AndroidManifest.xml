@@ -42,6 +42,7 @@
         <activity android:name="com.baidu.wdyy.RegisterActivity" />
         <activity android:name="com.baidu.wdyy.ShowActivity"></activity>
         <activity android:name="com.baidu.wdyy.MyInfoActivity"></activity>
+        <activity android:name="com.baidu.wdyy.MyAttentionActivity"></activity>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
