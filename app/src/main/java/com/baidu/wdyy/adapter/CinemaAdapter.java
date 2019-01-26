@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.baidu.wdyy.CinemaDetalisActivity;
 import com.baidu.wdyy.DetailActivity;
 import com.baidu.wdyy.bean.CinemaBean;
 import com.baidu.wdyy.bean.MoiveBean;
@@ -43,13 +44,21 @@ public class CinemaAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        CinemaBean cinemaBean = list.get(i);
+       final CinemaBean cinemaBean = list.get(i);
         CinemaVH cinemaVH = (CinemaVH) viewHolder;
 
         cinemaVH.cinemasdvsone.setImageURI(Uri.parse(cinemaBean.getLogo()));
         cinemaVH.cinematextviewone.setText(cinemaBean.getName());
         cinemaVH.cinematextviewtwo.setText(cinemaBean.getAddress());
         cinemaVH.cinematextviewthree.setText(cinemaBean.getCommentTotal()+"km");
+        cinemaVH.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,CinemaDetalisActivity.class);
+                intent.putExtra("id", cinemaBean.getId() + "");
+                context.startActivity(intent);
+            }
+        });
 
     }
 

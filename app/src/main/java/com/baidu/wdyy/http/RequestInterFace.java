@@ -2,6 +2,8 @@ package com.baidu.wdyy.http;
 
 
 import com.baidu.wdyy.bean.CinemaBean;
+import com.baidu.wdyy.bean.CinemaDetalisBean;
+import com.baidu.wdyy.bean.FilmReviewBean;
 import com.baidu.wdyy.bean.IDMoiveDetalisOne;
 import com.baidu.wdyy.bean.MoiveBean;
 import com.baidu.wdyy.bean.Result;
@@ -155,6 +157,19 @@ public interface RequestInterFace {
             @Header("userId") int userId,
             @Header("sessionId") String sessionId,
             @Part("image") File image);
+    //查询电影信息明细
+    @GET("cinema/v1/findCinemaInfo")
+    Observable<Result<CinemaDetalisBean>> CinemaDetalis(@Header("userId")int userId,
+                                                        @Header("sessionId")String sessionId,
+                                                        @Query("cinemaId") int cinemaId);
+    //查询电影影评
+    @GET("movie/v1/findAllMovieComment")
+    Observable<Result<List<FilmReviewBean>>> findAllMovieComment(@Header("userId")int userId,
+                                                                 @Header("sessionId")String sessionId,
+                                                                 @Query("movieId") int movieId,
+                                                                 @Query("page") int page,
+                                                                 @Query("count") int count);
+
 
 
 }
