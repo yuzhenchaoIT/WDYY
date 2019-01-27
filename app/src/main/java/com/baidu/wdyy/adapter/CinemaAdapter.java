@@ -8,8 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.wdyy.DetailActivity;
+import com.baidu.wdyy.Utils.PressLikeView;
 import com.baidu.wdyy.bean.CinemaBean;
 import com.baidu.wdyy.bean.MoiveBean;
 import com.bw.movie.R;
@@ -26,13 +28,15 @@ public class CinemaAdapter extends RecyclerView.Adapter {
     public CinemaAdapter(Context context) {
         this.context = context;
     }
+
     private ArrayList<CinemaBean> list = new ArrayList<>();
+
     public void addItem(List<CinemaBean> cinemaBeans) {
-        if(cinemaBeans!=null)
-        {
+        if (cinemaBeans != null) {
             list.addAll(cinemaBeans);
         }
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -43,13 +47,33 @@ public class CinemaAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        CinemaBean cinemaBean = list.get(i);
-        CinemaVH cinemaVH = (CinemaVH) viewHolder;
+        final CinemaBean cinemaBean = list.get(i);
+        final CinemaVH cinemaVH = (CinemaVH) viewHolder;
 
         cinemaVH.cinemasdvsone.setImageURI(Uri.parse(cinemaBean.getLogo()));
         cinemaVH.cinematextviewone.setText(cinemaBean.getName());
         cinemaVH.cinematextviewtwo.setText(cinemaBean.getAddress());
-        cinemaVH.cinematextviewthree.setText(cinemaBean.getCommentTotal()+"km");
+        cinemaVH.cinematextviewthree.setText(cinemaBean.getCommentTotal() + "km");
+        final int isFllow = cinemaBean.getFollowCinema();
+
+        if (isFllow == 1) {
+            cinemaVH.cinemasdvstwo.setBackgroundResource(R.drawable.com_icon_collection_selectet);
+        } else if (isFllow == 2) {
+            cinemaVH.cinemasdvstwo.setBackgroundResource(R.drawable.com_icon_collection_default);
+        }
+        cinemaVH.cinemasdvstwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, cinemaBean.getId() + " " + cinemaBean.getFollowCinema(), Toast.LENGTH_SHORT).show();
+                onItemClickListener.onItemClick(cinemaBean.getId(), isFllow);
+                if (isFllow == 1) {
+                    cinemaVH.cinemasdvstwo.setBackgroundResource(R.drawable.com_icon_collection_default);
+                } else if (isFllow == 2) {
+                    cinemaVH.cinemasdvstwo.setBackgroundResource(R.drawable.com_icon_collection_selectet);
+                }
+            }
+        });
+
 
     }
 
@@ -71,6 +95,7 @@ public class CinemaAdapter extends RecyclerView.Adapter {
         public TextView cinematextviewtwo;
         public TextView cinematextviewthree;
         public SimpleDraweeView cinemasdvstwo;
+
         public CinemaVH(@NonNull View itemView) {
             super(itemView);
             cinemasdvsone = itemView.findViewById(R.id.cinemasdvsone);
@@ -81,4 +106,24 @@ public class CinemaAdapter extends RecyclerView.Adapter {
 
         }
     }
+
+
+    /**
+     * 条目点击进入详情页面 接口回调
+     */
+
+    //定义接口
+    public interface OnItemClickListener {
+        void onItemClick(int cinemaId, int isFollow);
+    }
+
+    //方法名
+    private OnItemClickListener onItemClickListener;
+
+    //set方法      设置点击方法
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+
 }

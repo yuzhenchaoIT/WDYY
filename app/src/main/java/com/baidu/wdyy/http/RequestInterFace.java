@@ -105,10 +105,11 @@ public interface RequestInterFace {
                                                 @Query("latitude") String latitude,
                                                 @Query("page") int page,
                                                 @Query("count") int count);
+
     //根据电影id查询电影信息
     @GET("movie/v1/findMoviesDetail")
-    Observable<Result<IDMoiveDetalisOne>> IDMoivedetalis(@Header("userId")int userId,
-                                                         @Header("sessionId")String sessionId,
+    Observable<Result<IDMoiveDetalisOne>> IDMoivedetalis(@Header("userId") int userId,
+                                                         @Header("sessionId") String sessionId,
                                                          @Query("movieId") int movieId);
 
     /**
@@ -140,6 +141,33 @@ public interface RequestInterFace {
                                                     @Header("sessionId") String sessionId,
                                                     @Query("page") int page,
                                                     @Query("count") int count);
+
+
+    /**
+     * 影院关注
+     *
+     * @param userId
+     * @param sessionId
+     * @param cinemaId
+     * @return
+     */
+    @GET("cinema/v1/verify/followCinema")
+    Observable<Result> followCinema(@Header("userId") int userId,
+                                    @Header("sessionId") String sessionId,
+                                    @Query("cinemaId") int cinemaId);
+
+    /**
+     * 影院取消关注
+     *
+     * @param userId
+     * @param sessionId
+     * @param cinemaId
+     * @return
+     */
+    @GET("cinema/v1/verify/cancelFollowCinema")
+    Observable<Result> cancelFollowCinema(@Header("userId") int userId,
+                                          @Header("sessionId") String sessionId,
+                                          @Query("cinemaId") int cinemaId);
 
     /**
      * 上传头像

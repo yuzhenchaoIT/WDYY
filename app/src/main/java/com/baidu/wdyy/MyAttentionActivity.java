@@ -62,7 +62,7 @@ public class MyAttentionActivity extends AppCompatActivity implements View.OnCli
         findCinemaAdapter = new FindCinemaAdapter(getBaseContext());
         mMyAttentionRecycleview.setAdapter(findMovieAdapter);
         //p层请求数据
-        findMoviePresenter.request(userId, sessionId, 1, 10);
+        findMoviePresenter.request(userId, sessionId, 1, 100);
         //按钮颜色切换
         mMyAttentionMovie.setBackgroundResource(R.drawable.btn_gradient);
         mMyAttentionMovie.setTextColor(Color.WHITE);
@@ -89,7 +89,7 @@ public class MyAttentionActivity extends AppCompatActivity implements View.OnCli
             findMovieAdapter.remove();
             mMyAttentionRecycleview.setAdapter(findMovieAdapter);
             mMyAttentionRecycleview.setLayoutManager(linearLayoutManager);
-            findMoviePresenter.request(userId, sessionId, 1, 10);
+            findMoviePresenter.request(userId, sessionId, 1, 100);
         }
         if (v.getId() == R.id.my_attention_cinema) {
             mMyAttentionCinema.setBackgroundResource(R.drawable.btn_gradient);
@@ -99,7 +99,7 @@ public class MyAttentionActivity extends AppCompatActivity implements View.OnCli
             findCinemaAdapter = new FindCinemaAdapter(getBaseContext());
             mMyAttentionRecycleview.setAdapter(findCinemaAdapter);
             mMyAttentionRecycleview.setLayoutManager(linearLayoutManager);
-            findCinemaPresenter.request(userId, sessionId, 1, 10);
+            findCinemaPresenter.request(userId, sessionId, 1, 100);
         }
     }
 

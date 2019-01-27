@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -23,9 +24,12 @@ import com.baidu.wdyy.adapter.CinemaAdapter;
 import com.baidu.wdyy.bean.CinemaBean;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.core.ApiException;
+import com.baidu.wdyy.core.app.WDYYApp;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.CinemaMoviePresenter;
 import com.baidu.wdyy.presenter.NearbyMoivePresenter;
+import com.baidu.wdyy.presenter.my.CancelFollowCinemaPresenter;
+import com.baidu.wdyy.presenter.my.FollowCinemaPresenter;
 import com.bw.movie.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -56,13 +60,22 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
     private NearbyMoivePresenter nearbyMoivePresenter;
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
-
+    //影院关注
+    private FollowCinemaPresenter followCinemaPresenter = new FollowCinemaPresenter(new FollowCinemaDataCall());
+    //影院取消关注
+    private CancelFollowCinemaPresenter cancelFollowCinemaPresenter = new CancelFollowCinemaPresenter(new CancelFollowCinemaDataCall());
+    //取出用户  userId    sessionId
+    private int userId = WDYYApp.getShare().getInt("userId", 0);
+    private String sessionId = WDYYApp.getShare().getString("sessionId", "");
     private View view;
+    private int cinemaId1;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cinema, container, false);
+
+
         Button recommend = view.findViewById(R.id.recommend);
         Button nearby = view.findViewById(R.id.nearby);
         recommend.setOnClickListener(this);
@@ -77,8 +90,24 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
         //默认推荐影院
         cinemaAdapter = new CinemaAdapter(getActivity());
         recycleView.setAdapter(cinemaAdapter);
-        cinemaPresenter.request(0, "", 1, 10);
+        cinemaPresenter.request(userId, sessionId, 1, 10);
         unbinder = ButterKnife.bind(this, view);
+        //接口回调拿到 影院的Id
+        cinemaAdapter.setOnItemClickListener(new CinemaAdapter.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(int cinemaId, int isFollow) {
+                cinemaId1 = cinemaId;
+                if (isFollow == 1) {
+                    //请求取消关注的接口
+                    cancelFollowCinemaPresenter.request(userId, sessionId, cinemaId1);
+                } else if (isFollow == 2) {
+                    //请求关注的接口
+                    followCinemaPresenter.request(userId, sessionId, cinemaId1);
+                }
+            }
+        });
+
         recommend.setBackgroundResource(R.drawable.btn_gradient);
         recommend.setTextColor(Color.WHITE);
         nearby.setBackgroundResource(R.drawable.myborder);
@@ -111,6 +140,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        //推荐影院
         if (v.getId() == R.id.recommend) {
             recommend.setBackgroundResource(R.drawable.btn_gradient);
             recommend.setTextColor(Color.WHITE);
@@ -119,8 +149,9 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
             cinemaAdapter.remove();
             cinemaAdapter = new CinemaAdapter(getActivity());
             recycleView.setAdapter(cinemaAdapter);
-            cinemaPresenter.request(0, "", 1, 10);
+            cinemaPresenter.request(userId, sessionId, 1, 10);
         }
+        //附近影院
         if (v.getId() == R.id.nearby) {
             nearby.setBackgroundResource(R.drawable.btn_gradient);
             nearby.setTextColor(Color.WHITE);
@@ -129,7 +160,22 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
             cinemaAdapter.remove();
             cinemaAdapter = new CinemaAdapter(getActivity());
             recycleView.setAdapter(cinemaAdapter);
-            nearbyMoivePresenter.request(0, "", "116.30551391385724", "40.04571807462411", 1, 10);
+            nearbyMoivePresenter.request(userId, sessionId, "116.30551391385724", "40.04571807462411", 1, 10);
+            //接口回调拿到 影院的Id
+            cinemaAdapter.setOnItemClickListener(new CinemaAdapter.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(int cinemaId, int isFollow) {
+                    if (isFollow == 1) {
+                        //请求取消关注的接口
+                        cancelFollowCinemaPresenter.request(userId, sessionId, cinemaId1);
+                    } else if (isFollow == 2) {
+                        //请求关注的接口
+                        followCinemaPresenter.request(userId, sessionId, cinemaId1);
+                    }
+                }
+            });
+
         }
     }
 
@@ -146,6 +192,51 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    /**
+     * 影院关注
+     */
+    class FollowCinemaDataCall implements DataCall<Result> {
+
+        @Override
+        public void success(Result data) {
+            if (data.getStatus().equals("0000")) {
+                Toast.makeText(getContext(), data.getMessage(), Toast.LENGTH_SHORT).show();
+            } else {
+                cancelFollowCinemaPresenter.request(userId, sessionId, cinemaId1);
+                cinemaAdapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+
+    /**
+     * 影院取消关注
+     */
+    class CancelFollowCinemaDataCall implements DataCall<Result> {
+
+        @Override
+        public void success(Result data) {
+            if (data.getStatus().equals("0000")) {
+                Toast.makeText(getContext(), data.getMessage(), Toast.LENGTH_SHORT).show();
+            } else {
+                followCinemaPresenter.request(userId, sessionId, cinemaId1);
+                cinemaAdapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+
+    /**
+     * 请求影院数据的DataCall
+     */
     class CinemaCall implements DataCall<Result> {
 
         @Override
@@ -163,6 +254,9 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * 定位
+     */
     public class MyLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {

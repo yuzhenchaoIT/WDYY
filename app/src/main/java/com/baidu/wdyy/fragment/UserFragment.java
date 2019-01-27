@@ -60,6 +60,8 @@ public class UserFragment extends Fragment {
     ImageView mMyAttention;
     @BindView(R.id.my_buyrecord)
     ImageView mMyBuyrecord;
+    @BindView(R.id.my_feed_back)
+    ImageView mMyFeedBack;
     private View view;
     private Unbinder unbinder;
     private Bitmap head;// 头像Bitmap
@@ -127,7 +129,7 @@ public class UserFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.simp_mine_head, R.id.img_myinfo, R.id.my_attention, R.id.my_buyrecord})
+    @OnClick({R.id.simp_mine_head, R.id.img_myinfo, R.id.my_attention, R.id.my_buyrecord, R.id.my_feed_back})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.simp_mine_head:
@@ -140,6 +142,9 @@ public class UserFragment extends Fragment {
                 startActivity(new Intent(getContext(), MyAttentionActivity.class));
                 break;
             case R.id.my_buyrecord:
+                break;
+            case R.id.my_feed_back:
+
                 break;
         }
     }
