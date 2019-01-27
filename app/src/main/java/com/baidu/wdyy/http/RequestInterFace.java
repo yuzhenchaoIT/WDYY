@@ -2,7 +2,9 @@ package com.baidu.wdyy.http;
 
 
 import com.baidu.wdyy.bean.CinemaBean;
+import com.baidu.wdyy.bean.CinemaById;
 import com.baidu.wdyy.bean.CinemaDetalisBean;
+import com.baidu.wdyy.bean.CinemaRecy;
 import com.baidu.wdyy.bean.FilmReviewBean;
 import com.baidu.wdyy.bean.IDMoiveDetalisOne;
 import com.baidu.wdyy.bean.MoiveBean;
@@ -169,7 +171,12 @@ public interface RequestInterFace {
                                                                  @Query("movieId") int movieId,
                                                                  @Query("page") int page,
                                                                  @Query("count") int count);
-
-
+    //查看影院排期
+    @GET("movie/v1/findMovieScheduleList")
+    Observable<Result<List<CinemaRecy>>> cinemaRecy(@Query("cinemasId")int cinemasId,
+                                                    @Query("movieId") int movieId);
+    //查看影院影片
+    @GET("movie/v1/findMovieListByCinemaId")
+    Observable<Result<List<CinemaById>>> cinemaById(@Query("cinemaId")int cinemaId);
 
 }
