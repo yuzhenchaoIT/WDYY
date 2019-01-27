@@ -2,7 +2,9 @@ package com.baidu.wdyy.http;
 
 
 import com.baidu.wdyy.bean.CinemaBean;
+import com.baidu.wdyy.bean.CinemaById;
 import com.baidu.wdyy.bean.CinemaDetalisBean;
+import com.baidu.wdyy.bean.CinemaRecy;
 import com.baidu.wdyy.bean.FilmReviewBean;
 import com.baidu.wdyy.bean.IDMoiveDetalisOne;
 import com.baidu.wdyy.bean.MoiveBean;
@@ -35,8 +37,8 @@ public interface RequestInterFace {
      * @param pwd
      * @return
      */
-    @FormUrlEncoded
     @POST("user/v1/login")
+    @FormUrlEncoded
     Observable<Result<UserInfo>> login(@Field("phone") String phone,
                                        @Field("pwd") String pwd);
 
@@ -107,11 +109,10 @@ public interface RequestInterFace {
                                                 @Query("latitude") String latitude,
                                                 @Query("page") int page,
                                                 @Query("count") int count);
-
     //根据电影id查询电影信息
     @GET("movie/v1/findMoviesDetail")
-    Observable<Result<IDMoiveDetalisOne>> IDMoivedetalis(@Header("userId") int userId,
-                                                         @Header("sessionId") String sessionId,
+    Observable<Result<IDMoiveDetalisOne>> IDMoivedetalis(@Header("userId")int userId,
+                                                         @Header("sessionId")String sessionId,
                                                          @Query("movieId") int movieId);
 
     /**
@@ -185,20 +186,25 @@ public interface RequestInterFace {
             @Header("userId") int userId,
             @Header("sessionId") String sessionId,
             @Part("image") File image);
-
     //查询电影信息明细
     @GET("cinema/v1/findCinemaInfo")
-    Observable<Result<CinemaDetalisBean>> CinemaDetalis(@Header("userId") int userId,
-                                                        @Header("sessionId") String sessionId,
+    Observable<Result<CinemaDetalisBean>> CinemaDetalis(@Header("userId")int userId,
+                                                        @Header("sessionId")String sessionId,
                                                         @Query("cinemaId") int cinemaId);
-
     //查询电影影评
     @GET("movie/v1/findAllMovieComment")
-    Observable<Result<List<FilmReviewBean>>> findAllMovieComment(@Header("userId") int userId,
-                                                                 @Header("sessionId") String sessionId,
+    Observable<Result<List<FilmReviewBean>>> findAllMovieComment(@Header("userId")int userId,
+                                                                 @Header("sessionId")String sessionId,
                                                                  @Query("movieId") int movieId,
                                                                  @Query("page") int page,
                                                                  @Query("count") int count);
+    //查看影院排期
+    @GET("movie/v1/findMovieScheduleList")
+    Observable<Result<List<CinemaRecy>>> cinemaRecy(@Query("cinemasId")int cinemasId,
+                                                    @Query("movieId") int movieId);
+    //查看影院影片
+    @GET("movie/v1/findMovieListByCinemaId")
+    Observable<Result<List<CinemaById>>> cinemaById(@Query("cinemaId")int cinemaId);
 
     /**
      * 意见反馈
