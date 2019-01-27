@@ -16,18 +16,25 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.baidu.wdyy.Utils.SpaceItemDecoration;
 import com.baidu.wdyy.adapter.DramaAdapter;
 import com.baidu.wdyy.adapter.MovieReviewAdapter;
+import com.baidu.wdyy.adapter.ReviewAdapter;
+import com.baidu.wdyy.bean.FilmReviewBean;
 import com.baidu.wdyy.bean.IDMoiveDetalisOne;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.core.ApiException;
 import com.baidu.wdyy.http.DataCall;
+import com.baidu.wdyy.presenter.FindAllMovieCommentPresenter;
 import com.baidu.wdyy.presenter.IDMoiveDetalisonePresenter;
 import com.bw.movie.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,6 +85,10 @@ public class DetailActivity extends AppCompatActivity {
     private PopupWindow window3;
     private View view1;
     private IDMoiveDetalisOne idMoiveDetalisOne;
+    private FindAllMovieCommentPresenter findAllMovieCommentPresenter;
+    private ReviewAdapter reviewAdapter;
+    private android.support.v7.widget.RecyclerView recycler_moviecomment;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +96,9 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         //得到电影id
-        int id = Integer.parseInt(getIntent().getStringExtra("id"));
+        id = Integer.parseInt(getIntent().getStringExtra("id"));
         IDMoiveDetalisonePresenter idMoiveDetalisonePresenter = new IDMoiveDetalisonePresenter(new IDMoiveDetalisOneCall());
-        idMoiveDetalisonePresenter.request(0,"",id);
+        idMoiveDetalisonePresenter.request(0,"", id);
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.pup_detail, null);
@@ -108,7 +119,7 @@ public class DetailActivity extends AppCompatActivity {
         window.setAnimationStyle(R.style.PopupAnimation);
 
         LayoutInflater inflater3 = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view3 = inflater3.inflate(R.layout.pup_previewa, null);
+        view3 = inflater3.inflate(R.layout.pup_review, null);
         window3 = new PopupWindow(view3,
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT);
@@ -136,8 +147,27 @@ public class DetailActivity extends AppCompatActivity {
         ColorDrawable dw2 = new ColorDrawable(0xffffffff);
         window2.setBackgroundDrawable(dw2);
         window2.setAnimationStyle(R.style.PopupAnimation);
+        getShowReview(view3);
     }
+    private void getShowReview(View view3) {
+        findAllMovieCommentPresenter = new FindAllMovieCommentPresenter(new FindAllMovieComment());
+        ImageView pupo_yp_back = view3.findViewById(R.id.pupo_yp_back);
+        pupo_yp_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                window3.dismiss();
+            }
+        });
+        RecyclerView review_movie_review= view3.findViewById(R.id.review_movie_review);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        review_movie_review.addItemDecoration(new SpaceItemDecoration(10));
+        review_movie_review.setLayoutManager(linearLayoutManager);
+        findAllMovieCommentPresenter.request(0,"",id,false,10);
+        reviewAdapter = new ReviewAdapter();
+        review_movie_review.setAdapter(reviewAdapter);
 
+    }
 
     @OnClick({R.id.btn_xiangqing, R.id.btn_yugao, R.id.btn_photo, R.id.btn_ping, R.id.btn_fan, R.id.btn_gou})
     public void onViewClicked(View view) {
@@ -159,9 +189,9 @@ public class DetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.btn_gou:
-                //Intent intent=new Intent(DetailActivity.this,CinemaByMovieActivity.class);
-              //  intent.putExtra("movieId",movieId);
-               // startActivity(intent);
+                Intent intent=new Intent(DetailActivity.this,CinemaByMovieActivity.class);
+                intent.putExtra("movieId",movieId);
+                startActivity(intent);
                 break;
         }
     }
@@ -200,10 +230,28 @@ public class DetailActivity extends AppCompatActivity {
     private void showPopwindow4() {
         window3.showAtLocation(DetailActivity.this.findViewById(R.id.btn_ping),
                 Gravity.BOTTOM, 0, 0);
+
+
 //        recycler_moviecomment = view3.findViewById(R.id.recycler_moviecomment);
-//        recycler_moviecomment.setLayoutManager(new LinearLayoutManager(DetailActivity.this,LinearLayoutManager.VERTICAL,false));
-//        MovieCommentAdapter movieCommentAdapter = new MovieCommentAdapter(DetailActivity.this, result1);
-//        recycler_moviecomment.setAdapter(movieCommentAdapter);
+//         recycler_moviecomment.setLayoutManager(new LinearLayoutManager(DetailActivity.this,LinearLayoutManager.VERTICAL,false));
+//         ReviewAdapter movieCommentAdapter = new ReviewAdapter();
+//         recycler_moviecomment.setAdapter(movieCommentAdapter);
+    }
+    class FindAllMovieComment implements DataCall<Result<List<FilmReviewBean>>>{
+
+        @Override
+        public void success(Result<List<FilmReviewBean>> data) {
+            if (data.getStatus().equals("0000")){
+                reviewAdapter.setList(data.getResult());
+
+                reviewAdapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
     }
     class IDMoiveDetalisOneCall implements DataCall<Result>
     {

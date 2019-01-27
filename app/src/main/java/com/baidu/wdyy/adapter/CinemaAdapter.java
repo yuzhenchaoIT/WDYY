@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.wdyy.CinemaDetalisActivity;
 import com.baidu.wdyy.DetailActivity;
 import com.baidu.wdyy.Utils.PressLikeView;
 import com.baidu.wdyy.bean.CinemaBean;
@@ -55,6 +56,15 @@ public class CinemaAdapter extends RecyclerView.Adapter {
         cinemaVH.cinematextviewtwo.setText(cinemaBean.getAddress());
         cinemaVH.cinematextviewthree.setText(cinemaBean.getCommentTotal() + "km");
         final int isFllow = cinemaBean.getFollowCinema();
+        cinemaVH.cinematextviewthree.setText(cinemaBean.getCommentTotal()+"km");
+        cinemaVH.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,CinemaDetalisActivity.class);
+                intent.putExtra("id", cinemaBean.getId() + "");
+                context.startActivity(intent);
+            }
+        });
 
         if (isFllow == 1) {
             cinemaVH.cinemasdvstwo.setBackgroundResource(R.drawable.com_icon_collection_selectet);
