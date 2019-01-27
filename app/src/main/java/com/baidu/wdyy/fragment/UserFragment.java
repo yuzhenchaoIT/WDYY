@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.wdyy.MyAttentionActivity;
+import com.baidu.wdyy.MyFeedBackActivity;
 import com.baidu.wdyy.MyInfoActivity;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
@@ -144,7 +145,7 @@ public class UserFragment extends Fragment {
             case R.id.my_buyrecord:
                 break;
             case R.id.my_feed_back:
-
+                startActivity(new Intent(getContext(), MyFeedBackActivity.class));
                 break;
         }
     }

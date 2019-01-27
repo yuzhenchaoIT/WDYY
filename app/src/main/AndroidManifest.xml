@@ -55,9 +55,10 @@
             android:process=":remote" />
 
         <activity android:name="com.baidu.wdyy.DetailActivity" />
-        <activity android:name="com.baidu.wdyy.MyFeedBackActivity"></activity>
+        <activity android:name="com.baidu.wdyy.MyFeedBackActivity" />
         <activity android:name="com.baidu.wdyy.CinemaByMovieActivity" />
-        <activity android:name="com.baidu.wdyy.CinemaDetalisActivity"></activity>
+        <activity android:name="com.baidu.wdyy.CinemaDetalisActivity" />
+        <activity android:name="com.baidu.wdyy.MyFeedBackResultActivity"></activity>
     </application>
 
 </manifest>

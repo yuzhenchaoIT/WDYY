@@ -35,8 +35,8 @@ public interface RequestInterFace {
      * @param pwd
      * @return
      */
-    @POST("user/v1/login")
     @FormUrlEncoded
+    @POST("user/v1/login")
     Observable<Result<UserInfo>> login(@Field("phone") String phone,
                                        @Field("pwd") String pwd);
 
@@ -185,18 +185,36 @@ public interface RequestInterFace {
             @Header("userId") int userId,
             @Header("sessionId") String sessionId,
             @Part("image") File image);
+
     //查询电影信息明细
     @GET("cinema/v1/findCinemaInfo")
-    Observable<Result<CinemaDetalisBean>> CinemaDetalis(@Header("userId")int userId,
-                                                        @Header("sessionId")String sessionId,
+    Observable<Result<CinemaDetalisBean>> CinemaDetalis(@Header("userId") int userId,
+                                                        @Header("sessionId") String sessionId,
                                                         @Query("cinemaId") int cinemaId);
+
     //查询电影影评
     @GET("movie/v1/findAllMovieComment")
-    Observable<Result<List<FilmReviewBean>>> findAllMovieComment(@Header("userId")int userId,
-                                                                 @Header("sessionId")String sessionId,
+    Observable<Result<List<FilmReviewBean>>> findAllMovieComment(@Header("userId") int userId,
+                                                                 @Header("sessionId") String sessionId,
                                                                  @Query("movieId") int movieId,
                                                                  @Query("page") int page,
                                                                  @Query("count") int count);
+
+    /**
+     * 意见反馈
+     *
+     * @param userId
+     * @param sessionId
+     * @param content
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("tool/v1/verify/recordFeedBack")
+    Observable<Result> recordFeedBack(@Header("userId") int userId,
+                                      @Header("sessionId") String sessionId,
+                                      @Field("content") String content);
+
+
 
 
 

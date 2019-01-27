@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="24dp"
     android:layout_marginRight="24dp"
-    tools:context="com.baidu.wdyy.MyFeedBackActivity">
+    tools:context="com.baidu.wdyy.MyFeedBackResultActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,41 +22,35 @@
             android:textColor="#333"
             android:textSize="16sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/shape_bg_my_info"
-            android:orientation="vertical">
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/icon_my_feed_back_result" />
 
-            <EditText
-                android:id="@+id/my_feed_back_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="15dp"
-                android:backgroundTint="@null"
-                android:hint="写下您对产品的感受吧！工作人员会在第一时间评估处理"
-                android:textColor="#999"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/my_feed_submit"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
-            android:layout_gravity="right"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="@drawable/btn_gradient"
-            android:text="提交"
-            android:textColor="#fff"
+            android:text="反馈成功"
+            android:textColor="#333"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="感谢您对维度影院的关注与支持，我们会认真处理您的反馈，尽快修复和完善相关功能"
+            android:textColor="#666"
             android:textSize="14sp" />
-
-
     </LinearLayout>
 
 
     <ImageView
-        android:id="@+id/my_feed_back_back"
+        android:id="@+id/my_feed_back_result"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_alignParentBottom="true"
@@ -65,3 +59,4 @@
 
 
 </RelativeLayout>
+
