@@ -54,6 +54,8 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     implementation 'com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.5'
     implementation 'cn.jzvd:jiaozivideoplayer:6.2.9'
+    implementation project(':SeatTable')
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 
 
 }

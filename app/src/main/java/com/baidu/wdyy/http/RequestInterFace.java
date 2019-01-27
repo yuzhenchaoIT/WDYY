@@ -8,6 +8,7 @@ import com.baidu.wdyy.bean.CinemaRecy;
 import com.baidu.wdyy.bean.FilmReviewBean;
 import com.baidu.wdyy.bean.IDMoiveDetalisOne;
 import com.baidu.wdyy.bean.MoiveBean;
+import com.baidu.wdyy.bean.PurchaseBean;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
 
@@ -221,7 +222,24 @@ public interface RequestInterFace {
                                       @Field("content") String content);
 
 
+    //根据电影ID查询当前排片该电影的影院列表
+    @GET("movie/v1/findCinemasListByMovieId")
+    Observable<Result<List<PurchaseBean>>> Purchase(@Query("movieId") int movieId);
+    @POST("movie/v1/verify/buyMovieTicket")
+    @FormUrlEncoded
+    Observable<Result> buyMovieTicket(@Header("userId")int userId,
+                                      @Header("sessionId")String sessionId,
+                                      @Field("scheduleId") int scheduleId,
+                                      @Field("amount")int amount,
+                                      @Field("sign")String sign);
 
+    @POST("movie/v1/verify/pay")
+    @FormUrlEncoded
+    Observable<Result> buyMovieresult(@Header("userId")int userId,
+                                      @Header("sessionId")String sessionId,
+                                      @Field("payType") int payType,
+                                      @Field("orderId") String orderId
+                                     );
 
 
 }
