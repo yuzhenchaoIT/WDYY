@@ -1,7 +1,6 @@
 package com.baidu.wdyy;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +26,9 @@ import com.baidu.wdyy.core.db.DBDao;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.LoginPresenter;
 import com.bw.movie.R;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.sql.SQLException;
 
@@ -60,6 +62,7 @@ public class HomeActivity extends AppCompatActivity {
     //登录p层
     private LoginPresenter loginPresenter = new LoginPresenter(new LoginDataCall());
     private DBDao dbDao;
+    private IWXAPI mWxApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,10 @@ public class HomeActivity extends AppCompatActivity {
         setStatusColor();
         setSystemInvadeBlack();
         setRememberPwd();
-
+        //AppConst.WEIXIN.APP_ID是指你应用在微信开放平台上的AppID，记得替换。
+        mWxApi = WXAPIFactory.createWXAPI(this, "wxb3852e6a6b7d9516", false);
+        // 将该app注册到微信
+        mWxApi.registerApp("wxb3852e6a6b7d9516");
     }
 
     /**
@@ -121,10 +127,14 @@ public class HomeActivity extends AppCompatActivity {
                 loginPresenter.request(phone, encryptPwd);
                 break;
             case R.id.weixin_login:
-
+                SendAuth.Req req = new SendAuth.Req();
+                req.scope = "snsapi_userinfo";
+                req.state = "wechat_sdk_demo_test";
+                mWxApi.sendReq(req);
                 break;
         }
     }
+
 
     class LoginDataCall implements DataCall<Result<UserInfo>> {
         @Override

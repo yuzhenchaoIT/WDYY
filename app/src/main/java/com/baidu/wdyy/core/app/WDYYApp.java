@@ -7,6 +7,10 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.umeng.commonsdk.UMConfigure;
 
 public class WDYYApp extends Application {
 
@@ -33,6 +37,7 @@ public class WDYYApp extends Application {
     private static Context context;
 
     private static SharedPreferences sharedPreferences;
+    private static IWXAPI mWxApi;
 
     @Override
     public void onCreate() {
@@ -46,11 +51,28 @@ public class WDYYApp extends Application {
 
         //初始化fresco
         Fresco.initialize(this);
-
+        //第三方登录
+        registToWX();
+        //Bugly集成
+        CrashReport.initCrashReport(getApplicationContext(), "89c03187f1", false);
+        //友盟集成
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
     }
+
+    private void registToWX() {
+        //AppConst.WEIXIN.APP_ID是指你应用在微信开放平台上的AppID，记得替换。
+        mWxApi = WXAPIFactory.createWXAPI(this, "wxb3852e6a6b7d9516", false);
+        // 将该app注册到微信
+        mWxApi.registerApp("wxb3852e6a6b7d9516");
+    }
+
 
     public static SharedPreferences getShare() {
         return sharedPreferences;
+    }
+
+    public static IWXAPI getmWxApi() {
+        return mWxApi;
     }
 
     /**

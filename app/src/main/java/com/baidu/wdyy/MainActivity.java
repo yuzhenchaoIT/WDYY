@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.bw.movie.R;
+import com.umeng.analytics.MobclickAgent;
 
 import crossoverone.statuslib.StatusUtil;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setSystemInvadeBlack();
 
     }
+
     protected void setStatusColor() {
         StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
     }
@@ -48,4 +51,18 @@ public class MainActivity extends AppCompatActivity {
         // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
         StatusUtil.setSystemStatus(this, true, true);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
+
 }
