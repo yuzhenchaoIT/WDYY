@@ -169,7 +169,7 @@ public class ChooseActivity extends AppCompatActivity {
 
 // 将该app注册到微信
 
-            msgApi.registerApp("wxd930ea5d5a258f4f");
+            msgApi.registerApp("wxb3852e6a6b7d9516");
             PayReq request = new PayReq();
             request.appId = data.getAppId();
             request.partnerId = data.getPartnerId();

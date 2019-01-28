@@ -1,4 +1,4 @@
-package com.baidu.wdyy.wxapi;
+package com.bw.movie.wxapi;
 
 
 

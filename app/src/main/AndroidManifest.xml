@@ -61,7 +61,7 @@
         <activity android:name="com.baidu.wdyy.MyFeedBackResultActivity" />
         <activity android:name="com.baidu.wdyy.ChooseActivity" />
         <activity android:name="com.baidu.wdyy.ConnectorsActivity"></activity>
-        <activity android:name="com.baidu.wdyy.wxapi.WXPayEntryActivity"
+        <activity android:name="com.bw.movie.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
