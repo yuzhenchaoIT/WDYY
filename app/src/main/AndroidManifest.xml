@@ -58,7 +58,14 @@
         <activity android:name="com.baidu.wdyy.MyFeedBackActivity" />
         <activity android:name="com.baidu.wdyy.CinemaByMovieActivity" />
         <activity android:name="com.baidu.wdyy.CinemaDetalisActivity" />
-        <activity android:name="com.baidu.wdyy.MyFeedBackResultActivity"></activity>
+        <activity android:name="com.baidu.wdyy.MyFeedBackResultActivity" />
+        <activity android:name="com.baidu.wdyy.ChooseActivity" />
+        <activity android:name="com.baidu.wdyy.ConnectorsActivity"></activity>
+        <activity android:name="com.bw.movie.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

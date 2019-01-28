@@ -1,12 +1,14 @@
 package com.baidu.wdyy.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.baidu.wdyy.ChooseActivity;
 import com.baidu.wdyy.bean.CinemaRecy;
 import com.bw.movie.R;
 
@@ -48,10 +50,10 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<CinemaRecycleAdap
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context,ChooseActivity.class);
-//                intent.putExtra("cinemaname", cinemaRecy);
-//                intent.putExtra("name",mlist.get(i));
-//                context.startActivity(intent);
+                Intent intent = new Intent(context,ChooseActivity.class);
+                intent.putExtra("cinemaname", cinemaRecy);
+                intent.putExtra("name",mlist.get(i));
+                context.startActivity(intent);
             }
         });
 

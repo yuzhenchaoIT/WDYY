@@ -190,7 +190,8 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case R.id.btn_gou:
                 Intent intent=new Intent(DetailActivity.this,CinemaByMovieActivity.class);
-                intent.putExtra("movieId",movieId);
+                intent.putExtra("id",id+"");
+                intent.putExtra("name",idMoiveDetalisOne.getName());
                 startActivity(intent);
                 break;
         }
