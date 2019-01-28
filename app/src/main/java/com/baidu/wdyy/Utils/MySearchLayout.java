@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.bw.movie.R;
 
 
-
 public class MySearchLayout extends RelativeLayout {
 
     private ObjectAnimator translationX;
@@ -35,10 +34,11 @@ public class MySearchLayout extends RelativeLayout {
         super(context, attrs, defStyleAttr);
         init();
     }
-    private void init(){
-        View view = View.inflate(getContext(), R.layout.one_search_layout,this);
-        ImageView imageView= view.findViewById(R.id.one_image_sou);
-        translationX = ObjectAnimator.ofFloat(this, "translationX", 0,-280);
+
+    private void init() {
+        View view = View.inflate(getContext(), R.layout.one_search_layout, this);
+        ImageView imageView = view.findViewById(R.id.one_image_sou);
+        translationX = ObjectAnimator.ofFloat(this, "translationX", 0, -280);
         translationX.setDuration(1000);
         translationX.setInterpolator(new LinearInterpolator());
         translationX.addListener(new Animator.AnimatorListener() {
@@ -66,8 +66,8 @@ public class MySearchLayout extends RelativeLayout {
         imageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                    translationX.start();
-              //  Toast.makeText(getContext(), "1111", Toast.LENGTH_SHORT).show();
+                translationX.start();
+                //  Toast.makeText(getContext(), "1111", Toast.LENGTH_SHORT).show();
             }
         });
     }

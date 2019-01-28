@@ -72,6 +72,8 @@ public class UserFragment extends Fragment {
     private static String path = "/sdcard/myHead/";// sd路径
     private DBDao dbDao;
     private UploadPicPresenter uploadPicPresenter = new UploadPicPresenter(new UploadDataCall());
+    private List<UserInfoBean> userInfoBeans;
+    private List<UserInfoBean> list;
 
 
     @Nullable
@@ -101,6 +103,13 @@ public class UserFragment extends Fragment {
     }
 
 
+    /**
+     * 动态权限请求码
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -120,14 +129,25 @@ public class UserFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //初始化dao层
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         try {
+            //初始化dao层
             dbDao = new DBDao(getContext());
-            //查询用户
-            List<UserInfoBean> userInfoBeans = dbDao.getUser();
-            UserInfoBean userInfoBean = userInfoBeans.get(0);
-            mSimpMineHead.setImageURI(Uri.parse(userInfoBean.getHeadPic()));
-            mTextNickName.setText(userInfoBean.getNickName());
+            list = dbDao.queryUser();
+            if (list.isEmpty()) {
+
+            } else {
+                //查询用户
+                userInfoBeans = dbDao.getUser();
+                UserInfoBean userInfoBean = this.userInfoBeans.get(0);
+                mSimpMineHead.setImageURI(Uri.parse(userInfoBean.getHeadPic()));
+                mTextNickName.setText(userInfoBean.getNickName());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -137,7 +157,11 @@ public class UserFragment extends Fragment {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.simp_mine_head:
-                showTypeDialog();
+//                showTypeDialog();
+                if (list.size() == 0) {
+                    Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), HomeActivity.class));
+                }
                 break;
             case R.id.img_myinfo:
                 startActivity(new Intent(getContext(), MyInfoActivity.class));
@@ -151,11 +175,6 @@ public class UserFragment extends Fragment {
                 startActivity(new Intent(getContext(), MyFeedBackActivity.class));
                 break;
             case R.id.my_log_out:
-                try {
-                    DBDao dbDao = new DBDao(getContext());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
                 startActivity(new Intent(getContext(), HomeActivity.class));
                 break;
         }
@@ -300,5 +319,12 @@ public class UserFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
     }
 }

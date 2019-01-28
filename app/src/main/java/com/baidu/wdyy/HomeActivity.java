@@ -121,6 +121,7 @@ public class HomeActivity extends AppCompatActivity {
                 loginPresenter.request(phone, encryptPwd);
                 break;
             case R.id.weixin_login:
+
                 break;
         }
     }
@@ -143,6 +144,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 Toast.makeText(getBaseContext(), data.getMessage() + "", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(HomeActivity.this, ShowActivity.class));
+                finish();
             } else {
                 Toast.makeText(getBaseContext(), data.getStatus() + " " + data.getMessage(), Toast.LENGTH_SHORT).show();
             }

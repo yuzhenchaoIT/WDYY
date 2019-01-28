@@ -46,10 +46,11 @@ public class DBDao {
      * @return
      * @throws SQLException
      */
-    public List<UserInfoBean> queryGuanyu() throws SQLException {
+    public List<UserInfoBean> queryUser() throws SQLException {
         //Eq是equals的缩写
         //方法1
-        List<UserInfoBean> list = dao.queryForEq("nickName", "张飞");
+//        List<UserInfoBean> list = dao.queryForEq("nickName", "张飞");
+        List<UserInfoBean> list = dao.queryForAll();
         return list;
     }
 
@@ -85,9 +86,6 @@ public class DBDao {
         user.setNickName("关羽");
         dao.update(user);
     }
-
-
-
 
 
 }

@@ -31,11 +31,13 @@ public class LeadActivity extends AppCompatActivity {
     LinearLayout leadRadiogroup;
     @BindView(R.id.lead_button)
     Button leadButton;
+
     @OnClick(R.id.lead_button)
     public void onViewClicked() {
-        startActivity(new Intent(LeadActivity.this, HomeActivity.class));
+        startActivity(new Intent(LeadActivity.this, ShowActivity.class));
         finish();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,16 +110,17 @@ public class LeadActivity extends AppCompatActivity {
         setSystemInvadeBlack();
         sp = getSharedPreferences("WelCome", MODE_PRIVATE);
         boolean isFirst = sp.getBoolean("isFirst", true);
-        if(isFirst==true){
+        if (isFirst == true) {
             SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean("isFirst", false);
             editor.commit();
-        }else{
-            Intent intent = new Intent(LeadActivity.this,HomeActivity.class);
+        } else {
+            Intent intent = new Intent(LeadActivity.this, ShowActivity.class);
             startActivity(intent);
             finish();
         }
     }
+
     protected void setStatusColor() {
         StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
     }
@@ -126,6 +129,7 @@ public class LeadActivity extends AppCompatActivity {
         // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
         StatusUtil.setSystemStatus(this, true, true);
     }
+
     private void getCurrentView(List<View> list) {
         for (int i = 0; i < list.size(); i++) {
             View view = new View(LeadActivity.this);

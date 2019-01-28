@@ -65,7 +65,7 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
             public void onItemSelected(int position) {
                 homeRadioGroup.check(homeRadioGroup.getChildAt(position).getId());
 
-               // Toast.makeText(getActivity(), ""+(position+1)+"/"+movieflow.getLayoutManager().getItemCount(),Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(), ""+(position+1)+"/"+movieflow.getLayoutManager().getItemCount(),Toast.LENGTH_SHORT).show();
             }
         });
         PopularMoviePresenter popularMoviePresenter = new PopularMoviePresenter(new PopularCall());
@@ -82,7 +82,7 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
         popularRecycleView.setLayoutManager(linearLayoutManager);
         popularAdapter = new PopularAdapter(getActivity());
         popularRecycleView.setAdapter(popularAdapter);
-        
+
         //正在上映
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity());
         linearLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -96,9 +96,9 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
         soonAdapter = new SoonAdapter(getActivity());
         soonRecycleView.setAdapter(soonAdapter);
 
-        popularMoviePresenter.request(0,"",1,10);
-        beingMoviePresenter.request(0,"",1,10);
-        soonMoviePresenter.request(0,"",1,10);
+        popularMoviePresenter.request(0, "", 1, 10);
+        beingMoviePresenter.request(0, "", 1, 10);
+        soonMoviePresenter.request(0, "", 1, 10);
         return view;
 
     }
@@ -113,15 +113,13 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
     }
 
     //热门电影
-    class PopularCall implements DataCall<Result>
-    {
+    class PopularCall implements DataCall<Result> {
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
+            if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
-                Log.i("aa", "success: "+moiveBeans.toString());
-               show_binner_adapter.addItem(moiveBeans);
+                Log.i("aa", "success: " + moiveBeans.toString());
+                show_binner_adapter.addItem(moiveBeans);
 
                 popularAdapter.addItem(moiveBeans);
                 popularAdapter.notifyDataSetChanged();
@@ -135,15 +133,14 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
 
         }
     }
+
     //正在上映
-    class BeingCall implements DataCall<Result>
-    {
+    class BeingCall implements DataCall<Result> {
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
+            if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
-                Log.i("aa", "success: "+moiveBeans.toString());
+                Log.i("aa", "success: " + moiveBeans.toString());
                 soonAdapter.addItem(moiveBeans);
                 soonAdapter.notifyDataSetChanged();
             }
@@ -154,13 +151,12 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
 
         }
     }
+
     //即将上映
-    class SoonCall implements DataCall<Result>
-    {
+    class SoonCall implements DataCall<Result> {
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
+            if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
                 beingAdapter.addItem(moiveBeans);
                 beingAdapter.notifyDataSetChanged();

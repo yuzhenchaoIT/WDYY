@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@drawable/linesou"
-    android:layout_height="wrap_content">
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
     <EditText
         android:id="@+id/one_sou"
         android:layout_width="220dp"
         android:layout_height="24dp"
-        android:paddingLeft="35dp"
         android:background="@drawable/linesou"
+        android:hint="请输入搜索内容"
+        android:paddingLeft="35dp"
         android:textColor="#f2f2f2"
         android:textSize="12sp"
-        android:hint="请输入搜索内容"
 
         />
+
     <ImageView
         android:id="@+id/one_image_sou"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignLeft="@+id/one_sou"
         android:layout_marginLeft="6dp"
-        android:src="@drawable/com_icon_search_default_xxhdpi"/>
+        android:src="@drawable/com_icon_search_default_xxhdpi" />
+
     <TextView
         android:id="@+id/one_sou_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="搜索"
-        android:layout_centerVertical="true"
         android:layout_alignRight="@+id/one_sou"
+        android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        android:textColor="#ffffff"/>
+        android:text="搜索"
+        android:textColor="#ffffff" />
 </RelativeLayout>
