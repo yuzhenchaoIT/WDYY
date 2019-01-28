@@ -91,6 +91,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
         cinemaAdapter = new CinemaAdapter(getActivity());
         recycleView.setAdapter(cinemaAdapter);
         cinemaPresenter.request(userId, sessionId, 1, 10);
+
         unbinder = ButterKnife.bind(this, view);
         //接口回调拿到 影院的Id
         cinemaAdapter.setOnItemClickListener(new CinemaAdapter.OnItemClickListener() {

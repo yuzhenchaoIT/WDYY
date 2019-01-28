@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.wdyy.HomeActivity;
 import com.baidu.wdyy.MyAttentionActivity;
 import com.baidu.wdyy.MyFeedBackActivity;
 import com.baidu.wdyy.MyInfoActivity;
@@ -63,6 +64,8 @@ public class UserFragment extends Fragment {
     ImageView mMyBuyrecord;
     @BindView(R.id.my_feed_back)
     ImageView mMyFeedBack;
+    @BindView(R.id.my_log_out)
+    ImageView mMyLogOut;
     private View view;
     private Unbinder unbinder;
     private Bitmap head;// 头像Bitmap
@@ -130,7 +133,7 @@ public class UserFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.simp_mine_head, R.id.img_myinfo, R.id.my_attention, R.id.my_buyrecord, R.id.my_feed_back})
+    @OnClick({R.id.simp_mine_head, R.id.img_myinfo, R.id.my_attention, R.id.my_buyrecord, R.id.my_feed_back, R.id.my_log_out})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.simp_mine_head:
@@ -146,6 +149,14 @@ public class UserFragment extends Fragment {
                 break;
             case R.id.my_feed_back:
                 startActivity(new Intent(getContext(), MyFeedBackActivity.class));
+                break;
+            case R.id.my_log_out:
+                try {
+                    DBDao dbDao = new DBDao(getContext());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                startActivity(new Intent(getContext(), HomeActivity.class));
                 break;
         }
     }

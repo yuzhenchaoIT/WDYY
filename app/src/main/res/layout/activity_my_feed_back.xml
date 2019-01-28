@@ -34,8 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
-                android:backgroundTint="@null"
-                android:hint="写下您对产品的感受吧！工作人员会在第一时间评估处理"
+                android:background="@color/white"
+                android:hint="写下您对产品的感受吧！工作人员将会在第一时间评估处理。"
                 android:textColor="#999"
                 android:textSize="14sp" />
         </LinearLayout>
