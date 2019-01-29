@@ -26,6 +26,7 @@ import com.baidu.wdyy.core.db.DBDao;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.LoginPresenter;
 import com.bw.movie.R;
+import com.j256.ormlite.dao.Dao;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -61,8 +62,9 @@ public class HomeActivity extends AppCompatActivity {
     private boolean pwdVisibile = false;
     //登录p层
     private LoginPresenter loginPresenter = new LoginPresenter(new LoginDataCall());
-    private DBDao dbDao;
     private IWXAPI mWxApi;
+    private Dao<UserInfo, String> userDao = DBDao.getInstance(getBaseContext()).getUserDao();
+    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,14 +143,12 @@ public class HomeActivity extends AppCompatActivity {
         public void success(Result<UserInfo> data) {
             if (data.getStatus().equals("0000")) {
                 UserInfo userInfo = data.getResult();
-                UserInfoBean userInfoBean = userInfo.getUserInfo();
                 //登录成功把userId  sessionId存入sp
                 WDYYApp.getShare().edit().putInt("userId", userInfo.getUserId())
                         .putString("sessionId", userInfo.getSessionId()).commit();
                 //登录成功  数据添加数据库
                 try {
-                    dbDao = new DBDao(getBaseContext());
-                    dbDao.insertStudent(userInfoBean);
+                    userDao.createOrUpdate(userInfo);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
