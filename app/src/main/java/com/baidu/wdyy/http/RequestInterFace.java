@@ -251,5 +251,16 @@ public interface RequestInterFace {
     @FormUrlEncoded
     Observable<Result<UserInfoBean>> wxLogin(@Field("code") String code);
 
+    /**
+     * 用户签到
+     *
+     * @param userId
+     * @param sessionId
+     * @return
+     */
+    @GET("user/v1/verify/userSignIn")
+    Observable<Result> userSignIn(@Header("userId") int userId,
+                                  @Header("sessionId") String sessionId);
+
 
 }

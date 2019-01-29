@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.baidu.wdyy.Utils.SpUtils;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
 import com.baidu.wdyy.bean.UserInfoBean;
@@ -38,6 +39,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import crossoverone.statuslib.StatusUtil;
 
+/**
+ * 登录页面
+ *
+ * @date 2019/1/29
+ */
 public class HomeActivity extends AppCompatActivity {
 
     @BindView(R.id.btn_regirect_tiao)
@@ -64,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
     private LoginPresenter loginPresenter = new LoginPresenter(new LoginDataCall());
     private IWXAPI mWxApi;
     private Dao<UserInfo, String> userDao = DBDao.getInstance(getBaseContext()).getUserDao();
-    ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,9 +128,14 @@ public class HomeActivity extends AppCompatActivity {
                 String pwd = mEdLoginPassword.getText().toString();
                 String encryptPwd = EncryptUtil.encrypt(pwd);
                 String decryptPwd = EncryptUtil.decrypt(encryptPwd);
+                //如果复选框被选中则存储账户和密码
                 if (mSavePwd.isChecked()) {
                     WDYYApp.getShare().edit().putString("phone", phone)
                             .putString("pwd", decryptPwd).commit();
+                } else {
+                    //如果复选框未被选中则清除记录的账号和密码
+                    WDYYApp.getShare().edit().remove("phone")
+                            .remove("pwd").commit();
                 }
                 loginPresenter.request(phone, encryptPwd);
                 break;

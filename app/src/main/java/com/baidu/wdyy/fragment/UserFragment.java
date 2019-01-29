@@ -19,6 +19,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,9 +32,11 @@ import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
 import com.baidu.wdyy.bean.UserInfoBean;
 import com.baidu.wdyy.core.ApiException;
+import com.baidu.wdyy.core.app.WDYYApp;
 import com.baidu.wdyy.core.db.DBDao;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.UploadPicPresenter;
+import com.baidu.wdyy.presenter.my.SignInPresenter;
 import com.bw.movie.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.j256.ormlite.dao.Dao;
@@ -67,15 +70,16 @@ public class UserFragment extends Fragment {
     ImageView mMyFeedBack;
     @BindView(R.id.my_log_out)
     ImageView mMyLogOut;
+    @BindView(R.id.my_sign)
+    Button mMySign;
     private View view;
     private Unbinder unbinder;
     private Bitmap head;// 头像Bitmap
     private static String path = "/sdcard/myHead/";// sd路径
-    //初始化dao层
     private UploadPicPresenter uploadPicPresenter = new UploadPicPresenter(new UploadDataCall());
+    private SignInPresenter signInPresenter = new SignInPresenter(new SignDataCall());
     private Dao<UserInfo, String> userDao;
     private List<UserInfo> list;
-
 
     @Nullable
     @Override
@@ -130,27 +134,6 @@ public class UserFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //数据库查询
-//        try {
-//            userDao = DBDao.getInstance(getActivity()).getUserDao();
-//            list = userDao.queryForAll();
-//            if (list.size() == 0) {
-//                Toast.makeText(getActivity(), "没有信息" + list, Toast.LENGTH_SHORT).show();
-//
-//            } else {
-//                Toast.makeText(getActivity(), "有信息" + list, Toast.LENGTH_SHORT).show();
-//                UserInfo userInfo = list.get(0);
-//                UserInfoBean userInfo1 = userInfo.getUserInfo();
-//                String pic = userInfo1.getHeadPic();
-//                mSimpMineHead.setImageURI(pic);
-//                String nickName = userInfo1.getNickName();
-//                mTextNickName.setText(nickName);
-//            }
-//
-//        } catch (Exception e1) {
-//            e1.printStackTrace();
-//        }
-
     }
 
     @Override
@@ -179,21 +162,42 @@ public class UserFragment extends Fragment {
 
     }
 
-    @OnClick({R.id.simp_mine_head, R.id.img_myinfo, R.id.my_attention, R.id.my_buyrecord, R.id.my_feed_back, R.id.my_log_out})
+    @OnClick({R.id.simp_mine_head, R.id.img_myinfo, R.id.my_attention, R.id.my_buyrecord, R.id.my_feed_back, R.id.my_log_out, R.id.my_sign})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.simp_mine_head:
-//                showTypeDialog();
+            case R.id.my_sign:
                 if (list.size() == 0) {
                     Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), HomeActivity.class));
+                } else {
+                    UserInfo userInfo = list.get(0);
+                    signInPresenter.request(userInfo.getUserId(), userInfo.getSessionId());
+                }
+
+                break;
+            case R.id.simp_mine_head:
+                if (list.size() == 0) {
+                    Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), HomeActivity.class));
+                } else {
+                    showTypeDialog();
                 }
                 break;
             case R.id.img_myinfo:
-                startActivity(new Intent(getContext(), MyInfoActivity.class));
+                if (list.size() == 0) {
+                    Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), HomeActivity.class));
+                } else {
+                    startActivity(new Intent(getContext(), MyInfoActivity.class));
+                }
                 break;
             case R.id.my_attention:
-                startActivity(new Intent(getContext(), MyAttentionActivity.class));
+                if (list.size() == 0) {
+                    Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), HomeActivity.class));
+                } else {
+                    startActivity(new Intent(getContext(), MyAttentionActivity.class));
+                }
                 break;
             case R.id.my_buyrecord:
                 break;
@@ -201,8 +205,17 @@ public class UserFragment extends Fragment {
                 startActivity(new Intent(getContext(), MyFeedBackActivity.class));
                 break;
             case R.id.my_log_out:
-                startActivity(new Intent(getContext(), HomeActivity.class));
+                try {
+                    //删除用户
+                    userDao.delete(list);
+                    startActivity(new Intent(getContext(), HomeActivity.class));
+                    //本页面关闭
+                    getActivity().finish();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
+
         }
     }
 
@@ -341,6 +354,25 @@ public class UserFragment extends Fragment {
         }
     }
 
+
+    class SignDataCall implements DataCall<Result> {
+
+        @Override
+        public void success(Result data) {
+            if (data.getStatus().equals("0000")) {
+                Toast.makeText(getContext(), data.getMessage(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), data.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        @Override
+        public void fail(ApiException e) {
+            Toast.makeText(getContext(), "签到请求有误" + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -351,6 +383,6 @@ public class UserFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        uploadPicPresenter.unBind();
     }
 }

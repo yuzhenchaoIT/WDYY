@@ -22,6 +22,11 @@ import com.bw.movie.R;
 
 import java.util.List;
 
+/**
+ * 我的关注
+ *
+ * @date 2019/1/29
+ */
 public class MyAttentionActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**
