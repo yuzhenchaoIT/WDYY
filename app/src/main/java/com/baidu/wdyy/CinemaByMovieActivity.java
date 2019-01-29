@@ -29,14 +29,14 @@ import butterknife.ButterKnife;
 public class CinemaByMovieActivity extends AppCompatActivity implements View.OnClickListener {
 
     private PurchaseAdapter purchaseAdapter;
-
+    private int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cinema_by_movie);
         ButterKnife.bind(this);
         //传过来的电影id
-        int id = Integer.parseInt(getIntent().getStringExtra("id"));
+        id = Integer.parseInt(getIntent().getStringExtra("id"));
         String name = getIntent().getStringExtra("name");
         PurchasePresenter purchasePresenter = new PurchasePresenter(new PurchaseCall());
 
@@ -79,6 +79,7 @@ public class CinemaByMovieActivity extends AppCompatActivity implements View.OnC
             {
                 List<PurchaseBean> purchaseBeans = (List<PurchaseBean>) result.getResult();
                 purchaseAdapter.addItem(purchaseBeans);
+                purchaseAdapter.addId(id);
                 purchaseAdapter.notifyDataSetChanged();
             }
         }
