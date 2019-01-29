@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'bw_movie'
             keyPassword '123456'
-            storeFile file('C:/Users/xuezhiming/Desktop/movie.keystore')
+            storeFile file('C:/Users/于振超/Desktop/movie.keystore')
             storePassword '123456'
         }
     }
@@ -78,7 +78,7 @@ dependencies {
     implementation 'cn.jzvd:jiaozivideoplayer:6.2.9'
     implementation project(':SeatTable')
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-//    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
+    //    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     //Bugly集成
     implementation 'com.tencent.bugly:crashreport:latest.release'
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
@@ -88,5 +88,4 @@ dependencies {
     implementation 'com.umeng.umsdk:analytics:7.5.4'
     implementation 'com.umeng.umsdk:common:1.5.4'
     implementation 'com.umeng.umsdk:utdid:1.1.5.3'
-
 }

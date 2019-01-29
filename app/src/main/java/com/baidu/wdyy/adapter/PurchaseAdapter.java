@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.baidu.wdyy.ChooseActivity;
 import com.baidu.wdyy.ConnectorsActivity;
 import com.baidu.wdyy.bean.PurchaseBean;
 import com.bw.movie.R;
@@ -42,7 +43,7 @@ public class PurchaseAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         final PurchaseBean purchaseBean = list.get(i);
         PurchaseVH purchaseVH = (PurchaseVH) viewHolder;
         purchaseVH.purchase_sdv.setImageURI(Uri.parse(purchaseBean.getLogo()));
@@ -52,14 +53,9 @@ public class PurchaseAdapter extends RecyclerView.Adapter {
         purchaseVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context,ConnectorsActivity.class);
-                intent.putExtra("movienamem",purchaseBean.getName());
-//                intent.putExtra("cinemaname",name);
-//                intent.putExtra("address",address);
-//                intent.putExtra("shijian",purchaseBean.getBeginTime()+"-"+movieScheduleListBean.getEndTime());
-//                intent.putExtra("ting",purchaseBean.getScreeningHall());
-//                intent.putExtra("paiqiid",movieScheduleListBean.getId());
-//                intent.putExtra("price",movieScheduleListBean.getPrice());
+                Intent intent = new Intent(context,ChooseActivity.class);
+                intent.putExtra("cinemaname", purchaseBean.getName());
+                intent.putExtra("name",purchaseBean.getName());
                 context.startActivity(intent);
 
 
