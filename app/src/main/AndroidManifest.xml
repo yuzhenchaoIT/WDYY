@@ -85,6 +85,7 @@
             android:name="UMENG_CHANNEL"
             android:value="ceshi" />
 
+        <activity android:name="com.baidu.wdyy.SchedulingActivity"></activity>
     </application>
 
 </manifest>

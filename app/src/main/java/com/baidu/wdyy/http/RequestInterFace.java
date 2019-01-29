@@ -7,6 +7,7 @@ import com.baidu.wdyy.bean.CinemaDetalisBean;
 import com.baidu.wdyy.bean.CinemaRecy;
 import com.baidu.wdyy.bean.FilmReviewBean;
 import com.baidu.wdyy.bean.IDMoiveDetalisOne;
+import com.baidu.wdyy.bean.IDMoiveDetalisTwo;
 import com.baidu.wdyy.bean.MoiveBean;
 import com.baidu.wdyy.bean.PurchaseBean;
 import com.baidu.wdyy.bean.Result;
@@ -261,6 +262,12 @@ public interface RequestInterFace {
     @GET("user/v1/verify/userSignIn")
     Observable<Result> userSignIn(@Header("userId") int userId,
                                   @Header("sessionId") String sessionId);
+
+    //根据电影Id查询电影信息2
+    @GET("movie/v1/findMoviesDetail")
+    Observable<Result<IDMoiveDetalisTwo>> IDMoivedetalisTwo(@Header("userId")int userId,
+                                                            @Header("sessionId")String sessionId,
+                                                            @Query("movieId") int movieId);
 
 
 }

@@ -8,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.wdyy.ChooseActivity;
 import com.baidu.wdyy.ConnectorsActivity;
+import com.baidu.wdyy.SchedulingActivity;
 import com.baidu.wdyy.bean.PurchaseBean;
 import com.bw.movie.R;
 
@@ -22,7 +24,7 @@ import java.util.List;
 public class PurchaseAdapter extends RecyclerView.Adapter {
 
     private Context context;
-
+    private int sid;
     public PurchaseAdapter(Context context) {
         this.context = context;
     }
@@ -33,7 +35,9 @@ public class PurchaseAdapter extends RecyclerView.Adapter {
             list.addAll(purchaseBeans);
         }
     }
-
+    public void addId(int id) {
+        sid = id;
+    }
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -53,11 +57,13 @@ public class PurchaseAdapter extends RecyclerView.Adapter {
         purchaseVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,ChooseActivity.class);
-                intent.putExtra("cinemaname", purchaseBean.getName());
+                Intent intent = new Intent(context,SchedulingActivity.class);
                 intent.putExtra("name",purchaseBean.getName());
+                intent.putExtra("address",purchaseBean.getAddress());
+                intent.putExtra("id",purchaseBean.getId()+"");
+                intent.putExtra("filmid",sid+"");
+                Toast.makeText(context, "电影Id"+sid, Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
-
 
             }
         });
