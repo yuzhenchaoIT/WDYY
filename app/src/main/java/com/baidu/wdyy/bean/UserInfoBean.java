@@ -3,12 +3,26 @@ package com.baidu.wdyy.bean;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "user")
-public class UserInfoBean {
+import java.io.Serializable;
 
+/**
+ * 个人信息bean
+ *
+ * @author lmx
+ * @date 2019/1/29
+ */
+
+public class UserInfoBean implements Serializable {
+    /**
+     * headPic : http://mobile.bwstudent.com/images/movie/head_pic/bwjy.jpg
+     * id : 1784
+     * lastLoginTime : 1548333051000
+     * nickName : 小小程序猿
+     * phone : 16619785294
+     * sex : 1
+     */
     @DatabaseField
     private String headPic;
-    // 只有主键需要加括号里的东西
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField

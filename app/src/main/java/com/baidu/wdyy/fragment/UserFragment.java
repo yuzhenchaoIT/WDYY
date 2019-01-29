@@ -36,6 +36,7 @@ import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.UploadPicPresenter;
 import com.bw.movie.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.j256.ormlite.dao.Dao;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,10 +71,10 @@ public class UserFragment extends Fragment {
     private Unbinder unbinder;
     private Bitmap head;// 头像Bitmap
     private static String path = "/sdcard/myHead/";// sd路径
-    private DBDao dbDao;
+    //初始化dao层
     private UploadPicPresenter uploadPicPresenter = new UploadPicPresenter(new UploadDataCall());
-    private List<UserInfoBean> userInfoBeans;
-    private List<UserInfoBean> list;
+    private Dao<UserInfo, String> userDao;
+    private List<UserInfo> list;
 
 
     @Nullable
@@ -129,6 +130,26 @@ public class UserFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //数据库查询
+//        try {
+//            userDao = DBDao.getInstance(getActivity()).getUserDao();
+//            list = userDao.queryForAll();
+//            if (list.size() == 0) {
+//                Toast.makeText(getActivity(), "没有信息" + list, Toast.LENGTH_SHORT).show();
+//
+//            } else {
+//                Toast.makeText(getActivity(), "有信息" + list, Toast.LENGTH_SHORT).show();
+//                UserInfo userInfo = list.get(0);
+//                UserInfoBean userInfo1 = userInfo.getUserInfo();
+//                String pic = userInfo1.getHeadPic();
+//                mSimpMineHead.setImageURI(pic);
+//                String nickName = userInfo1.getNickName();
+//                mTextNickName.setText(nickName);
+//            }
+//
+//        } catch (Exception e1) {
+//            e1.printStackTrace();
+//        }
 
     }
 
@@ -136,21 +157,26 @@ public class UserFragment extends Fragment {
     public void onResume() {
         super.onResume();
         try {
-            //初始化dao层
-            dbDao = new DBDao(getContext());
-            list = dbDao.queryUser();
-            if (list.isEmpty()) {
+            userDao = DBDao.getInstance(getActivity()).getUserDao();
+            list = userDao.queryForAll();
+            userDao.notifyChanges();
+            if (list.size() == 0) {
+                //无操作
 
             } else {
-                //查询用户
-                userInfoBeans = dbDao.getUser();
-                UserInfoBean userInfoBean = this.userInfoBeans.get(0);
-                mSimpMineHead.setImageURI(Uri.parse(userInfoBean.getHeadPic()));
-                mTextNickName.setText(userInfoBean.getNickName());
+                UserInfo userInfo = list.get(0);
+                UserInfoBean userInfo1 = userInfo.getUserInfo();
+                String pic = userInfo1.getHeadPic();
+                mSimpMineHead.setImageURI(Uri.parse(pic));
+                String nickName = userInfo1.getNickName();
+                mTextNickName.setText(nickName);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
+
+
     }
 
     @OnClick({R.id.simp_mine_head, R.id.img_myinfo, R.id.my_attention, R.id.my_buyrecord, R.id.my_feed_back, R.id.my_log_out})

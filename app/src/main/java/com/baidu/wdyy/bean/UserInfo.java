@@ -1,17 +1,24 @@
 package com.baidu.wdyy.bean;
 
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-
+/**
+ * 个人信息bean
+ *
+ * @author lmx
+ * @date 2019/1/29
+ */
+@DatabaseTable(tableName = "user")
 public class UserInfo {
-
-    /**
-     * sessionId : 15482980027771784
-     * userId : 1784
-     * userInfo : {"headPic":"http://mobile.bwstudent.com/images/movie/head_pic/bwjy.jpg","id":1784,"lastLoginTime":1548297777000,"nickName":"小小程序猿","phone":"16619785294","sex":1}
-     */
-
+    @DatabaseField(generatedId = true)
+    private int id;
+    @DatabaseField
     private String sessionId;
+    @DatabaseField
     private int userId;
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
     private UserInfoBean userInfo;
 
     public String getSessionId() {

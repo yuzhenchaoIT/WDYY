@@ -3,6 +3,7 @@ package com.baidu.wdyy.core.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.baidu.wdyy.bean.UserInfo;
 import com.baidu.wdyy.bean.UserInfoBean;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
@@ -14,7 +15,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
 
     public DBHelper(Context context) {
-        super(context, "User", null, 1);
+        super(context, "user", null, 1);
     }
 
 
@@ -23,7 +24,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
         try {
             // 建表
-            TableUtils.createTable(connectionSource,UserInfoBean.class);
+            TableUtils.createTable(connectionSource,UserInfo.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }

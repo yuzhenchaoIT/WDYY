@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.wdyy.bean.UserInfo;
 import com.baidu.wdyy.bean.UserInfoBean;
 import com.baidu.wdyy.core.db.DBDao;
 import com.bw.movie.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -39,7 +41,7 @@ public class MyInfoActivity extends AppCompatActivity {
     ImageView mBack;
     @BindView(R.id.my_info_birth)
     TextView mMyInfoBirth;
-    private DBDao dbDao;
+    private DBDao dbDao = DBDao.getInstance(getContext());
     //性别默认值
     private String sex = "男";
 
@@ -49,12 +51,12 @@ public class MyInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_info);
         ButterKnife.bind(this);
 
-        //初始化dao层
         try {
-            dbDao = new DBDao(getContext());
+            Dao<UserInfo, String> userDao = dbDao.getUserDao();
             //查询用户
-            List<UserInfoBean> userInfoBeans = dbDao.getUser();
-            UserInfoBean userInfoBean = userInfoBeans.get(0);
+            List<UserInfo> userInfos = userDao.queryForAll();
+            UserInfo userInfo = userInfos.get(0);
+            UserInfoBean userInfoBean = userInfo.getUserInfo();
             mMyInfoHeadPic.setImageURI(Uri.parse(userInfoBean.getHeadPic()));
             mMyInfoNickName.setText(userInfoBean.getNickName());
             int userInfoSex = userInfoBean.getSex();
