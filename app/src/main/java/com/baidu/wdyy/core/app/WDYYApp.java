@@ -5,8 +5,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushConfig;
+import com.tencent.android.tpush.XGPushManager;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -57,6 +61,23 @@ public class WDYYApp extends Application {
         CrashReport.initCrashReport(getApplicationContext(), "89c03187f1", false);
         //友盟集成
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
+        XGPushConfig.enableOtherPush(getApplicationContext(), true);
+        XGPushConfig.setMiPushAppId(getApplicationContext(), "APPID");
+        XGPushConfig.setMiPushAppKey(getApplicationContext(), "APPKEY");
+        XGPushConfig.setMzPushAppId(this, "APPID");
+        XGPushConfig.setMzPushAppKey(this, "APPKEY");
+        XGPushManager.registerPush(this, new XGIOperateCallback() {
+            @Override
+            public void onSuccess(Object data, int flag) {
+                //token在设备卸载重装的时候有可能会变
+                Log.d("TPush", "注册成功，设备token为：" + data);
+            }
+            @Override
+            public void onFail(Object data, int errCode, String msg) {
+                Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
+            }
+        });
+
     }
 
     private void registToWX() {

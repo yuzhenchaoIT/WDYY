@@ -22,9 +22,13 @@ android {
 
         ndk {
             // 设置支持的SO库架构
-            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+                abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
+        manifestPlaceholders = [
 
+                XG_ACCESS_ID:"2100300660",
+                XG_ACCESS_KEY : "A44FJ9N7N9EY",
+        ]
     }
 
     buildTypes {
@@ -88,4 +92,14 @@ dependencies {
     implementation 'com.umeng.umsdk:analytics:7.5.4'
     implementation 'com.umeng.umsdk:common:1.5.4'
     implementation 'com.umeng.umsdk:utdid:1.1.5.3'
+    //信鸽普通版本jar，不包含厂商通道
+    implementation  'com.tencent.xinge:xinge:4.0.5-release'
+    //implementation'com.tencent.xinge:xinge:4.3.1-beta'
+    //jg包
+    implementation'com.tencent.jg:jg:1.1'
+    //wup包
+    implementation 'com.tencent.wup:wup:1.0.0.E-release'
+    //mid包，minSdkVersion 14
+    implementation 'com.tencent.mid:mid:4.0.7-Release'
+
 }
