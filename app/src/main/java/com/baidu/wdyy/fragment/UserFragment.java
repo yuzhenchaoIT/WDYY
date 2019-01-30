@@ -145,7 +145,8 @@ public class UserFragment extends Fragment {
             userDao.notifyChanges();
             if (list.size() == 0) {
                 //无操作
-
+                mSimpMineHead.setImageResource(R.drawable.head);
+                mTextNickName.setText("请登录");
             } else {
                 UserInfo userInfo = list.get(0);
                 UserInfoBean userInfo1 = userInfo.getUserInfo();
@@ -208,9 +209,10 @@ public class UserFragment extends Fragment {
                 try {
                     //删除用户
                     userDao.delete(list);
-                    startActivity(new Intent(getContext(), HomeActivity.class));
-                    //本页面关闭
-                    getActivity().finish();
+                    WDYYApp.getShare().edit().remove("userId").remove("sessionId").commit();
+                    list.clear();
+                    mSimpMineHead.setImageResource(R.drawable.head);
+                    mTextNickName.setText("请登录");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

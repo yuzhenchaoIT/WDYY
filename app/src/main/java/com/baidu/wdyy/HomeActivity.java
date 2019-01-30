@@ -138,6 +138,7 @@ public class HomeActivity extends AppCompatActivity {
                             .remove("pwd").commit();
                 }
                 loginPresenter.request(phone, encryptPwd);
+//                finish();
                 break;
             case R.id.weixin_login:
                 SendAuth.Req req = new SendAuth.Req();
