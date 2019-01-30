@@ -6,145 +6,135 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     tools:context="com.baidu.wdyy.DetailActivity">
+
     <Button
+        android:id="@+id/btn_action"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:background="@drawable/ic_local_movies_black_24dp"
-        android:layout_marginTop="24dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
         android:layout_marginRight="6dp"
-        android:id="@+id/btn_action"
-        />
+        android:background="@drawable/ic_local_movies_black_24dp" />
 
     <TextView
+        android:id="@+id/text_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="电影详情"
-        android:textColor="#ffffff"
-        android:layout_toRightOf="@id/btn_action"
         android:layout_marginTop="30dp"
-        android:id="@+id/text_action"
-        />
+        android:layout_toRightOf="@id/btn_action"
+        android:text="电影详情"
+        android:textColor="#ffffff" />
 
-    <Button
+    <ImageView
+        android:id="@+id/btn_heartxiangqing"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:background="@drawable/ic_favorite_default"
-        android:layout_margin="20dp"
         android:layout_alignParentRight="true"
-        android:id="@+id/btn_heartxiangqing"
-        />
+        android:layout_margin="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <TextView
+            android:id="@+id/text_xiangname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
+            android:gravity="center"
             android:text="name"
             android:textColor="#ffffff"
-            android:gravity="center"
-            android:id="@+id/text_xiangname"
             android:textSize="20sp" />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/simp_xiangview"
             android:layout_width="259dp"
             android:layout_height="360dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
             android:layout_gravity="center"
-            />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <Button
+                android:id="@+id/btn_xiangqing"
                 android:layout_width="58dp"
                 android:layout_height="32dp"
+                android:layout_marginRight="28dp"
                 android:background="@drawable/ic_tuo"
                 android:text="详情"
-                android:textColor="#ffffff"
-                android:layout_marginRight="28dp"
-                android:id="@+id/btn_xiangqing"
-                />
+                android:textColor="#ffffff" />
+
             <Button
+                android:id="@+id/btn_yugao"
                 android:layout_width="58dp"
                 android:layout_height="32dp"
-                android:background="@drawable/ic_tuo"
                 android:layout_marginRight="28dp"
+                android:background="@drawable/ic_tuo"
                 android:text="预告"
-                android:textColor="#ffffff"
-                android:id="@+id/btn_yugao"
-                />
+                android:textColor="#ffffff" />
+
             <Button
+                android:id="@+id/btn_photo"
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:layout_marginRight="28dp"
                 android:background="@drawable/ic_tuo"
                 android:text="剧照"
-                android:textColor="#ffffff"
-                android:id="@+id/btn_photo"
-                />
+                android:textColor="#ffffff" />
+
             <Button
+                android:id="@+id/btn_ping"
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:background="@drawable/ic_tuo"
                 android:text="影评"
-                android:textColor="#ffffff"
-                android:id="@+id/btn_ping"
-                />
+                android:textColor="#ffffff" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
                 <Button
+                    android:id="@+id/btn_fan"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/ic_xiangqing_back"
-                    android:layout_alignParentBottom="true"
-                    android:textColor="#ffffff"
-                    android:id="@+id/btn_fan"
-                    />
+                    android:textColor="#ffffff" />
 
                 <Button
+                    android:id="@+id/btn_gou"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/ic_circle"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:text="购票"
                     android:layout_marginRight="24dp"
-                    android:textColor="#ffffff"
-                    android:id="@+id/btn_gou"
-                    />
+                    android:background="@drawable/ic_circle"
+                    android:text="购票"
+                    android:textColor="#ffffff" />
             </RelativeLayout>
 
         </LinearLayout>
     </LinearLayout>
-
-
-
-
-
-
-
 
 
 </RelativeLayout>

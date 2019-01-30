@@ -8,10 +8,13 @@ import android.widget.Toast;
 
 import com.baidu.wdyy.ShowActivity;
 import com.baidu.wdyy.bean.Result;
-import com.baidu.wdyy.bean.UserInfoBean;
+import com.baidu.wdyy.bean.UserInfo;
 import com.baidu.wdyy.core.ApiException;
+import com.baidu.wdyy.core.app.WDYYApp;
+import com.baidu.wdyy.core.db.DBDao;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.WxLoginPresenter;
+import com.j256.ormlite.dao.Dao;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -19,12 +22,15 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import java.sql.SQLException;
+
 import io.reactivex.annotations.Nullable;
 
 public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHandler {
 
     private WxLoginPresenter wxLoginPresenter = new WxLoginPresenter(new WxDataCall());
     private IWXAPI mWxApi;
+    private Dao<UserInfo, String> userDao = DBDao.getInstance(getBaseContext()).getUserDao();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,11 +60,21 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         }
     }
 
-    class WxDataCall implements DataCall<Result<UserInfoBean>> {
+    class WxDataCall implements DataCall<Result<UserInfo>> {
 
         @Override
-        public void success(Result<UserInfoBean> data) {
+        public void success(Result<UserInfo> data) {
             if (data.getStatus().equals("0000")) {
+                UserInfo userInfo = data.getResult();
+                //登录成功把userId  sessionId存入sp
+                WDYYApp.getShare().edit().putInt("userId", userInfo.getUserId())
+                        .putString("sessionId", userInfo.getSessionId()).commit();
+                //登录成功  数据添加数据库
+                try {
+                    userDao.createOrUpdate(userInfo);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 Toast.makeText(getBaseContext(), data.getMessage() + "", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(WXEntryActivity.this, ShowActivity.class));
                 finish();

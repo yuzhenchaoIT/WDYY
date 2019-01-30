@@ -250,13 +250,51 @@ public interface RequestInterFace {
 
     @POST("user/v1/weChatBindingLogin")
     @FormUrlEncoded
-    Observable<Result<UserInfoBean>> wxLogin(@Field("code") String code);
+    Observable<Result<UserInfo>> wxLogin(@Field("code") String code);
+
+    /**
+     * 用户签到
+     *
+     * @param userId
+     * @param sessionId
+     * @return
+     */
+    @GET("user/v1/verify/userSignIn")
+    Observable<Result> userSignIn(@Header("userId") int userId,
+                                  @Header("sessionId") String sessionId);
 
     //根据电影Id查询电影信息2
     @GET("movie/v1/findMoviesDetail")
-    Observable<Result<IDMoiveDetalisTwo>> IDMoivedetalisTwo(@Header("userId")int userId,
-                                                            @Header("sessionId")String sessionId,
+    Observable<Result<IDMoiveDetalisTwo>> IDMoivedetalisTwo(@Header("userId") int userId,
+                                                            @Header("sessionId") String sessionId,
                                                             @Query("movieId") int movieId);
+
+
+    /**
+     * 电影关注
+     *
+     * @param userId
+     * @param sessionId
+     * @param movieId
+     * @return
+     */
+    @GET("movie/v1/verify/followMovie")
+    Observable<Result> followMovie(@Header("userId") int userId,
+                                   @Header("sessionId") String sessionId,
+                                   @Query("movieId") int movieId);
+
+    /**
+     * 电影取消关注
+     *
+     * @param userId
+     * @param sessionId
+     * @param movieId
+     * @return
+     */
+    @GET("movie/v1/verify/cancelFollowMovie")
+    Observable<Result> cancelFollowMovie(@Header("userId") int userId,
+                                         @Header("sessionId") String sessionId,
+                                         @Query("movieId") int movieId);
 
 
 }

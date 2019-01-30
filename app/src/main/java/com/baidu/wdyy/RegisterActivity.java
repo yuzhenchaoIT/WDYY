@@ -26,6 +26,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import crossoverone.statuslib.StatusUtil;
 
+/**
+ * 注册页面
+ *
+ * @author lmx
+ * @date 2019/1/30
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     @BindView(R.id.ed_reg_nickName)
@@ -73,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
         return format.format(date);
     }
 
-    @OnClick({R.id.btn_register,R.id.ed_reg_birth_date})
+    @OnClick({R.id.btn_register, R.id.ed_reg_birth_date})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_register:
