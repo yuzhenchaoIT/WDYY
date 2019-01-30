@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -33,7 +34,8 @@ public class FindCinemaAdapter extends RecyclerView.Adapter<FindCinemaAdapter.My
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = View.inflate(context, R.layout.item_find_cinema_adapter, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_find_cinema_adapter, viewGroup, false);
+//        View view = View.inflate(context, R.layout.item_find_cinema_adapter, null);
         MyHolder myHolder = new MyHolder(view);
         return myHolder;
     }
