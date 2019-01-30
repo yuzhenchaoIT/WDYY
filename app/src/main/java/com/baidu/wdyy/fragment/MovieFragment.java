@@ -130,7 +130,6 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
         @Override
         public void fail(ApiException e) {
             Log.i("aa", "失败: ");
-
         }
     }
 

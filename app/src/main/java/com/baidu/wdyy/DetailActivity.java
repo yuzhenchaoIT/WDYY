@@ -13,12 +13,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.wdyy.Utils.SpaceItemDecoration;
 import com.baidu.wdyy.adapter.DramaAdapter;
@@ -28,9 +28,12 @@ import com.baidu.wdyy.bean.FilmReviewBean;
 import com.baidu.wdyy.bean.IDMoiveDetalisOne;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.core.ApiException;
+import com.baidu.wdyy.core.app.WDYYApp;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.FindAllMovieCommentPresenter;
 import com.baidu.wdyy.presenter.IDMoiveDetalisonePresenter;
+import com.baidu.wdyy.presenter.my.CancelFollowMoviePresenter;
+import com.baidu.wdyy.presenter.my.FollowMoviePresenter;
 import com.bw.movie.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -46,8 +49,6 @@ public class DetailActivity extends AppCompatActivity {
     Button btnAction;
     @BindView(R.id.text_action)
     TextView textAction;
-    @BindView(R.id.btn_heartxiangqing)
-    Button btnHeartxiangqing;
     @BindView(R.id.text_xiangname)
     TextView textXiangname;
     @BindView(R.id.simp_xiangview)
@@ -64,6 +65,8 @@ public class DetailActivity extends AppCompatActivity {
     Button btnFan;
     @BindView(R.id.btn_gou)
     Button btnGou;
+    @BindView(R.id.btn_heartxiangqing)
+    ImageView mBtnHeartxiangqing;
     private SimpleDraweeView simp_pop_movie;
     private TextView tv_pop_title;
     private TextView tv_director;
@@ -87,8 +90,12 @@ public class DetailActivity extends AppCompatActivity {
     private IDMoiveDetalisOne idMoiveDetalisOne;
     private FindAllMovieCommentPresenter findAllMovieCommentPresenter;
     private ReviewAdapter reviewAdapter;
-    private android.support.v7.widget.RecyclerView recycler_moviecomment;
+    private RecyclerView recycler_moviecomment;
     private int id;
+    private FollowMoviePresenter followMoviePresenter = new FollowMoviePresenter(new FollowDataCall());
+    private CancelFollowMoviePresenter cancelFollowMoviePresenter = new CancelFollowMoviePresenter(new CancelCall());
+    private int userId = WDYYApp.getShare().getInt("userId", 0);
+    private String sessionId = WDYYApp.getShare().getString("sessionId", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +105,7 @@ public class DetailActivity extends AppCompatActivity {
         //得到电影id
         id = Integer.parseInt(getIntent().getStringExtra("id"));
         IDMoiveDetalisonePresenter idMoiveDetalisonePresenter = new IDMoiveDetalisonePresenter(new IDMoiveDetalisOneCall());
-        idMoiveDetalisonePresenter.request(0,"", id);
+        idMoiveDetalisonePresenter.request(userId, sessionId, id);
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.pup_detail, null);
@@ -107,7 +114,7 @@ public class DetailActivity extends AppCompatActivity {
         tv_director = view.findViewById(R.id.tv_director);
         tv_length = view.findViewById(R.id.tv_length);
         tv_type = view.findViewById(R.id.tv_type);
-        text_yanyuan=view.findViewById(R.id.text_yanyuan);
+        text_yanyuan = view.findViewById(R.id.text_yanyuan);
         tv_placeoforigin = view.findViewById(R.id.tv_placeoforigin);
         tv_jianjie = view.findViewById(R.id.tv_jianjie);
         window = new PopupWindow(view,
@@ -149,6 +156,7 @@ public class DetailActivity extends AppCompatActivity {
         window2.setAnimationStyle(R.style.PopupAnimation);
         getShowReview(view3);
     }
+
     private void getShowReview(View view3) {
         findAllMovieCommentPresenter = new FindAllMovieCommentPresenter(new FindAllMovieComment());
         ImageView pupo_yp_back = view3.findViewById(R.id.pupo_yp_back);
@@ -158,18 +166,18 @@ public class DetailActivity extends AppCompatActivity {
                 window3.dismiss();
             }
         });
-        RecyclerView review_movie_review= view3.findViewById(R.id.review_movie_review);
+        RecyclerView review_movie_review = view3.findViewById(R.id.review_movie_review);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         review_movie_review.addItemDecoration(new SpaceItemDecoration(10));
         review_movie_review.setLayoutManager(linearLayoutManager);
-        findAllMovieCommentPresenter.request(0,"",id,false,10);
+        findAllMovieCommentPresenter.request(userId, sessionId, id, false, 10);
         reviewAdapter = new ReviewAdapter();
         review_movie_review.setAdapter(reviewAdapter);
 
     }
 
-    @OnClick({R.id.btn_xiangqing, R.id.btn_yugao, R.id.btn_photo, R.id.btn_ping, R.id.btn_fan, R.id.btn_gou})
+    @OnClick({R.id.btn_xiangqing, R.id.btn_yugao, R.id.btn_photo, R.id.btn_ping, R.id.btn_fan, R.id.btn_gou, R.id.btn_heartxiangqing})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -189,10 +197,22 @@ public class DetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.btn_gou:
-                Intent intent=new Intent(DetailActivity.this,CinemaByMovieActivity.class);
-                intent.putExtra("id",id+"");
-                intent.putExtra("name",idMoiveDetalisOne.getName());
+                Intent intent = new Intent(DetailActivity.this, CinemaByMovieActivity.class);
+                intent.putExtra("id", id + "");
+                intent.putExtra("name", idMoiveDetalisOne.getName());
                 startActivity(intent);
+                break;
+            //电影关注
+            case R.id.btn_heartxiangqing:
+                //获取关注状态
+                int followMovie = idMoiveDetalisOne.getFollowMovie();
+                if (followMovie == 1) {
+                    cancelFollowMoviePresenter.request(userId, sessionId, id);
+                    mBtnHeartxiangqing.setBackgroundResource(R.drawable.ic_favorite_default);
+                } else if (followMovie == 2) {
+                    followMoviePresenter.request(userId, sessionId, id);
+                    mBtnHeartxiangqing.setBackgroundResource(R.drawable.ic_favorite_selected);
+                }
                 break;
         }
     }
@@ -200,7 +220,7 @@ public class DetailActivity extends AppCompatActivity {
     private void showPopwindow1() {
         View parent = View.inflate(DetailActivity.this, R.layout.activity_detail, null);
 
-        window.showAtLocation(parent,Gravity.BOTTOM, 0, 0);
+        window.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
 
 
     }
@@ -211,9 +231,9 @@ public class DetailActivity extends AppCompatActivity {
         window1.showAtLocation(parent,
                 Gravity.BOTTOM, 0, 0);
         RecyclerView recycler_movie_review = view1.findViewById(R.id.recycler_movie_review);
-        recycler_movie_review.setLayoutManager(new LinearLayoutManager(DetailActivity.this,LinearLayoutManager.VERTICAL,false));
-        MovieReviewAdapter movieReviewAdapter = new MovieReviewAdapter(DetailActivity.this,idMoiveDetalisOne.getShortFilmList(),idMoiveDetalisOne.getName());
-        Log.i("cc", "showPopwindow2: "+idMoiveDetalisOne.getShortFilmList().toString());
+        recycler_movie_review.setLayoutManager(new LinearLayoutManager(DetailActivity.this, LinearLayoutManager.VERTICAL, false));
+        MovieReviewAdapter movieReviewAdapter = new MovieReviewAdapter(DetailActivity.this, idMoiveDetalisOne.getShortFilmList(), idMoiveDetalisOne.getName());
+        Log.i("cc", "showPopwindow2: " + idMoiveDetalisOne.getShortFilmList().toString());
         recycler_movie_review.setAdapter(movieReviewAdapter);
     }
 
@@ -222,7 +242,7 @@ public class DetailActivity extends AppCompatActivity {
         window2.showAtLocation(DetailActivity.this.findViewById(R.id.btn_photo),
                 Gravity.BOTTOM, 0, 0);
         recycler_photo = view2.findViewById(R.id.recycler_photo);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recycler_photo.setLayoutManager(layoutManager);
         DramaAdapter dramaAdapter = new DramaAdapter(DetailActivity.this, idMoiveDetalisOne.getPosterList());
         recycler_photo.setAdapter(dramaAdapter);
@@ -238,11 +258,51 @@ public class DetailActivity extends AppCompatActivity {
 //         ReviewAdapter movieCommentAdapter = new ReviewAdapter();
 //         recycler_moviecomment.setAdapter(movieCommentAdapter);
     }
-    class FindAllMovieComment implements DataCall<Result<List<FilmReviewBean>>>{
+
+
+    class FollowDataCall implements DataCall<Result> {
+
+        @Override
+        public void success(Result data) {
+            if (data.getStatus().equals("0000")) {
+                Toast.makeText(getBaseContext(), data.getMessage() + "", Toast.LENGTH_SHORT).show();
+                mBtnHeartxiangqing.setBackgroundResource(R.drawable.ic_favorite_selected);
+            } else {
+                cancelFollowMoviePresenter.request(userId, sessionId, id);
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+
+    class CancelCall implements DataCall<Result> {
+
+        @Override
+        public void success(Result data) {
+            if (data.getStatus().equals("0000")) {
+                Toast.makeText(getBaseContext(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                mBtnHeartxiangqing.setBackgroundResource(R.drawable.ic_favorite_default);
+            } else {
+                followMoviePresenter.request(userId, sessionId, id);
+            }
+
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+
+
+    class FindAllMovieComment implements DataCall<Result<List<FilmReviewBean>>> {
 
         @Override
         public void success(Result<List<FilmReviewBean>> data) {
-            if (data.getStatus().equals("0000")){
+            if (data.getStatus().equals("0000")) {
                 reviewAdapter.setList(data.getResult());
 
                 reviewAdapter.notifyDataSetChanged();
@@ -254,15 +314,13 @@ public class DetailActivity extends AppCompatActivity {
 
         }
     }
-    class IDMoiveDetalisOneCall implements DataCall<Result>
-    {
 
+    class IDMoiveDetalisOneCall implements DataCall<Result> {
 
 
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
+            if (result.getStatus().equals("0000")) {
                 idMoiveDetalisOne = (IDMoiveDetalisOne) result.getResult();
 
                 textXiangname.setText(idMoiveDetalisOne.getName());
@@ -275,7 +333,13 @@ public class DetailActivity extends AppCompatActivity {
                 tv_placeoforigin.setText(idMoiveDetalisOne.getPlaceOrigin());
                 tv_jianjie.setText(idMoiveDetalisOne.getSummary());
                 text_yanyuan.setText(idMoiveDetalisOne.getStarring());
-                Log.i("cc", "showPopwindow2: "+idMoiveDetalisOne.getShortFilmList().toString());
+                int followMovie = idMoiveDetalisOne.getFollowMovie();
+                if (followMovie == 1) {
+                    mBtnHeartxiangqing.setBackgroundResource(R.drawable.ic_favorite_selected);
+                } else if (followMovie == 2) {
+                    mBtnHeartxiangqing.setBackgroundResource(R.drawable.ic_favorite_default);
+                }
+                Log.i("cc", "showPopwindow2: " + idMoiveDetalisOne.getShortFilmList().toString());
             }
         }
 
