@@ -10,6 +10,7 @@ import com.baidu.wdyy.bean.IDMoiveDetalisOne;
 import com.baidu.wdyy.bean.IDMoiveDetalisTwo;
 import com.baidu.wdyy.bean.MoiveBean;
 import com.baidu.wdyy.bean.PurchaseBean;
+import com.baidu.wdyy.bean.RemindBean;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
 import com.baidu.wdyy.bean.UserInfoBean;
@@ -295,6 +296,23 @@ public interface RequestInterFace {
     Observable<Result> cancelFollowMovie(@Header("userId") int userId,
                                          @Header("sessionId") String sessionId,
                                          @Query("movieId") int movieId);
+
+    /**
+     * 查询系统消息列表
+     *
+     * @param userId
+     * @param sessionId
+     * @param page
+     * @param count
+     * @return
+     */
+
+    @GET("tool/v1/verify/findAllSysMsgList")
+    Observable<Result<List<RemindBean>>> findAllSysMsg(@Header("userId") int userId,
+                                                       @Header("sessionId") String sessionId,
+                                                       @Query("page") int page,
+                                                       @Query("count") int count);
+
 
 
 }

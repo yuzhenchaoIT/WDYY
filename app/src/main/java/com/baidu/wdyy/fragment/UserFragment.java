@@ -28,6 +28,7 @@ import com.baidu.wdyy.HomeActivity;
 import com.baidu.wdyy.MyAttentionActivity;
 import com.baidu.wdyy.MyFeedBackActivity;
 import com.baidu.wdyy.MyInfoActivity;
+import com.baidu.wdyy.MyRemindActivity;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
 import com.baidu.wdyy.bean.UserInfoBean;
@@ -72,6 +73,8 @@ public class UserFragment extends Fragment {
     ImageView mMyLogOut;
     @BindView(R.id.my_sign)
     Button mMySign;
+    @BindView(R.id.ming_remind)
+    ImageView mMingRemind;
     private View view;
     private Unbinder unbinder;
     private Bitmap head;// 头像Bitmap
@@ -163,9 +166,13 @@ public class UserFragment extends Fragment {
 
     }
 
-    @OnClick({R.id.simp_mine_head, R.id.img_myinfo, R.id.my_attention, R.id.my_buyrecord, R.id.my_feed_back, R.id.my_log_out, R.id.my_sign})
+    @OnClick({R.id.simp_mine_head, R.id.img_myinfo, R.id.my_attention, R.id.my_buyrecord, R.id.my_feed_back, R.id.my_log_out, R.id.my_sign, R.id.ming_remind})
     public void onClick(View v) {
         switch (v.getId()) {
+            //消息通知
+            case R.id.ming_remind:
+                startActivity(new Intent(getContext(), MyRemindActivity.class));
+                break;
             case R.id.my_sign:
                 if (list.size() == 0) {
                     Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
