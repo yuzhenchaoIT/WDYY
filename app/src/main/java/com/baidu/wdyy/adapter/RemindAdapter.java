@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.baidu.wdyy.Utils.DateUtils;
 import com.baidu.wdyy.bean.RemindBean;
 import com.bw.movie.R;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RemindAdapter extends RecyclerView.Adapter<RemindAdapter.MyViewHolder> {
@@ -43,7 +46,11 @@ public class RemindAdapter extends RecyclerView.Adapter<RemindAdapter.MyViewHold
         RemindBean remindBean = mList.get(i);
         myViewHolder.title.setText(remindBean.getTitle());
         myViewHolder.info.setText(remindBean.getContent());
-        myViewHolder.time.setText(remindBean.getPushTime());
+        try {
+            myViewHolder.time.setText(DateUtils.dateFormat(new Date(remindBean.getPushTime()),DateUtils.MINUTE_PATTERN));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

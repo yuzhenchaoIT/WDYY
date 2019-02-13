@@ -19,18 +19,19 @@
 
         <TextView
             android:id="@+id/item_remind_info"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="130dp"
             android:text="您已成功订到电影票"
             android:textColor="#333"
             android:textSize="12sp" />
 
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
-            android:background="#F9F9F9" />
+            android:background="#F0F0F0" />
 
     </LinearLayout>
 
