@@ -21,30 +21,30 @@
 
         <RadioButton
             android:id="@+id/rb_movie"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
             android:layout_weight="1"
             android:button="@null"
             android:checked="true"
-            android:drawableTop="@drawable/radiomovie_select"
+            android:drawableTop="@drawable/buttom_select"
             android:gravity="center" />
 
         <RadioButton
             android:id="@+id/rb_cinema"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableTop="@drawable/radiocinema_select"
+            android:drawableTop="@drawable/buttom_select2"
             android:gravity="center" />
 
         <RadioButton
             android:id="@+id/rb_user"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableTop="@drawable/radiouser_select"
+            android:drawableTop="@drawable/buttom_select3"
             android:gravity="center" />
     </RadioGroup>
 </RelativeLayout>
