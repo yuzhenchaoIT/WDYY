@@ -69,9 +69,9 @@ public class MyInfoActivity extends AppCompatActivity {
             int userInfoSex = userInfoBean.getSex();
             //性别
             if (userInfoSex == 1) {
-                sex.equals("男");
+                sex = "男";
             } else if (userInfoSex == 2) {
-                sex.equals("女");
+                sex = "女";
             }
             mMyInfoSex.setText(sex);
             mMyInfoBirth.setText("1997-09-06");

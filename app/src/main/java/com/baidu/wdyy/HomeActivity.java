@@ -138,7 +138,6 @@ public class HomeActivity extends AppCompatActivity {
                             .remove("pwd").commit();
                 }
                 loginPresenter.request(phone, encryptPwd);
-//                finish();
                 break;
             case R.id.weixin_login:
                 SendAuth.Req req = new SendAuth.Req();
@@ -169,7 +168,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, ShowActivity.class));
                 finish();
             } else {
-                Toast.makeText(getBaseContext(), data.getStatus() + " " + data.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), data.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
 
 
