@@ -145,6 +145,7 @@ public class HomeActivity extends AppCompatActivity {
                 req.scope = "snsapi_userinfo";
                 req.state = "wechat_sdk_demo_test";
                 mWxApi.sendReq(req);
+                finish();
                 break;
         }
     }
