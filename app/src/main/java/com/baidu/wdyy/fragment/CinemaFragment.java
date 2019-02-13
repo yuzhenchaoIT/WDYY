@@ -20,8 +20,10 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.wdyy.Utils.CacheManager;
 import com.baidu.wdyy.adapter.CinemaAdapter;
 import com.baidu.wdyy.bean.CinemaBean;
+import com.baidu.wdyy.bean.MoiveBean;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.core.ApiException;
 import com.baidu.wdyy.core.app.WDYYApp;
@@ -32,7 +34,10 @@ import com.baidu.wdyy.presenter.my.CancelFollowCinemaPresenter;
 import com.baidu.wdyy.presenter.my.FollowCinemaPresenter;
 import com.bw.movie.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import butterknife.BindView;
@@ -69,10 +74,11 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
     private String sessionId = WDYYApp.getShare().getString("sessionId", "");
     private View view;
     private int cinemaId1;
-
+    private CacheManager cacheManager;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        cacheManager = new CacheManager();
         View view = inflater.inflate(R.layout.fragment_cinema, container, false);
 
 

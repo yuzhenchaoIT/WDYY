@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 
 
 import com.baidu.wdyy.DetailActivity;
+import com.baidu.wdyy.Utils.CacheManager;
 import com.baidu.wdyy.adapter.BeingAdapter;
 import com.baidu.wdyy.adapter.PopularAdapter;
 import com.baidu.wdyy.adapter.SoonAdapter;
@@ -28,7 +29,10 @@ import com.baidu.wdyy.presenter.BeingMoviePresenter;
 import com.baidu.wdyy.presenter.PopularMoviePresenter;
 import com.baidu.wdyy.presenter.SoonMoviePresenter;
 import com.bw.movie.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import recycler.coverflow.CoverFlowLayoutManger;
@@ -43,12 +47,13 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
     private SoonAdapter soonAdapter;
     private com.baidu.wdyy.adapter.show_binner_adapter show_binner_adapter;
     private RadioGroup homeRadioGroup;
+    private CacheManager cacheManager;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        cacheManager = new CacheManager();
         View view = inflater.inflate(R.layout.fragment_movie, container, false);
         mList = view.findViewById(R.id.list);
         homeRadioGroup = view.findViewById(R.id.home_radio_group);
@@ -119,8 +124,10 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
             if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
                 Log.i("aa", "success: " + moiveBeans.toString());
-                show_binner_adapter.addItem(moiveBeans);
 
+                cacheManager.saveDataToFile(getContext(),new Gson().toJson(moiveBeans),"hotMovie");
+                cacheManager.saveDataToFile(getContext(),new Gson().toJson(moiveBeans),"show_binner");
+                show_binner_adapter.addItem(moiveBeans);
                 popularAdapter.addItem(moiveBeans);
                 popularAdapter.notifyDataSetChanged();
                 show_binner_adapter.notifyDataSetChanged();
@@ -129,6 +136,16 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
 
         @Override
         public void fail(ApiException e) {
+            String s = cacheManager.loadDataFromFile(getContext(), "hotMovie");
+            Type type = new TypeToken<List<MoiveBean>>() {}.getType();
+            List<MoiveBean>  moiveBeans = new Gson().fromJson(s, type);
+            popularAdapter.addItem(moiveBeans);
+            popularAdapter.notifyDataSetChanged();
+            String s1 = cacheManager.loadDataFromFile(getContext(), "hotMovie");
+            Type type1 = new TypeToken<List<MoiveBean>>() {}.getType();
+            List<MoiveBean>  moiveBeans1 = new Gson().fromJson(s, type);
+            show_binner_adapter.addItem(moiveBeans1);
+            show_binner_adapter.notifyDataSetChanged();
             Log.i("aa", "失败: ");
         }
     }
@@ -140,6 +157,8 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
             if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
                 Log.i("aa", "success: " + moiveBeans.toString());
+                cacheManager.saveDataToFile(getContext(),new Gson().toJson(moiveBeans),"soonMovie");
+
                 soonAdapter.addItem(moiveBeans);
                 soonAdapter.notifyDataSetChanged();
             }
@@ -147,7 +166,11 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
 
         @Override
         public void fail(ApiException e) {
-
+            String s = cacheManager.loadDataFromFile(getContext(), "soonMovie");
+            Type type = new TypeToken<List<MoiveBean>>() {}.getType();
+            List<MoiveBean>  moiveBeans = new Gson().fromJson(s, type);
+            soonAdapter.addItem(moiveBeans);
+            soonAdapter.notifyDataSetChanged();
         }
     }
 
@@ -157,6 +180,8 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
         public void success(Result result) {
             if (result.getStatus().equals("0000")) {
                 List<MoiveBean> moiveBeans = (List<MoiveBean>) result.getResult();
+                cacheManager.saveDataToFile(getContext(),new Gson().toJson(moiveBeans),"beingMovie");
+
                 beingAdapter.addItem(moiveBeans);
                 beingAdapter.notifyDataSetChanged();
             }
@@ -164,7 +189,11 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
 
         @Override
         public void fail(ApiException e) {
-
+            String s = cacheManager.loadDataFromFile(getContext(), "beingMovie");
+            Type type = new TypeToken<List<MoiveBean>>() {}.getType();
+            List<MoiveBean>  moiveBeans = new Gson().fromJson(s, type);
+            beingAdapter.addItem(moiveBeans);
+            beingAdapter.notifyDataSetChanged();
         }
     }
 

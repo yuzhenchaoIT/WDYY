@@ -17,4 +17,5 @@ public class PopularMoviePresenter extends BasePresenter{
         RequestInterFace iBaseView = NetWorkManager.getInstance().create(RequestInterFace.class);
         return iBaseView.Popular((int) args[0],(String) args[1],(int) args[2],(int) args[3]);
     }
+
 }
