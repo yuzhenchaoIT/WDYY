@@ -187,6 +187,7 @@ public class UserFragment extends Fragment {
                 if (list.size() == 0) {
                     Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), HomeActivity.class));
+                    getActivity().finish();
                 } else {
                     showTypeDialog();
                 }
@@ -195,16 +196,20 @@ public class UserFragment extends Fragment {
                 if (list.size() == 0) {
                     Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), HomeActivity.class));
+
                 } else {
                     startActivity(new Intent(getContext(), MyInfoActivity.class));
+
                 }
                 break;
             case R.id.my_attention:
                 if (list.size() == 0) {
                     Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), HomeActivity.class));
+
                 } else {
                     startActivity(new Intent(getContext(), MyAttentionActivity.class));
+
                 }
                 break;
             case R.id.my_buyrecord:
