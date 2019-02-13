@@ -86,7 +86,8 @@
             android:value="ceshi" />
 
         <activity android:name="com.baidu.wdyy.SchedulingActivity" />
-        <activity android:name="com.baidu.wdyy.MyRemindActivity"></activity>
+        <activity android:name="com.baidu.wdyy.MyRemindActivity" />
+        <activity android:name="com.baidu.wdyy.ResetPwdActivity"></activity>
     </application>
 
 </manifest>

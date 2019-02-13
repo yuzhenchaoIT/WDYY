@@ -1,5 +1,6 @@
 package com.baidu.wdyy;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,12 @@ import butterknife.OnClick;
 
 import static com.baidu.wdyy.core.app.WDYYApp.getContext;
 
+/**
+ * 我的信息页面
+ *
+ * @author lmx
+ * @date 2019/2/13
+ */
 public class MyInfoActivity extends AppCompatActivity {
 
     @BindView(R.id.my_info_head_pic)
@@ -81,6 +88,8 @@ public class MyInfoActivity extends AppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.my_info_pwd_restart:
+                startActivity(new Intent(MyInfoActivity.this, ResetPwdActivity.class));
+                finish();
                 break;
             case R.id.back:
                 finish();

@@ -313,5 +313,23 @@ public interface RequestInterFace {
                                                        @Query("page") int page,
                                                        @Query("count") int count);
 
+    /**
+     * 重置密码
+     *
+     * @param userId
+     * @param sessionId
+     * @param oldPwd
+     * @param newPwd
+     * @param newPwd2
+     * @return
+     */
+    @POST("user/v1/verify/modifyUserPwd")
+    @FormUrlEncoded
+    Observable<Result> resetPwd(@Header("userId") int userId,
+                                @Header("sessionId") String sessionId,
+                                @Field("oldPwd") String oldPwd,
+                                @Field("newPwd") String newPwd,
+                                @Field("newPwd2") String newPwd2);
+
 
 }
