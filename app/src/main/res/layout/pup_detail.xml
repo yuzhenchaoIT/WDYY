@@ -1,120 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginLeft="24dp"
+    android:layout_marginTop="20dp"
     android:layout_marginRight="24dp"
-   >
+    android:background="@drawable/bg_detail">
+
     <View
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:alpha="1"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        >
+        android:alpha="0" />
 
-        <TextView
-            android:id="@+id/tv_pop_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="170dp"
-            android:gravity="center"
-            android:text="无双"
-            android:textSize="20sp" />
-    </LinearLayout>
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/simp_pop_movie"
         android:layout_width="150dp"
         android:layout_height="200dp" />
+
     <LinearLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/simp_pop_movie"
-        android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"
-        android:orientation="vertical"
-        >
+        android:layout_marginTop="50dp"
+        android:layout_toRightOf="@id/simp_pop_movie"
+        android:orientation="vertical">
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            >
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="类型:"
-                />
+                android:text="类型:" />
+
             <TextView
                 android:id="@+id/tv_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="爱情/戏剧"
-                />
+                android:text="爱情/戏剧" />
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="30dp"
-                android:src="@drawable/ic_downa"
-                />
+                android:src="@drawable/ic_downa" />
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="导演:"
-                />
+                android:text="导演:" />
+
             <TextView
                 android:id="@+id/tv_director"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="爱情/戏剧"
-                />
+                android:text="爱情/戏剧" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="时长:"
-                />
+                android:text="时长:" />
+
             <TextView
                 android:id="@+id/tv_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="爱情/戏剧"
-                />
+                android:text="爱情/戏剧" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="产地:"
-                />
+                android:text="产地:" />
+
             <TextView
                 android:id="@+id/tv_placeoforigin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="爱情/戏剧"
-                />
+                android:text="爱情/戏剧" />
         </LinearLayout>
     </LinearLayout>
 
@@ -122,52 +110,56 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="220dp"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="剧情简介"
-            android:textSize="16dp"
-            />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/tv_jianjie"
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="演职人员"
             android:layout_marginTop="20dp"
-            android:textSize="16dp"
-            />
+            android:text="演职人员"
+            android:textSize="16dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="16dp"
-            android:layout_height="wrap_content">
-            <Button
-                android:text="演员名字"
-                android:gravity="center"
-                android:background="#ff8000"
-                android:textSize="12dp"
-                android:layout_width="75dp"
-                android:layout_height="32dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
             <Button
-                android:background="#ff8000"
-                android:textSize="12dp"
+                android:layout_width="75dp"
+                android:layout_height="32dp"
+                android:background="@drawable/btn_person"
+                android:gravity="center"
+                android:text="演员名字"
+                android:textColor="#fff"
+                android:textSize="12dp" />
+
+            <Button
                 android:layout_width="75dp"
                 android:layout_height="32dp"
                 android:layout_marginLeft="138dp"
-                android:text="饰演角色" />
+                android:background="@drawable/btn_person"
+                android:text="饰演角色"
+                android:textColor="#fff"
+                android:textSize="12dp" />
         </LinearLayout>
+
         <TextView
+            android:id="@+id/text_yanyuan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/text_yanyuan"/>
+            android:text="朱古力、古天乐" />
 
     </LinearLayout>
 </RelativeLayout>

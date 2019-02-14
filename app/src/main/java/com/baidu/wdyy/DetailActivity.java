@@ -68,7 +68,7 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.btn_heartxiangqing)
     ImageView mBtnHeartxiangqing;
     private SimpleDraweeView simp_pop_movie;
-    private TextView tv_pop_title;
+    //    private TextView tv_pop_title;
     private TextView tv_director;
     private TextView tv_length;
     private TextView tv_type;
@@ -110,7 +110,7 @@ public class DetailActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.pup_detail, null);
         simp_pop_movie = view.findViewById(R.id.simp_pop_movie);
-        tv_pop_title = view.findViewById(R.id.tv_pop_title);
+//        tv_pop_title = view.findViewById(R.id.tv_pop_title);
         tv_director = view.findViewById(R.id.tv_director);
         tv_length = view.findViewById(R.id.tv_length);
         tv_type = view.findViewById(R.id.tv_type);
@@ -304,7 +304,6 @@ public class DetailActivity extends AppCompatActivity {
         public void success(Result<List<FilmReviewBean>> data) {
             if (data.getStatus().equals("0000")) {
                 reviewAdapter.setList(data.getResult());
-
                 reviewAdapter.notifyDataSetChanged();
             }
         }
@@ -326,7 +325,7 @@ public class DetailActivity extends AppCompatActivity {
                 textXiangname.setText(idMoiveDetalisOne.getName());
                 simpXiangview.setImageURI(Uri.parse(idMoiveDetalisOne.getImageUrl()));
                 simp_pop_movie.setImageURI(Uri.parse(idMoiveDetalisOne.getImageUrl()));
-                tv_pop_title.setText(idMoiveDetalisOne.getName());
+//                tv_pop_title.setText(idMoiveDetalisOne.getName());
                 tv_director.setText(idMoiveDetalisOne.getDirector());
                 tv_type.setText(idMoiveDetalisOne.getMovieTypes());
                 tv_length.setText(idMoiveDetalisOne.getDuration());

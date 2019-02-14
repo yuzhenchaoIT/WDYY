@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.baidu.wdyy.adapter.BuyRecordFinishAdapter;
@@ -39,6 +40,8 @@ public class BuyRecordActivity extends AppCompatActivity {
     Button mBuyRecordFinish;
     @BindView(R.id.buy_record_recy)
     RecyclerView mBuyRecordRecy;
+    @BindView(R.id.buy_record_back)
+    ImageView mBuyRecordBack;
     //取出用户  userId    sessionId
     private int userId = WDYYApp.getShare().getInt("userId", 0);
     private String sessionId = WDYYApp.getShare().getString("sessionId", "");
@@ -77,7 +80,7 @@ public class BuyRecordActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.buy_record_wait_pay, R.id.buy_record_finish})
+    @OnClick({R.id.buy_record_wait_pay, R.id.buy_record_finish, R.id.buy_record_back})
     public void onClick(View v) {
         switch (v.getId()) {
             //待付款
@@ -101,6 +104,9 @@ public class BuyRecordActivity extends AppCompatActivity {
                 buyRecordFinishAdapter = new BuyRecordFinishAdapter(getBaseContext());
                 mBuyRecordRecy.setAdapter(buyRecordFinishAdapter);
                 buyRecordPresenter.request(userId, sessionId, 1, 100, 1);
+                break;
+            case R.id.buy_record_back:
+                finish();
                 break;
         }
     }

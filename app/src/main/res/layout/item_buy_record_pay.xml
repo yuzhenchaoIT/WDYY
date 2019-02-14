@@ -32,9 +32,9 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:background="#f5f088"
+            android:background="@drawable/btn_go_pay"
             android:text="去付款"
-            android:textColor="#fff" />
+            android:textColor="#FCE6CF" />
 
 
     </RelativeLayout>

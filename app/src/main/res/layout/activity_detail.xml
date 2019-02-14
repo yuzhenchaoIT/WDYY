@@ -53,24 +53,23 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/simp_xiangview"
-            android:layout_width="259dp"
-            android:layout_height="360dp"
+            android:layout_width="260dp"
+            android:layout_height="350dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="40dp" />
+            android:layout_marginTop="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_xiangqing"
                 android:layout_width="58dp"
                 android:layout_height="32dp"
-                android:layout_marginRight="28dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/ic_tuo"
                 android:text="详情"
                 android:textColor="#ffffff" />
@@ -79,7 +78,7 @@
                 android:id="@+id/btn_yugao"
                 android:layout_width="58dp"
                 android:layout_height="32dp"
-                android:layout_marginRight="28dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/ic_tuo"
                 android:text="预告"
                 android:textColor="#ffffff" />
@@ -88,7 +87,7 @@
                 android:id="@+id/btn_photo"
                 android:layout_width="58dp"
                 android:layout_height="32dp"
-                android:layout_marginRight="28dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/ic_tuo"
                 android:text="剧照"
                 android:textColor="#ffffff" />
@@ -102,41 +101,42 @@
                 android:textColor="#ffffff" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
-
-                <Button
-                    android:id="@+id/btn_fan"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/ic_xiangqing_back"
-                    android:textColor="#ffffff" />
-
-                <Button
-                    android:id="@+id/btn_gou"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginRight="24dp"
-                    android:background="@drawable/ic_circle"
-                    android:text="购票"
-                    android:textColor="#ffffff" />
-            </RelativeLayout>
-
-        </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btn_fan"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/ic_xiangqing_back"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/btn_gou"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_circle"
+                android:text="购票"
+                android:textColor="#ffffff" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
 </RelativeLayout>
