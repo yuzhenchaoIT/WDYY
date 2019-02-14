@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.baidu.wdyy.fragment.CinemaFragment;
 import com.baidu.wdyy.fragment.MovieFragment;
@@ -124,4 +125,17 @@ public class ShowActivity extends AppCompatActivity {
                 break;
         }
     }
+    private long exitTime = 0;
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - exitTime > 2000) {
+            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+            System.exit(0);
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
+    }
+
 }
