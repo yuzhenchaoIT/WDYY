@@ -42,6 +42,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jzvd.JZVideoPlayer;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -235,6 +236,12 @@ public class DetailActivity extends AppCompatActivity {
         MovieReviewAdapter movieReviewAdapter = new MovieReviewAdapter(DetailActivity.this, idMoiveDetalisOne.getShortFilmList(), idMoiveDetalisOne.getName());
         Log.i("cc", "showPopwindow2: " + idMoiveDetalisOne.getShortFilmList().toString());
         recycler_movie_review.setAdapter(movieReviewAdapter);
+        window1.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                JZVideoPlayer.releaseAllVideos();
+            }
+        });
     }
 
     private void showPopwindow3() {
