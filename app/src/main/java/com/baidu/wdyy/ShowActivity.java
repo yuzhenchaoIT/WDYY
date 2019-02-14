@@ -1,11 +1,14 @@
 package com.baidu.wdyy;
 
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -18,6 +21,7 @@ import com.bw.movie.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import crossoverone.statuslib.StatusUtil;
 
 public class ShowActivity extends AppCompatActivity {
 
@@ -66,7 +70,8 @@ public class ShowActivity extends AppCompatActivity {
 //            //给每一个RadioButton设置图片大小
 //            rb[i].setCompoundDrawables(null, drawables[1], null, null);
 //        }
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         manager = getSupportFragmentManager();
         movieFragment = new MovieFragment();
@@ -79,6 +84,16 @@ public class ShowActivity extends AppCompatActivity {
                 .hide(cinemaFragment)
                 .hide(userFragment)
                 .commit();
+        setStatusColor();
+        setSystemInvadeBlack();
+    }
+    protected void setStatusColor() {
+        StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
+    }
+
+    protected void setSystemInvadeBlack() {
+        // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
+        StatusUtil.setSystemStatus(this, true, true);
     }
 
     @OnClick({R.id.rb_movie, R.id.rb_cinema, R.id.rb_user, R.id.rg})
