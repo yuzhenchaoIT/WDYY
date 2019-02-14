@@ -30,10 +30,23 @@ android {
                 XG_ACCESS_KEY: "A44FJ9N7N9EY",
         ]
     }
+    flavorDimensions "versionCode"
+    productFlavors {
+        kuan {}
+        xiaomi{}
+        qh360 {}
+        baidu {}
+        wandoujia {}
+        yingyongbao {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
