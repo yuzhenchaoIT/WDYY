@@ -1,6 +1,7 @@
 package com.baidu.wdyy.http;
 
 
+import com.baidu.wdyy.bean.BuyRecordBean;
 import com.baidu.wdyy.bean.CinemaBean;
 import com.baidu.wdyy.bean.CinemaById;
 import com.baidu.wdyy.bean.CinemaDetalisBean;
@@ -330,6 +331,24 @@ public interface RequestInterFace {
                                 @Field("oldPwd") String oldPwd,
                                 @Field("newPwd") String newPwd,
                                 @Field("newPwd2") String newPwd2);
+
+
+    /**
+     * 购买记录
+     *
+     * @param userId
+     * @param sessionId
+     * @param page
+     * @param count
+     * @param status
+     * @return
+     */
+    @GET("user/v1/verify/findUserBuyTicketRecordList")
+    Observable<Result<List<BuyRecordBean>>> buyTicketRecord(@Header("userId") int userId,
+                                                            @Header("sessionId") String sessionId,
+                                                            @Query("page") int page,
+                                                            @Query("count") int count,
+                                                            @Query("status") int status);
 
 
 }

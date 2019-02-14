@@ -26,6 +26,12 @@ import java.sql.SQLException;
 
 import io.reactivex.annotations.Nullable;
 
+/**
+ * 微信登录
+ *
+ * @author lmx
+ * @date 2019/2/13
+ */
 public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHandler {
 
     private WxLoginPresenter wxLoginPresenter = new WxLoginPresenter(new WxDataCall());

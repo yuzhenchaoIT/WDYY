@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.wdyy.BuyRecordActivity;
 import com.baidu.wdyy.HomeActivity;
 import com.baidu.wdyy.MyAttentionActivity;
 import com.baidu.wdyy.MyFeedBackActivity;
@@ -75,6 +76,8 @@ public class UserFragment extends Fragment {
     Button mMySign;
     @BindView(R.id.ming_remind)
     ImageView mMingRemind;
+    @BindView(R.id.my_zuixinbanben)
+    ImageView mMyZuixinbanben;
     private View view;
     private Unbinder unbinder;
     private Bitmap head;// 头像Bitmap
@@ -166,7 +169,7 @@ public class UserFragment extends Fragment {
 
     }
 
-    @OnClick({R.id.simp_mine_head, R.id.img_myinfo, R.id.my_attention, R.id.my_buyrecord, R.id.my_feed_back, R.id.my_log_out, R.id.my_sign, R.id.ming_remind})
+    @OnClick({R.id.simp_mine_head, R.id.img_myinfo, R.id.my_attention, R.id.my_buyrecord, R.id.my_feed_back, R.id.my_log_out, R.id.my_sign, R.id.ming_remind, R.id.my_zuixinbanben})
     public void onClick(View v) {
         switch (v.getId()) {
             //消息通知
@@ -196,7 +199,6 @@ public class UserFragment extends Fragment {
                 if (list.size() == 0) {
                     Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), HomeActivity.class));
-
                 } else {
                     startActivity(new Intent(getContext(), MyInfoActivity.class));
 
@@ -206,13 +208,12 @@ public class UserFragment extends Fragment {
                 if (list.size() == 0) {
                     Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), HomeActivity.class));
-
                 } else {
                     startActivity(new Intent(getContext(), MyAttentionActivity.class));
-
                 }
                 break;
             case R.id.my_buyrecord:
+                startActivity(new Intent(getContext(), BuyRecordActivity.class));
                 break;
             case R.id.my_feed_back:
                 startActivity(new Intent(getContext(), MyFeedBackActivity.class));
@@ -229,7 +230,9 @@ public class UserFragment extends Fragment {
                     e.printStackTrace();
                 }
                 break;
-
+            case R.id.my_zuixinbanben:
+                Toast.makeText(getContext(), "当前已经是最新版本啦", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 

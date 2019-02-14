@@ -87,7 +87,8 @@
 
         <activity android:name="com.baidu.wdyy.SchedulingActivity" />
         <activity android:name="com.baidu.wdyy.MyRemindActivity" />
-        <activity android:name="com.baidu.wdyy.ResetPwdActivity"></activity>
+        <activity android:name="com.baidu.wdyy.ResetPwdActivity" />
+        <activity android:name="com.baidu.wdyy.BuyRecordActivity"></activity>
     </application>
 
 </manifest>
