@@ -1,5 +1,7 @@
 package com.baidu.wdyy;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.baidu.wdyy.adapter.MovieListAdapter;
 import com.baidu.wdyy.bean.MoiveBean;
@@ -53,7 +56,7 @@ public class MovieListActivity extends AppCompatActivity {
     //适配器
     private MovieListAdapter movieListAdapter;
     private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
-    private String type = "1";
+    private String type;
 
 
     @Override
@@ -62,7 +65,9 @@ public class MovieListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_list);
         ButterKnife.bind(this);
 
-        EventBus.getDefault().register(this);
+
+        Intent intent=getIntent();
+        String select=intent.getStringExtra("select");
 
 
         //默认显示热门影院
@@ -83,8 +88,42 @@ public class MovieListActivity extends AppCompatActivity {
         mMovieListNow.setTextColor(Color.BLACK);
         mMovieListSoon.setBackgroundResource(R.drawable.myborder);
         mMovieListSoon.setTextColor(Color.BLACK);
+        if (select.equals("1")) {
+            mMovieListHot.setBackgroundResource(R.drawable.btn_gradient);
+            mMovieListHot.setTextColor(Color.WHITE);
+            mMovieListNow.setBackgroundResource(R.drawable.myborder);
+            mMovieListNow.setTextColor(Color.BLACK);
+            mMovieListSoon.setBackgroundResource(R.drawable.myborder);
+            mMovieListSoon.setTextColor(Color.BLACK);
+            movieListAdapter.remove();
+            movieListAdapter = new MovieListAdapter(getBaseContext());
+            mMovieListRecy.setAdapter(movieListAdapter);
+            popularMoviePresenter.request(0, "", 1, 10);
 
+        } else if (select.equals("2")) {
+            mMovieListHot.setBackgroundResource(R.drawable.myborder);
+            mMovieListHot.setTextColor(Color.BLACK);
+            mMovieListNow.setBackgroundResource(R.drawable.btn_gradient);
+            mMovieListNow.setTextColor(Color.WHITE);
+            mMovieListSoon.setBackgroundResource(R.drawable.myborder);
+            mMovieListSoon.setTextColor(Color.BLACK);
+            movieListAdapter.remove();
+            movieListAdapter = new MovieListAdapter(getBaseContext());
+            mMovieListRecy.setAdapter(movieListAdapter);
+            soonMoviePresenter.request(0, "", 1, 10);
 
+        } else {
+            mMovieListHot.setBackgroundResource(R.drawable.myborder);
+            mMovieListHot.setTextColor(Color.BLACK);
+            mMovieListNow.setBackgroundResource(R.drawable.myborder);
+            mMovieListNow.setTextColor(Color.BLACK);
+            mMovieListSoon.setBackgroundResource(R.drawable.btn_gradient);
+            mMovieListSoon.setTextColor(Color.WHITE);
+            movieListAdapter.remove();
+            movieListAdapter = new MovieListAdapter(getBaseContext());
+            mMovieListRecy.setAdapter(movieListAdapter);
+            beingMoviePresenter.request(0, "", 1, 10);
+        }
     }
 
     @OnClick({R.id.movie_list_hot, R.id.movie_list_now, R.id.movie_list_soon, R.id.movie_list_back})
@@ -131,48 +170,6 @@ public class MovieListActivity extends AppCompatActivity {
                 break;
         }
     }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void receiveSoundRecongnizedmsg(String insType) {
-        type = insType;
-        if (type.equals("1")) {
-            mMovieListHot.setBackgroundResource(R.drawable.btn_gradient);
-            mMovieListHot.setTextColor(Color.WHITE);
-            mMovieListNow.setBackgroundResource(R.drawable.myborder);
-            mMovieListNow.setTextColor(Color.BLACK);
-            mMovieListSoon.setBackgroundResource(R.drawable.myborder);
-            mMovieListSoon.setTextColor(Color.BLACK);
-            movieListAdapter.remove();
-            movieListAdapter = new MovieListAdapter(getBaseContext());
-            mMovieListRecy.setAdapter(movieListAdapter);
-            popularMoviePresenter.request(0, "", 1, 10);
-
-        } else if (type.equals("2")) {
-            mMovieListHot.setBackgroundResource(R.drawable.myborder);
-            mMovieListHot.setTextColor(Color.BLACK);
-            mMovieListNow.setBackgroundResource(R.drawable.btn_gradient);
-            mMovieListNow.setTextColor(Color.WHITE);
-            mMovieListSoon.setBackgroundResource(R.drawable.myborder);
-            mMovieListSoon.setTextColor(Color.BLACK);
-            movieListAdapter.remove();
-            movieListAdapter = new MovieListAdapter(getBaseContext());
-            mMovieListRecy.setAdapter(movieListAdapter);
-            soonMoviePresenter.request(0, "", 1, 10);
-
-        } else {
-            mMovieListHot.setBackgroundResource(R.drawable.myborder);
-            mMovieListHot.setTextColor(Color.BLACK);
-            mMovieListNow.setBackgroundResource(R.drawable.myborder);
-            mMovieListNow.setTextColor(Color.BLACK);
-            mMovieListSoon.setBackgroundResource(R.drawable.btn_gradient);
-            mMovieListSoon.setTextColor(Color.WHITE);
-            movieListAdapter.remove();
-            movieListAdapter = new MovieListAdapter(getBaseContext());
-            mMovieListRecy.setAdapter(movieListAdapter);
-            beingMoviePresenter.request(0, "", 1, 10);
-        }
-    }
-
 
     //热门电影
     class PopularCall implements DataCall<Result> {

@@ -136,16 +136,19 @@ public class MovieFragment extends Fragment implements show_binner_adapter.onIte
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_hot_next:
-                startActivity(new Intent(getContext(), MovieListActivity.class));
-                EventBus.getDefault().postSticky("1");
+                Intent intent = new Intent(getContext(),MovieListActivity.class);
+                intent.putExtra("select","1");
+                startActivity(intent);
                 break;
             case R.id.img_now_next:
-                startActivity(new Intent(getContext(), MovieListActivity.class));
-                EventBus.getDefault().postSticky("2");
+                Intent intent2 = new Intent(getContext(),MovieListActivity.class);
+                intent2.putExtra("select","2");
+                startActivity(intent2);
                 break;
             case R.id.img_soon_next:
-                startActivity(new Intent(getContext(), MovieListActivity.class));
-                EventBus.getDefault().postSticky("3");
+                Intent intent3 = new Intent(getContext(),MovieListActivity.class);
+                intent3.putExtra("select","3");
+                startActivity(intent3);
                 break;
         }
     }
