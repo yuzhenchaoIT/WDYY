@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="24dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginRight="24dp"
-    android:background="@drawable/bg_detail">
+    android:orientation="vertical"
+    android:background="@drawable/shape_corner_up"
+    >
 
-    <View
-        android:id="@+id/linear_layout"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:alpha="0" />
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        >
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/simp_pop_movie"
         android:layout_width="150dp"
-        android:layout_height="200dp" />
+        android:layout_height="200dp"
+        android:layout_marginTop="-20dp"/>
 
     <LinearLayout
         android:layout_width="200dp"
@@ -133,7 +135,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginTop="16dp">
 
             <Button
@@ -162,4 +164,5 @@
             android:text="朱古力、古天乐" />
 
     </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

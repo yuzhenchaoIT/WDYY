@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="520dp"
     android:background="@drawable/popu_type"
     android:orientation="vertical"
     >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_margin="20dp"
-        android:layout_height="25dp">
+        android:layout_marginTop="20dp"
+        android:layout_height="30dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
-                android:textSize="16dp"
+                android:textSize="16sp"
+                android:layout_marginLeft="20dp"
+
                 android:text="影评"/>
         <View
             android:layout_width="35dp"
             android:layout_height="2dp"
             android:background="@drawable/btn_gradient"
+            android:layout_marginLeft="20dp"
+
             android:layout_alignParentBottom="true"/>
         <ImageView
             android:id="@+id/pupo_yp_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/ic_down"
             android:layout_alignParentRight="true"
             />
@@ -32,6 +37,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/review_movie_review"
         android:layout_width="match_parent"
-        android:layout_height="520dp"/>
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="500dp"/>
 
 </LinearLayout>

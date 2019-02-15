@@ -1,5 +1,6 @@
 package com.baidu.wdyy;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import crossoverone.statuslib.StatusUtil;
 
 /**
  * 系统消息
@@ -57,10 +59,18 @@ public class MyRemindActivity extends AppCompatActivity {
         mMyRemindRecycler.setAdapter(mRemindAdapter);
         //请求数据
         myRemindPresenter.request(userId, sessionId, 1, 100);
-
+        setStatusColor();
+        setSystemInvadeBlack();
 
     }
+    protected void setStatusColor() {
+        StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
+    }
 
+    protected void setSystemInvadeBlack() {
+        // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
+        StatusUtil.setSystemStatus(this, true, true);
+    }
 
     @OnClick({R.id.my_remind_recycler, R.id.my_remind_back})
     public void onClick(View v) {

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="24dp"
     android:layout_marginRight="24dp"
+    android:paddingTop="10dp"
     tools:context="com.baidu.wdyy.ResetPwdActivity">
 
 

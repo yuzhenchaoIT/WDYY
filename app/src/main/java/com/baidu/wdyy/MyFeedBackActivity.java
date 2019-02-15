@@ -1,6 +1,7 @@
 package com.baidu.wdyy;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.bw.movie.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import crossoverone.statuslib.StatusUtil;
 
 public class MyFeedBackActivity extends AppCompatActivity {
 
@@ -37,8 +39,17 @@ public class MyFeedBackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_feed_back);
         ButterKnife.bind(this);
+        setStatusColor();
+        setSystemInvadeBlack();
+    }
+    protected void setStatusColor() {
+        StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
     }
 
+    protected void setSystemInvadeBlack() {
+        // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
+        StatusUtil.setSystemStatus(this, true, true);
+    }
     @OnClick({R.id.my_feed_submit, R.id.my_feed_back_back})
     public void onClick(View v) {
         switch (v.getId()) {
