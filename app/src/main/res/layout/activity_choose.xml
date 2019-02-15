@@ -128,7 +128,7 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/redio_pay"
         android:gravity="center_vertical"
-        android:paddingLeft="34sp"
+        android:paddingLeft="34sp">
 
         <TextView
             android:id="@+id/txt_jiesuan"
