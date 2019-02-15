@@ -7,30 +7,37 @@
     android:background="@drawable/background"
     tools:context="com.baidu.wdyy.DetailActivity">
 
-    <Button
-        android:id="@+id/btn_action"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginRight="6dp"
-        android:background="@drawable/ic_local_movies_black_24dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/text_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@id/btn_action"
-        android:text="电影详情"
-        android:textColor="#ffffff" />
+        <Button
+            android:id="@+id/btn_action"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/ic_local_movies_black_24dp" />
 
-    <ImageView
-        android:id="@+id/btn_heartxiangqing"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp" />
+        <TextView
+            android:id="@+id/text_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@id/btn_action"
+            android:text="电影详情"
+            android:textColor="#ffffff" />
+
+        <ImageView
+            android:id="@+id/btn_heartxiangqing"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="24dp"
+            android:padding="5dp" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

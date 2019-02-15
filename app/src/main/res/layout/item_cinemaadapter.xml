@@ -3,22 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="95dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/mine_back"
+        android:background="@drawable/border2"
         android:orientation="horizontal">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/cinemasdvsone"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp" />
@@ -60,8 +59,6 @@
                     android:id="@+id/cinematextviewthree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerVertical="true"
                     android:layout_marginBottom="10dp"
                     android:text="CGV影院"
                     android:textColor="#333333"
@@ -71,16 +68,8 @@
                     android:id="@+id/cinemasdvstwo"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"></com.facebook.drawee.view.SimpleDraweeView>
+                    android:layout_alignParentRight="true"></com.facebook.drawee.view.SimpleDraweeView>
 
-                <!--<com.facebook.drawee.view.SimpleDraweeView-->
-                <!--android:id="@+id/cinemasdvstwo"-->
-                <!--android:layout_width="16dp"-->
-                <!--android:layout_height="16dp"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:background="@drawable/com_icon_collection_default" />-->
             </RelativeLayout>
         </LinearLayout>
 

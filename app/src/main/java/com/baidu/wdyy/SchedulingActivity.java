@@ -36,6 +36,7 @@ public class SchedulingActivity extends AppCompatActivity {
     private TextView scheduling_textviewfour;
     private TextView scheduling_textviewfive;
     private IDMoiveDetalisTwo idMoiveDetalisTwo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,17 +78,16 @@ public class SchedulingActivity extends AppCompatActivity {
         cinemaRecycleAdapter = new CinemaRecycleAdapter(this);
         scheduling_recycleview.setAdapter(cinemaRecycleAdapter);
         scheduling_recycleview.addItemDecoration(new SpaceItemDecoration(10));
-        cinemaRecyPresenter.request(cinemaid,filmid);
-        idMoiveDetalisoneTwoPresenter.request(userId,sessionId,filmid);
+        cinemaRecyPresenter.request(cinemaid, filmid);
+        idMoiveDetalisoneTwoPresenter.request(userId, sessionId, filmid);
         cinemaByIdPresenter.request(filmid);
     }
-    class SchedulingCall implements DataCall<Result>
-    {
+
+    class SchedulingCall implements DataCall<Result> {
 
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
+            if (result.getStatus().equals("0000")) {
                 List<CinemaRecy> cinemaRecies = (List<CinemaRecy>) result.getResult();
                 cinemaRecycleAdapter.addList(cinemaRecies);
                 cinemaRecycleAdapter.notifyDataSetChanged();
@@ -100,19 +100,17 @@ public class SchedulingActivity extends AppCompatActivity {
         }
     }
 
-    class DetalisCinemaCall implements DataCall<Result>
-    {
+    class DetalisCinemaCall implements DataCall<Result> {
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
+            if (result.getStatus().equals("0000")) {
                 idMoiveDetalisTwo = (IDMoiveDetalisTwo) result.getResult();
                 scheduling_sdv.setImageURI(idMoiveDetalisTwo.getImageUrl());
                 scheduling_textviewone.setText(idMoiveDetalisTwo.getName());
-                scheduling_textviewtwo.setText("类型："+ idMoiveDetalisTwo.getMovieTypes());
-                scheduling_textviewthree.setText("导演："+ idMoiveDetalisTwo.getDirector());
-                scheduling_textviewfour.setText("时长："+ idMoiveDetalisTwo.getDuration());
-                scheduling_textviewfive.setText("产地："+ idMoiveDetalisTwo.getPlaceOrigin());
+                scheduling_textviewtwo.setText("类型：" + idMoiveDetalisTwo.getMovieTypes());
+                scheduling_textviewthree.setText("导演：" + idMoiveDetalisTwo.getDirector());
+                scheduling_textviewfour.setText("时长：" + idMoiveDetalisTwo.getDuration());
+                scheduling_textviewfive.setText("产地：" + idMoiveDetalisTwo.getPlaceOrigin());
             }
         }
 
