@@ -5,53 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.baidu.wdyy.CinemaByMovieActivity">
+
     <RelativeLayout
         android:id="@+id/one"
-        android:layout_marginTop="35dp"
-        android:layout_marginLeft="24dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="35dp">
 
         <TextView
             android:id="@+id/purchase_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="铁血战士"
-            android:textSize="18sp"
             android:textColor="#333333"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="18sp" />
+
         <TextView
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/purchase_name"
-            android:text="选择合适的影院"
-            android:textSize="10sp"
-            android:textColor="#b11450"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/purchase_name"
+            android:layout_marginTop="10dp"
+            android:text="选择合适的影院"
+            android:textColor="#b11450"
+            android:textSize="10sp" />
 
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/one"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
         android:id="@+id/purchase_recycleview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/one"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="22dp"></android.support.v7.widget.RecyclerView>
 
     <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="20dp">
 
         <Button
             android:id="@+id/purchase_return"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/com_icon_my_default"
             android:layout_width="58dp"
-            android:layout_height="58dp" />
+            android:layout_height="58dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/com_icon_my_default" />
 
     </RelativeLayout>
 
