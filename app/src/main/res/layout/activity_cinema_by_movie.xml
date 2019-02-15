@@ -37,9 +37,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/one"
-        android:layout_marginLeft="22dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="22dp"></android.support.v7.widget.RecyclerView>
+        android:layout_marginRight="24dp"></android.support.v7.widget.RecyclerView>
 
     <RelativeLayout
         android:layout_width="wrap_content"
