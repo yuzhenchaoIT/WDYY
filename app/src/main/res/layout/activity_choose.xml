@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/xh2" />
+            android:src="@drawable/xh21" />
 
         <ImageView
             android:layout_width="172dp"
@@ -114,9 +114,9 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/rl_bot"
         android:layout_below="@id/rl_top"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="80dp" />
 
 
@@ -128,7 +128,8 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/redio_pay"
         android:gravity="center_vertical"
-        android:paddingLeft="34sp">
+        android:paddingLeft="34sp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/txt_jiesuan"
