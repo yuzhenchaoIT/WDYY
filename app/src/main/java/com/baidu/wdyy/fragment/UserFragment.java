@@ -132,6 +132,10 @@ public class UserFragment extends Fragment {
             } else {
                 //权限拒绝
                 Toast.makeText(getActivity(), "请同意权限", Toast.LENGTH_SHORT).show();
+                String[] p = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION};
+                ActivityCompat.requestPermissions(getActivity(), p, 1);
+
             }
 
         }

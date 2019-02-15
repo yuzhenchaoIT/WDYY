@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -272,9 +273,15 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
             //以下只列举部分获取地址相关的结果信息
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
             String locationDescribe = location.getLocationDescribe();    //获取位置描述信息
-            String addr = location.getAddrStr();    //获取详细地址信息
-            Log.i("bb", "onReceiveLocation: " + addr);
-            cimemaText.setText(locationDescribe + addr);
+            String addr = location.getCity();    //获取详细地址信息
+//            Log.i("bb", "onReceiveLocation: " + addr);
+//            cimemaText.setText(locationDescribe + addr);
+            if(TextUtils.isEmpty(addr)){
+                cimemaText.setText("定位中...");
+            }else {
+                cimemaText.setText(locationDescribe + addr);
+            }
+
 
         }
     }
