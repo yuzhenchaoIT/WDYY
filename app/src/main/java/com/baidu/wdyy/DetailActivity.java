@@ -2,6 +2,7 @@ package com.baidu.wdyy;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jzvd.JZVideoPlayer;
+import crossoverone.statuslib.StatusUtil;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -104,6 +106,8 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         //得到电影id
+        setStatusColor();
+        setSystemInvadeBlack();
         id = Integer.parseInt(getIntent().getStringExtra("id"));
         IDMoiveDetalisonePresenter idMoiveDetalisonePresenter = new IDMoiveDetalisonePresenter(new IDMoiveDetalisOneCall());
         idMoiveDetalisonePresenter.request(userId, sessionId, id);
@@ -216,7 +220,14 @@ public class DetailActivity extends AppCompatActivity {
                 break;
         }
     }
+    protected void setStatusColor() {
+        StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
+    }
 
+    protected void setSystemInvadeBlack() {
+        // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
+        StatusUtil.setSystemStatus(this, true, true);
+    }
     private void showPopwindow1() {
         View parent = View.inflate(DetailActivity.this, R.layout.activity_detail, null);
         window.showAtLocation(parent, Gravity.BOTTOM, 0, 0);

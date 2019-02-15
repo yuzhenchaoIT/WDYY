@@ -1,5 +1,6 @@
 package com.baidu.wdyy;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import crossoverone.statuslib.StatusUtil;
 import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 
@@ -84,9 +86,18 @@ public class CinemaDetalisActivity extends AppCompatActivity {
         cinemaRecy.setLayoutManager(manager);
         cinemaRecy.setAdapter(cinemaRecycleAdapter);
         cinemaRecy.addItemDecoration(new SpaceItemDecoration(10));
+        setStatusColor();
+        setSystemInvadeBlack();
 
     }
+    protected void setStatusColor() {
+        StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
+    }
 
+    protected void setSystemInvadeBlack() {
+        // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
+        StatusUtil.setSystemStatus(this, true, true);
+    }
     class My implements DataCall<Result<List<CinemaRecy>>> {
 
         @Override

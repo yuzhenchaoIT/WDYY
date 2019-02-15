@@ -22,6 +22,8 @@ import com.bw.movie.R;
 
 import java.util.List;
 
+import crossoverone.statuslib.StatusUtil;
+
 /**
  * 我的关注
  *
@@ -73,6 +75,8 @@ public class MyAttentionActivity extends AppCompatActivity implements View.OnCli
         mMyAttentionMovie.setTextColor(Color.WHITE);
         mMyAttentionCinema.setBackgroundResource(R.drawable.myborder);
         mMyAttentionCinema.setTextColor(Color.BLACK);
+        setStatusColor();
+        setSystemInvadeBlack();
     }
 
     private void initView() {
@@ -82,7 +86,14 @@ public class MyAttentionActivity extends AppCompatActivity implements View.OnCli
         mMyAttentionCinema.setOnClickListener(this);
         mMyAttentionRecycleview = findViewById(R.id.my_attention_recycleview);
     }
+    protected void setStatusColor() {
+        StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
+    }
 
+    protected void setSystemInvadeBlack() {
+        // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
+        StatusUtil.setSystemStatus(this, true, true);
+    }
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.my_attention_movie) {

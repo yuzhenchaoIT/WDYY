@@ -1,5 +1,6 @@
 package com.baidu.wdyy;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import crossoverone.statuslib.StatusUtil;
 
 public class SchedulingActivity extends AppCompatActivity {
     private int userId = WDYYApp.getShare().getInt("userId", 0);
@@ -81,6 +84,16 @@ public class SchedulingActivity extends AppCompatActivity {
         cinemaRecyPresenter.request(cinemaid, filmid);
         idMoiveDetalisoneTwoPresenter.request(userId, sessionId, filmid);
         cinemaByIdPresenter.request(filmid);
+        setStatusColor();
+        setSystemInvadeBlack();
+    }
+    protected void setStatusColor() {
+        StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
+    }
+
+    protected void setSystemInvadeBlack() {
+        // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
+        StatusUtil.setSystemStatus(this, true, true);
     }
 
     class SchedulingCall implements DataCall<Result> {

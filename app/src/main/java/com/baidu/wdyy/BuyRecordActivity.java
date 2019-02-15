@@ -25,6 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import crossoverone.statuslib.StatusUtil;
 
 /**
  * 购票记录页面
@@ -77,7 +78,17 @@ public class BuyRecordActivity extends AppCompatActivity {
         mBuyRecordWaitPay.setTextColor(Color.WHITE);
         mBuyRecordFinish.setBackgroundResource(R.drawable.myborder);
         mBuyRecordFinish.setTextColor(Color.BLACK);
+        setStatusColor();
+        setSystemInvadeBlack();
 
+    }
+    protected void setStatusColor() {
+        StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
+    }
+
+    protected void setSystemInvadeBlack() {
+        // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
+        StatusUtil.setSystemStatus(this, true, true);
     }
 
     @OnClick({R.id.buy_record_wait_pay, R.id.buy_record_finish, R.id.buy_record_back})

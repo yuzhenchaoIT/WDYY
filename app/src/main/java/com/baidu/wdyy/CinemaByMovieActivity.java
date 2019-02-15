@@ -1,5 +1,6 @@
 package com.baidu.wdyy;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import crossoverone.statuslib.StatusUtil;
 
 public class CinemaByMovieActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,9 +51,18 @@ public class CinemaByMovieActivity extends AppCompatActivity implements View.OnC
         purchase_recycleview.setAdapter(purchaseAdapter);
 
         purchasePresenter.request(id);
+        setStatusColor();
+        setSystemInvadeBlack();
 
     }
+    protected void setStatusColor() {
+        StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
+    }
 
+    protected void setSystemInvadeBlack() {
+        // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
+        StatusUtil.setSystemStatus(this, true, true);
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

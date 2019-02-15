@@ -131,6 +131,11 @@ public class MovieListActivity extends AppCompatActivity {
             mMovieListRecy.setAdapter(movieListAdapter);
             beingMoviePresenter.request(0, "", 1, 10);
         }
+        setStatusColor();
+        setSystemInvadeBlack();
+    }
+    protected void setStatusColor() {
+        StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
 
         movieListAdapter.setOnItemClickListener(new MovieListAdapter.OnItemClickListener() {
             @Override
@@ -172,6 +177,10 @@ public class MovieListActivity extends AppCompatActivity {
 
     }
 
+    protected void setSystemInvadeBlack() {
+        // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
+        StatusUtil.setSystemStatus(this, true, true);
+    }
     @OnClick({R.id.movie_list_hot, R.id.movie_list_now, R.id.movie_list_soon, R.id.movie_list_back})
     public void onClick(View v) {
         switch (v.getId()) {
