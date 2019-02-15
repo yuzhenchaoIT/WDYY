@@ -49,6 +49,7 @@ public class PopularAdapter extends RecyclerView.Adapter {
         popularVH.popularsdv.setImageURI(Uri.parse(moiveBean.getImageUrl()));
         popularVH.populartextview.setBackgroundColor(0x55000000);
         popularVH.populartextview.setText(moiveBean.getName());
+        popularVH.populartextview.setBackgroundResource(R.drawable.bg_item_text);
         popularVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

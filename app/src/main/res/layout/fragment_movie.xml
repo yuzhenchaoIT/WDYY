@@ -52,7 +52,7 @@
             <RadioGroup
                 android:id="@+id/home_radio_group"
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
+                android:layout_height="1.5dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/lineone"
                 android:orientation="horizontal">
@@ -112,63 +112,152 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_hotmovie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="热门电影"
+                        android:textColor="#333333"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="3dp"
+                        android:layout_below="@id/tv_hotmovie"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/btn_next" />
+
+                    <ImageView
+                        android:id="@+id/img_hot_next"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="24dp"
+                        android:src="@drawable/com_icon_next" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_hotmovie"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_hotmovie"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:drawableRight="@drawable/ic_next"
-                    android:text="热门电影"
-                    android:textColor="#333333"
-                    android:textSize="16sp" />
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_hotmovie"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    android:layout_marginLeft="20dp" />
+                        <TextView
+                            android:id="@+id/tv_nowplaying"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="正在热映"
+                            android:textColor="#333333"
+                            android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tv_nowplaying"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:drawableRight="@drawable/ic_next"
-                    android:text="正在热映"
-                    android:textColor="#333333"
-                    android:textSize="16sp"
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="3dp"
+                            android:layout_below="@id/tv_nowplaying"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/btn_next" />
 
-                    />
+                        <ImageView
+                            android:id="@+id/img_now_next"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="24dp"
+                            android:src="@drawable/com_icon_next" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_playingmovie"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="20dp" />
 
-                    android:layout_marginLeft="20dp" />
-
-                <TextView
-                    android:id="@+id/tv_sooning"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:drawableRight="@drawable/ic_next"
-                    android:text="即将上映"
-                    android:textColor="#333333"
-                    android:textSize="16sp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
 
-                    />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_sooning"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="即将上映"
+                            android:textColor="#333333"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="3dp"
+                            android:layout_below="@id/tv_sooning"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/btn_next" />
+
+                        <ImageView
+                            android:id="@+id/img_soon_next"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="24dp"
+                            android:src="@drawable/com_icon_next" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_sooning"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="20dp" />
 
-                    android:layout_marginLeft="20dp" />
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

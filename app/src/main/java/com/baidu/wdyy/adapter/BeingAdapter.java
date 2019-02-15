@@ -25,10 +25,11 @@ public class BeingAdapter extends RecyclerView.Adapter {
     public BeingAdapter(Context context) {
         this.context = context;
     }
+
     private ArrayList<MoiveBean> list = new ArrayList<>();
+
     public void addItem(List<MoiveBean> popularMovieBeans) {
-        if(popularMovieBeans!=null)
-        {
+        if (popularMovieBeans != null) {
             list.addAll(popularMovieBeans);
         }
     }
@@ -48,11 +49,12 @@ public class BeingAdapter extends RecyclerView.Adapter {
         popularVH.popularsdv.setImageURI(Uri.parse(moiveBean.getImageUrl()));
         popularVH.populartextview.setBackgroundColor(0x55000000);
         popularVH.populartextview.setText(moiveBean.getName());
+        popularVH.populartextview.setBackgroundResource(R.drawable.bg_item_text);
         popularVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("id",moiveBean.getId()+"");
+                intent.putExtra("id", moiveBean.getId() + "");
                 context.startActivity(intent);
             }
         });
@@ -64,12 +66,12 @@ public class BeingAdapter extends RecyclerView.Adapter {
     }
 
 
-
     //创建ViewHolder
     class PopularVH extends RecyclerView.ViewHolder {
 
         public SimpleDraweeView popularsdv;
         public TextView populartextview;
+
         public PopularVH(@NonNull View itemView) {
             super(itemView);
             popularsdv = itemView.findViewById(R.id.popularsdv);

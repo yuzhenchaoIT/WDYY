@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.baidu.wdyy.MovieListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="24dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/movie_list_hot"
+                android:layout_width="83dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/myborder"
+                android:text="热门电影"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/movie_list_now"
+                android:layout_width="83dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/myborder"
+                android:text="正在热映"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/movie_list_soon"
+                android:layout_width="83dp"
+                android:layout_height="25dp"
+                android:background="@drawable/myborder"
+                android:text="即将上映"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movie_list_recy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="24dp"></android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/movie_list_back"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/icon_my_info_back" />
+
+
+</RelativeLayout>

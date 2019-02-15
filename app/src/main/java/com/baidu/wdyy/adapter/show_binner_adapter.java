@@ -13,6 +13,7 @@ import com.baidu.wdyy.DetailActivity;
 import com.baidu.wdyy.bean.MoiveBean;
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +29,11 @@ public class show_binner_adapter extends RecyclerView.Adapter {
     public show_binner_adapter(Context context) {
         this.context = context;
     }
+
     private ArrayList<MoiveBean> list = new ArrayList<>();
+
     public void addItem(List<MoiveBean> moiveBeans) {
-        if(moiveBeans!=null)
-        {
+        if (moiveBeans != null) {
             list.addAll(moiveBeans);
         }
     }
@@ -43,23 +45,22 @@ public class show_binner_adapter extends RecyclerView.Adapter {
     }
 
 
-
-
-
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder( ViewGroup viewGroup, int i) {
-        View view = View.inflate(context, R.layout.layout_item,null);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = View.inflate(context, R.layout.layout_item, null);
         MovieVH movieVH = new MovieVH(view);
         return movieVH;
     }
 
     @Override
-    public void onBindViewHolder( RecyclerView.ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
         final MoiveBean moiveBean = list.get(i);
         MovieVH movieVH = (MovieVH) viewHolder;
-        Glide.with(context).load(moiveBean.getImageUrl()).into(movieVH.img);
+//        Glide.with(context).load(moiveBean.getImageUrl()).into(movieVH.img);
+        movieVH.img.setImageURI(moiveBean.getImageUrl());
         movieVH.populartextviewone.setBackgroundColor(0x55000000);
         movieVH.populartextviewone.setText(moiveBean.getName());
+        movieVH.populartextviewone.setBackgroundResource(R.drawable.bg_item_text);
         movieVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +73,7 @@ public class show_binner_adapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("id",moiveBean.getId()+"");
+                intent.putExtra("id", moiveBean.getId() + "");
                 context.startActivity(intent);
             }
         });
@@ -84,13 +85,13 @@ public class show_binner_adapter extends RecyclerView.Adapter {
     }
 
 
-
     class MovieVH extends RecyclerView.ViewHolder {
-        public ImageView img;
+        public SimpleDraweeView img;
         public TextView populartextviewone;
+
         public MovieVH(View itemView) {
             super(itemView);
-            img = (ImageView) itemView.findViewById(R.id.img);
+            img = (SimpleDraweeView) itemView.findViewById(R.id.img);
             populartextviewone = (TextView) itemView.findViewById(R.id.tv);
         }
     }

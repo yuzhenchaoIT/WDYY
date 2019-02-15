@@ -25,10 +25,11 @@ public class SoonAdapter extends RecyclerView.Adapter {
     public SoonAdapter(Context context) {
         this.context = context;
     }
+
     private ArrayList<MoiveBean> list = new ArrayList<>();
+
     public void addItem(List<MoiveBean> popularMovieBeans) {
-        if(popularMovieBeans!=null)
-        {
+        if (popularMovieBeans != null) {
             list.addAll(popularMovieBeans);
         }
     }
@@ -43,16 +44,17 @@ public class SoonAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-       final MoiveBean moiveBean = list.get(i);
+        final MoiveBean moiveBean = list.get(i);
         PopularVH popularVH = (PopularVH) viewHolder;
         popularVH.popularsdv.setImageURI(Uri.parse(moiveBean.getImageUrl()));
         popularVH.populartextview.setBackgroundColor(0x55000000);
         popularVH.populartextview.setText(moiveBean.getName());
+        popularVH.populartextview.setBackgroundResource(R.drawable.bg_item_text);
         popularVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("id",moiveBean.getId()+"");
+                intent.putExtra("id", moiveBean.getId() + "");
                 context.startActivity(intent);
             }
         });
@@ -64,12 +66,12 @@ public class SoonAdapter extends RecyclerView.Adapter {
     }
 
 
-
     //创建ViewHolder
     class PopularVH extends RecyclerView.ViewHolder {
 
         public SimpleDraweeView popularsdv;
         public TextView populartextview;
+
         public PopularVH(@NonNull View itemView) {
             super(itemView);
             popularsdv = itemView.findViewById(R.id.popularsdv);

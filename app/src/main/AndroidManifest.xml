@@ -24,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.baidu.wdyy.MainActivity"
+        <activity
+            android:name="com.baidu.wdyy.MainActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -89,7 +90,8 @@
         <activity android:name="com.baidu.wdyy.SchedulingActivity" />
         <activity android:name="com.baidu.wdyy.MyRemindActivity" />
         <activity android:name="com.baidu.wdyy.ResetPwdActivity" />
-        <activity android:name="com.baidu.wdyy.BuyRecordActivity"></activity>
+        <activity android:name="com.baidu.wdyy.BuyRecordActivity" />
+        <activity android:name="com.baidu.wdyy.MovieListActivity"></activity>
     </application>
 
 </manifest>

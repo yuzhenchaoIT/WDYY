@@ -14,9 +14,7 @@
         android:hint="请输入搜索内容"
         android:paddingLeft="35dp"
         android:textColor="#f2f2f2"
-        android:textSize="12sp"
-
-        />
+        android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/one_image_sou"
@@ -24,6 +22,7 @@
         android:layout_height="24dp"
         android:layout_alignLeft="@+id/one_sou"
         android:layout_marginLeft="6dp"
+        android:padding="3dp"
         android:src="@drawable/com_icon_search_default_xxhdpi" />
 
     <TextView
