@@ -1,6 +1,5 @@
 package com.baidu.wdyy;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,15 +15,17 @@ import com.baidu.wdyy.adapter.MovieListAdapter;
 import com.baidu.wdyy.bean.MoiveBean;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.core.ApiException;
+import com.baidu.wdyy.core.app.WDYYApp;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.BeingMoviePresenter;
 import com.baidu.wdyy.presenter.PopularMoviePresenter;
 import com.baidu.wdyy.presenter.SoonMoviePresenter;
+import com.baidu.wdyy.presenter.my.CancelFollowMoviePresenter;
+import com.baidu.wdyy.presenter.my.FollowMoviePresenter;
 import com.bw.movie.R;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+
 
 import java.util.List;
 
@@ -57,6 +58,11 @@ public class MovieListActivity extends AppCompatActivity {
     private MovieListAdapter movieListAdapter;
     private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
     private String type;
+    private int id;
+    private FollowMoviePresenter followMoviePresenter = new FollowMoviePresenter(new FollowDataCall());
+    private CancelFollowMoviePresenter cancelFollowMoviePresenter = new CancelFollowMoviePresenter(new CancelCall());
+    private int userId = WDYYApp.getShare().getInt("userId", 0);
+    private String sessionId = WDYYApp.getShare().getString("sessionId", "");
 
 
     @Override
@@ -66,8 +72,8 @@ public class MovieListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        Intent intent=getIntent();
-        String select=intent.getStringExtra("select");
+        Intent intent = getIntent();
+        String select = intent.getStringExtra("select");
 
 
         //默认显示热门影院
@@ -88,6 +94,7 @@ public class MovieListActivity extends AppCompatActivity {
         mMovieListNow.setTextColor(Color.BLACK);
         mMovieListSoon.setBackgroundResource(R.drawable.myborder);
         mMovieListSoon.setTextColor(Color.BLACK);
+
         if (select.equals("1")) {
             mMovieListHot.setBackgroundResource(R.drawable.btn_gradient);
             mMovieListHot.setTextColor(Color.WHITE);
@@ -124,6 +131,45 @@ public class MovieListActivity extends AppCompatActivity {
             mMovieListRecy.setAdapter(movieListAdapter);
             beingMoviePresenter.request(0, "", 1, 10);
         }
+
+        movieListAdapter.setOnItemClickListener(new MovieListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int moiveId, int isFollow) {
+                id = moiveId;
+                if (mMovieListHot.isClickable()) {
+                    if (isFollow == 1) {
+                        cancelFollowMoviePresenter.request(userId, sessionId, moiveId);
+                    } else if (isFollow == 2) {
+                        followMoviePresenter.request(userId, sessionId, moiveId);
+
+                    }
+                } else if (mMovieListNow.isClickable()) {
+                    if (isFollow == 1) {
+                        cancelFollowMoviePresenter.request(userId, sessionId, moiveId);
+                    } else if (isFollow == 2) {
+                        followMoviePresenter.request(userId, sessionId, moiveId);
+
+                    }
+                } else if (mMovieListSoon.isClickable()) {
+                    if (isFollow == 1) {
+                        cancelFollowMoviePresenter.request(userId, sessionId, moiveId);
+                    } else if (isFollow == 2) {
+                        followMoviePresenter.request(userId, sessionId, moiveId);
+
+                    }
+                }
+
+//                if (isFollow == 1) {
+//                    //请求取消关注的接口
+//                    cancelFollowMoviePresenter.request(userId, sessionId, id);
+//                } else if (isFollow == 2) {
+//                    //请求关注的接口
+//                    followMoviePresenter.request(userId, sessionId, id);
+//                }
+            }
+        });
+
+
     }
 
     @OnClick({R.id.movie_list_hot, R.id.movie_list_now, R.id.movie_list_soon, R.id.movie_list_back})
@@ -170,6 +216,7 @@ public class MovieListActivity extends AppCompatActivity {
                 break;
         }
     }
+
 
     //热门电影
     class PopularCall implements DataCall<Result> {
@@ -221,6 +268,60 @@ public class MovieListActivity extends AppCompatActivity {
 
         }
     }
+
+    //影院关注
+    class FollowDataCall implements DataCall<Result> {
+
+        @Override
+        public void success(Result data) {
+            if (data.getStatus().equals("0000")) {
+                Toast.makeText(getBaseContext(), data.getMessage() + "", Toast.LENGTH_SHORT).show();
+                if (mMovieListHot.isClickable()) {
+                    popularMoviePresenter.request(0, "", 1, 10);
+                } else if (mMovieListNow.isClickable()) {
+                    soonMoviePresenter.request(0, "", 1, 10);
+                } else if (mMovieListSoon.isClickable()) {
+                    beingMoviePresenter.request(0, "", 1, 10);
+                }
+            } else {
+                Toast.makeText(MovieListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                movieListAdapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+
+    //影院取消关注
+    class CancelCall implements DataCall<Result> {
+
+        @Override
+        public void success(Result data) {
+            if (data.getStatus().equals("0000")) {
+                Toast.makeText(getBaseContext(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                if (mMovieListHot.isClickable()) {
+                    popularMoviePresenter.request(0, "", 1, 10);
+                } else if (mMovieListNow.isClickable()) {
+                    soonMoviePresenter.request(0, "", 1, 10);
+                } else if (mMovieListSoon.isClickable()) {
+                    beingMoviePresenter.request(0, "", 1, 10);
+                }
+            } else {
+                Toast.makeText(MovieListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                movieListAdapter.notifyDataSetChanged();
+            }
+
+        }
+
+        @Override
+        public void fail(ApiException e) {
+
+        }
+    }
+
 
     @Override
     protected void onDestroy() {

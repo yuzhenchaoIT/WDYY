@@ -63,7 +63,6 @@ public class CinemaAdapter extends RecyclerView.Adapter {
         cinemaVH.cinematextviewtwo.setText(cinemaBean.getAddress());
         cinemaVH.cinematextviewthree.setText(cinemaBean.getCommentTotal() + "km");
         final int isFllow = cinemaBean.getFollowCinema();
-        cinemaVH.cinematextviewthree.setText(cinemaBean.getCommentTotal() + "km");
         cinemaVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
