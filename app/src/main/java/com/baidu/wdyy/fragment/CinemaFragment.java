@@ -75,6 +75,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
     private View view;
     private int cinemaId1;
     private CacheManager cacheManager;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -149,7 +150,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         //推荐影院
         if (v.getId() == R.id.recommend) {
-            recommend.setBackgroundResource(R.drawable.btn_gradient);
+            recommend.setBackgroundResource(R.drawable.btn_gradient2);
             recommend.setTextColor(Color.WHITE);
             nearby.setBackgroundResource(R.drawable.myborder);
             nearby.setTextColor(Color.BLACK);
@@ -160,7 +161,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
         }
         //附近影院
         if (v.getId() == R.id.nearby) {
-            nearby.setBackgroundResource(R.drawable.btn_gradient);
+            nearby.setBackgroundResource(R.drawable.btn_gradient2);
             nearby.setTextColor(Color.WHITE);
             recommend.setBackgroundResource(R.drawable.myborder);
             recommend.setTextColor(Color.BLACK);

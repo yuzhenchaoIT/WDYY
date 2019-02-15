@@ -185,7 +185,6 @@ public class DetailActivity extends AppCompatActivity {
     @OnClick({R.id.btn_xiangqing, R.id.btn_yugao, R.id.btn_photo, R.id.btn_ping, R.id.btn_fan, R.id.btn_gou, R.id.btn_heartxiangqing})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-
             case R.id.btn_xiangqing:
                 showPopwindow1();
                 break;
@@ -231,9 +230,7 @@ public class DetailActivity extends AppCompatActivity {
     }
     private void showPopwindow1() {
         View parent = View.inflate(DetailActivity.this, R.layout.activity_detail, null);
-
         window.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
-
 
     }
 
