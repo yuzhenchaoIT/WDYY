@@ -52,14 +52,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.VH> {
         vh.review_name.setText(list.get(i).getCommentUserName());
         vh.review_pinglun.setText(list.get(i).getCommentContent());
         try {
-            vh.review_time.setText(DateUtils.dateFormat(new Date(list.get(i).getCommentTime()),DateUtils.MINUTE_PATTERN));
+            vh.review_time.setText(DateUtils.dateFormat(new Date(list.get(i).getCommentTime()), DateUtils.MINUTE_PATTERN));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         int isGreat = list.get(i).getIsGreat();
-        if (isGreat==1){
+        if (isGreat == 1) {
             vh.review_checkbox_like.setChecked(true);
-        }else {
+        } else {
             vh.review_checkbox_like.setChecked(false);
         }
         vh.review_like_num.setText(String.valueOf(list.get(i).getGreatNum()));
@@ -72,7 +72,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.VH> {
         return list.size();
     }
 
-    public class VH extends RecyclerView.ViewHolder{
+    public class VH extends RecyclerView.ViewHolder {
         private final SimpleDraweeView review_icon;
         private final TextView review_name;
         private final TextView review_pinglun;
@@ -80,15 +80,16 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.VH> {
         private final TextView review_like_num;
         private final TextView review_pl_num;
         private final CheckBox review_checkbox_like;
+
         public VH(@NonNull View itemView) {
             super(itemView);
-            review_icon=  itemView.findViewById(R.id.review_icon);
-            review_name=  itemView.findViewById(R.id.review_name);
-            review_pinglun=  itemView.findViewById(R.id.review_pinglun);
-            review_time=  itemView.findViewById(R.id.review_time);
-            review_like_num=  itemView.findViewById(R.id.review_like_num);
-            review_pl_num=  itemView.findViewById(R.id.review_pl_num);
-            review_checkbox_like=  itemView.findViewById(R.id.review_checkbox_like);
+            review_icon = itemView.findViewById(R.id.review_icon);
+            review_name = itemView.findViewById(R.id.review_name);
+            review_pinglun = itemView.findViewById(R.id.review_pinglun);
+            review_time = itemView.findViewById(R.id.review_time);
+            review_like_num = itemView.findViewById(R.id.review_like_num);
+            review_pl_num = itemView.findViewById(R.id.review_pl_num);
+            review_checkbox_like = itemView.findViewById(R.id.review_checkbox_like);
 
         }
     }

@@ -22,6 +22,12 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 影院适配器
+ *
+ * @author lmx
+ * @date 2019/2/15
+ */
 public class CinemaAdapter extends RecyclerView.Adapter {
 
     private Context context;
@@ -56,11 +62,11 @@ public class CinemaAdapter extends RecyclerView.Adapter {
         cinemaVH.cinematextviewtwo.setText(cinemaBean.getAddress());
         cinemaVH.cinematextviewthree.setText(cinemaBean.getCommentTotal() + "km");
         final int isFllow = cinemaBean.getFollowCinema();
-        cinemaVH.cinematextviewthree.setText(cinemaBean.getCommentTotal()+"km");
+        cinemaVH.cinematextviewthree.setText(cinemaBean.getCommentTotal() + "km");
         cinemaVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,CinemaDetalisActivity.class);
+                Intent intent = new Intent(context, CinemaDetalisActivity.class);
                 intent.putExtra("id", cinemaBean.getId() + "");
                 context.startActivity(intent);
             }
@@ -74,7 +80,7 @@ public class CinemaAdapter extends RecyclerView.Adapter {
         cinemaVH.cinemasdvstwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, cinemaBean.getId() + " " + cinemaBean.getFollowCinema(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, cinemaBean.getId() + " " + cinemaBean.getFollowCinema(), Toast.LENGTH_SHORT).show();
                 onItemClickListener.onItemClick(cinemaBean.getId(), isFllow);
                 if (isFllow == 1) {
                     cinemaVH.cinemasdvstwo.setBackgroundResource(R.drawable.com_icon_collection_default);

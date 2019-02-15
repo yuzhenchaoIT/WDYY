@@ -1,23 +1,18 @@
 package com.baidu.wdyy;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.baidu.wdyy.adapter.PurchaseAdapter;
-import com.baidu.wdyy.bean.IDMoiveDetalisOne;
 import com.baidu.wdyy.bean.PurchaseBean;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.core.ApiException;
 import com.baidu.wdyy.http.DataCall;
-import com.baidu.wdyy.presenter.IDMoiveDetalisonePresenter;
 import com.baidu.wdyy.presenter.PurchasePresenter;
 import com.bw.movie.R;
 
@@ -30,6 +25,7 @@ public class CinemaByMovieActivity extends AppCompatActivity implements View.OnC
 
     private PurchaseAdapter purchaseAdapter;
     private int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +51,10 @@ public class CinemaByMovieActivity extends AppCompatActivity implements View.OnC
         purchasePresenter.request(id);
 
     }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.purchase_return:
                 finish();
                 break;
@@ -70,13 +66,11 @@ public class CinemaByMovieActivity extends AppCompatActivity implements View.OnC
         finish();
     }
 
-    class PurchaseCall implements DataCall<Result>
-    {
+    class PurchaseCall implements DataCall<Result> {
 
         @Override
         public void success(Result result) {
-            if(result.getStatus().equals("0000"))
-            {
+            if (result.getStatus().equals("0000")) {
                 List<PurchaseBean> purchaseBeans = (List<PurchaseBean>) result.getResult();
                 purchaseAdapter.addItem(purchaseBeans);
                 purchaseAdapter.addId(id);

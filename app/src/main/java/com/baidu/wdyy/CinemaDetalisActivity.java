@@ -12,18 +12,15 @@ import android.widget.Toast;
 import com.baidu.wdyy.Utils.SpaceItemDecoration;
 import com.baidu.wdyy.adapter.CinemaFlowAdapter;
 import com.baidu.wdyy.adapter.CinemaRecycleAdapter;
-import com.baidu.wdyy.adapter.MovieFlowAdapter;
 import com.baidu.wdyy.bean.CinemaById;
 import com.baidu.wdyy.bean.CinemaDetalisBean;
 import com.baidu.wdyy.bean.CinemaRecy;
-import com.baidu.wdyy.bean.MoiveBean;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.core.ApiException;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.CinemaByIdPresenter;
 import com.baidu.wdyy.presenter.CinemaDetalisPresenter;
 import com.baidu.wdyy.presenter.CinemaRecyPresenter;
-import com.baidu.wdyy.presenter.PopularMoviePresenter;
 import com.bw.movie.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -48,8 +45,10 @@ public class CinemaDetalisActivity extends AppCompatActivity {
     private CinemaRecyPresenter cinemaRecyPresenter;
     private CinemaRecycleAdapter cinemaRecycleAdapter;
     private List<CinemaById> cinemaByIds;
-    private int p =4;;
+    private int p = 4;
+    ;
     private int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,9 +73,9 @@ public class CinemaDetalisActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(int position) {
                 p = cinemaByIds.get(position).getId();
-                Log.d("id23", "onItemSelected: "+p);
+                Log.d("id23", "onItemSelected: " + p);
                 cinemaRecycleAdapter.clearList();
-                cinemaRecyPresenter.request(id,p);
+                cinemaRecyPresenter.request(id, p);
             }
         });
         cinemaRecycleAdapter = new CinemaRecycleAdapter(this);
@@ -88,14 +87,13 @@ public class CinemaDetalisActivity extends AppCompatActivity {
 
     }
 
-    class My implements DataCall<Result<List<CinemaRecy>>>{
+    class My implements DataCall<Result<List<CinemaRecy>>> {
 
         @Override
         public void success(Result<List<CinemaRecy>> result) {
-            if (result.getStatus().equals("0000")){
-                Toast.makeText(CinemaDetalisActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+            if (result.getStatus().equals("0000")) {
+//                Toast.makeText(CinemaDetalisActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 List<CinemaRecy> result1 = result.getResult();
-
                 cinemaRecycleAdapter.addList(result1);
                 cinemaRecycleAdapter.notifyDataSetChanged();
             }
@@ -106,6 +104,7 @@ public class CinemaDetalisActivity extends AppCompatActivity {
 
         }
     }
+
     class MyCall implements DataCall<Result<List<CinemaById>>> {
 
         @Override
@@ -113,12 +112,12 @@ public class CinemaDetalisActivity extends AppCompatActivity {
             if (result.getStatus().equals("0000")) {
                 List<String> list = new ArrayList<>();
                 cinemaByIds = result.getResult();
-                p=cinemaByIds.get(0).getId();
-                cinemaRecyPresenter.request(id,p);
-                Log.d("id2", "success: "+p);
+                p = cinemaByIds.get(0).getId();
+                cinemaRecyPresenter.request(id, p);
+                Log.d("id2", "success: " + p);
                 cinemaFlowAdapter.addItem(cinemaByIds);
                 cinemaFlowAdapter.notifyDataSetChanged();
-                for (int i = 0; i < cinemaByIds.size() ; i++) {
+                for (int i = 0; i < cinemaByIds.size(); i++) {
                     list.add(cinemaByIds.get(i).getName());
                 }
                 cinemaRecycleAdapter.addName(list);

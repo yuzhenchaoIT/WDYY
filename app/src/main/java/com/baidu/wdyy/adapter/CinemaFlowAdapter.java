@@ -22,10 +22,11 @@ public class CinemaFlowAdapter extends RecyclerView.Adapter {
     public CinemaFlowAdapter(Context context) {
         this.context = context;
     }
+
     private ArrayList<CinemaById> list = new ArrayList<>();
+
     public void addItem(List<CinemaById> moiveBeans) {
-        if(moiveBeans!=null)
-        {
+        if (moiveBeans != null) {
             list.addAll(moiveBeans);
         }
     }
@@ -37,12 +38,10 @@ public class CinemaFlowAdapter extends RecyclerView.Adapter {
     }
 
 
-
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = View.inflate(context, R.layout.item_movieadapter,null);
+        View view = View.inflate(context, R.layout.item_movieadapter, null);
         MovieVH movieVH = new MovieVH(view);
         return movieVH;
     }
@@ -70,10 +69,10 @@ public class CinemaFlowAdapter extends RecyclerView.Adapter {
     }
 
 
-
     class MovieVH extends RecyclerView.ViewHolder {
         public ImageView img;
         public TextView populartextviewone;
+
         public MovieVH(View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.img);

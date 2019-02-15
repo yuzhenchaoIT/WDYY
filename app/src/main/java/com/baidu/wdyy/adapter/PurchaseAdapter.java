@@ -25,19 +25,23 @@ public class PurchaseAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private int sid;
+
     public PurchaseAdapter(Context context) {
         this.context = context;
     }
+
     private ArrayList<PurchaseBean> list = new ArrayList<>();
+
     public void addItem(List<PurchaseBean> purchaseBeans) {
-        if(purchaseBeans!=null)
-        {
+        if (purchaseBeans != null) {
             list.addAll(purchaseBeans);
         }
     }
+
     public void addId(int id) {
         sid = id;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -53,16 +57,16 @@ public class PurchaseAdapter extends RecyclerView.Adapter {
         purchaseVH.purchase_sdv.setImageURI(Uri.parse(purchaseBean.getLogo()));
         purchaseVH.purchase_textviewone.setText(purchaseBean.getName());
         purchaseVH.purchase_textviewtwo.setText(purchaseBean.getAddress());
-        purchaseVH.purchase_textviewthree.setText(purchaseBean.getDistance()+"km");
+        purchaseVH.purchase_textviewthree.setText(purchaseBean.getDistance() + "km");
         purchaseVH.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,SchedulingActivity.class);
-                intent.putExtra("name",purchaseBean.getName());
-                intent.putExtra("address",purchaseBean.getAddress());
-                intent.putExtra("id",purchaseBean.getId()+"");
-                intent.putExtra("filmid",sid+"");
-                Toast.makeText(context, "电影Id"+sid, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, SchedulingActivity.class);
+                intent.putExtra("name", purchaseBean.getName());
+                intent.putExtra("address", purchaseBean.getAddress());
+                intent.putExtra("id", purchaseBean.getId() + "");
+                intent.putExtra("filmid", sid + "");
+//                Toast.makeText(context, "电影Id" + sid, Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
 
             }
@@ -82,6 +86,7 @@ public class PurchaseAdapter extends RecyclerView.Adapter {
         public TextView purchase_textviewone;
         public TextView purchase_textviewtwo;
         public TextView purchase_textviewthree;
+
         public PurchaseVH(@NonNull View itemView) {
             super(itemView);
             purchase_sdv = itemView.findViewById(R.id.purchase_sdv);
