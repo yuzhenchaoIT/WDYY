@@ -63,7 +63,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         viewHolder1.guan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, moiveBean.getId() + " " + isFllow, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, moiveBean.getId() + " " + isFllow, Toast.LENGTH_SHORT).show();
                 onItemClickListener.onItemClick(moiveBean.getId(), isFllow);
             }
         });

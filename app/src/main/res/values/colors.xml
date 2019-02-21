@@ -6,4 +6,14 @@
     <color name="white">#ffffff</color>
     <color name="navpage">#FFE1E8EB</color>
 
+
+    <color name="mainColor">#4dc445</color>
+    <color name="colorPrimaryDark2">#303F9F</color>
+    <color name="balck">#000000</color>
+
+    <color name="grey">#ececec</color>
+    <color name="txtgrey">#7c7b7b</color>
+    <color name="greyhite">#aeacac</color>
+
+
 </resources>

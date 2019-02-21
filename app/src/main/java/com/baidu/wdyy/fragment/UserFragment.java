@@ -264,10 +264,11 @@ public class UserFragment extends Fragment {
         tv_select_camera.setOnClickListener(new View.OnClickListener() {// 调用照相机
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent3.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "head.jpg")));
-                startActivityForResult(intent3, 3);// 采用ForResult打开
+                Toast.makeText(getContext(), "相机", Toast.LENGTH_SHORT).show();
+//                Intent intent3 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                intent3.putExtra(MediaStore.EXTRA_OUTPUT,
+//                        Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "head.jpg")));
+//                startActivityForResult(intent3, 3);// 采用ForResult打开
                 dialog.dismiss();
             }
         });
