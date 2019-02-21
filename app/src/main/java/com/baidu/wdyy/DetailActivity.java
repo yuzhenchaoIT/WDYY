@@ -15,9 +15,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,10 +37,13 @@ import com.baidu.wdyy.core.app.WDYYApp;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.FindAllMovieCommentPresenter;
 import com.baidu.wdyy.presenter.IDMoiveDetalisonePresenter;
+import com.baidu.wdyy.presenter.MovieCommentPresenter;
 import com.baidu.wdyy.presenter.my.CancelFollowMoviePresenter;
 import com.baidu.wdyy.presenter.my.FollowMoviePresenter;
 import com.bw.movie.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.w3c.dom.Comment;
 
 import java.util.List;
 
@@ -97,8 +104,18 @@ public class DetailActivity extends AppCompatActivity {
     private int id;
     private FollowMoviePresenter followMoviePresenter = new FollowMoviePresenter(new FollowDataCall());
     private CancelFollowMoviePresenter cancelFollowMoviePresenter = new CancelFollowMoviePresenter(new CancelCall());
+    //发布评论p层
+    private MovieCommentPresenter movieCommentPresenter = new MovieCommentPresenter(new MovieCommCall());
     private int userId = WDYYApp.getShare().getInt("userId", 0);
     private String sessionId = WDYYApp.getShare().getString("sessionId", "");
+    private ImageView chatNews;
+    private RelativeLayout rl_comment;
+    private TextView hide_down;
+    private EditText comment_content;
+    private Button comment_send;
+    private String userName;
+    private ImageView movie_comment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,9 +139,7 @@ public class DetailActivity extends AppCompatActivity {
         text_yanyuan = view.findViewById(R.id.text_yanyuan);
         tv_placeoforigin = view.findViewById(R.id.tv_placeoforigin);
         tv_jianjie = view.findViewById(R.id.tv_jianjie);
-        window = new PopupWindow(view,
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.WRAP_CONTENT);
+        window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setFocusable(true);
         ColorDrawable dw = new ColorDrawable(0xffffffff);
         window.setBackgroundDrawable(dw);
@@ -132,9 +147,7 @@ public class DetailActivity extends AppCompatActivity {
 
         LayoutInflater inflater3 = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view3 = inflater3.inflate(R.layout.pup_review, null);
-        window3 = new PopupWindow(view3,
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.WRAP_CONTENT);
+        window3 = new PopupWindow(view3, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window3.setFocusable(true);
         ColorDrawable dw3 = new ColorDrawable(0xffffffff);
         window3.setBackgroundDrawable(dw3);
@@ -163,8 +176,15 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void getShowReview(View view3) {
+
         findAllMovieCommentPresenter = new FindAllMovieCommentPresenter(new FindAllMovieComment());
         ImageView pupo_yp_back = view3.findViewById(R.id.pupo_yp_back);
+        rl_comment = (RelativeLayout) view3.findViewById(R.id.rl_comment);
+        hide_down = (TextView) view3.findViewById(R.id.hide_down);
+        comment_content = (EditText) view3.findViewById(R.id.comment_content);
+        comment_send = (Button) view3.findViewById(R.id.comment_send);
+
+
         pupo_yp_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,12 +195,67 @@ public class DetailActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         review_movie_review.addItemDecoration(new SpaceItemDecoration(10));
+        //影片评论布局管理器
         review_movie_review.setLayoutManager(linearLayoutManager);
-        findAllMovieCommentPresenter.request(userId, sessionId, id, false, 10);
+        //影片评论请求数据
+        findAllMovieCommentPresenter.request(userId, sessionId, id, false, 20);
+        //影评适配器
         reviewAdapter = new ReviewAdapter();
         review_movie_review.setAdapter(reviewAdapter);
 
+        movie_comment = (ImageView) view3.findViewById(R.id.movie_comment);
+        movie_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 弹出输入法
+                InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                // 显示评论框
+                movie_comment.setVisibility(View.GONE);
+                rl_comment.setVisibility(View.VISIBLE);
+            }
+        });
+        hide_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 隐藏评论框
+                movie_comment.setVisibility(View.VISIBLE);
+                rl_comment.setVisibility(View.GONE);
+                // 隐藏输入法，然后暂存当前输入框的内容，方便下次使用
+                InputMethodManager im = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                im.hideSoftInputFromWindow(comment_content.getWindowToken(), 0);
+            }
+        });
+        comment_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (comment_content.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "评论不能为空！", Toast.LENGTH_SHORT).show();
+                } else {
+                    String text = comment_content.getText().toString().trim();
+                    movieCommentPresenter.request(userId, sessionId, id, "@" + userName + "#" + "回复:" + text);
+                    // 发送完，清空输入框
+                    comment_content.setText("");
+                }
+
+            }
+        });
+
+        reviewAdapter.setOnItemClickListener(new ReviewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String name) {
+                userName = name;
+                // 弹出输入法
+                InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                // 显示评论框
+                movie_comment.setVisibility(View.GONE);
+                rl_comment.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
+
 
     @OnClick({R.id.btn_xiangqing, R.id.btn_yugao, R.id.btn_photo, R.id.btn_ping, R.id.btn_fan, R.id.btn_gou, R.id.btn_heartxiangqing})
     public void onViewClicked(View view) {
@@ -218,8 +293,10 @@ public class DetailActivity extends AppCompatActivity {
                     mBtnHeartxiangqing.setBackgroundResource(R.drawable.ic_favorite_selected);
                 }
                 break;
+
         }
     }
+
     protected void setStatusColor() {
         StatusUtil.setUseStatusBarColor(this, Color.parseColor("#00000000"));
     }
@@ -228,6 +305,7 @@ public class DetailActivity extends AppCompatActivity {
         // 第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
         StatusUtil.setSystemStatus(this, true, true);
     }
+
     private void showPopwindow1() {
         View parent = View.inflate(DetailActivity.this, R.layout.activity_detail, null);
         window.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
@@ -266,7 +344,6 @@ public class DetailActivity extends AppCompatActivity {
     private void showPopwindow4() {
         window3.showAtLocation(DetailActivity.this.findViewById(R.id.btn_ping),
                 Gravity.BOTTOM, 0, 0);
-
 
 //        recycler_moviecomment = view3.findViewById(R.id.recycler_moviecomment);
 //         recycler_moviecomment.setLayoutManager(new LinearLayoutManager(DetailActivity.this,LinearLayoutManager.VERTICAL,false));
@@ -326,6 +403,25 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         public void fail(ApiException e) {
 
+        }
+    }
+
+    class MovieCommCall implements DataCall<Result> {
+
+        @Override
+        public void success(Result data) {
+            if (data.getStatus().equals("0000")) {
+                Toast.makeText(getBaseContext(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                findAllMovieCommentPresenter.request(userId, sessionId, id, false, 30);
+                reviewAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getBaseContext(), data.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void fail(ApiException e) {
+            Toast.makeText(getBaseContext(), "网络异常", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -207,6 +207,23 @@ public interface RequestInterFace {
                                                                  @Query("page") int page,
                                                                  @Query("count") int count);
 
+
+    /**
+     * 对电影发布评论
+     *
+     * @param userId
+     * @param sessionId
+     * @param movieId
+     * @param commentContent
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("movie/v1/verify/movieComment")
+    Observable<Result> movieComment(@Header("userId") int userId,
+                                    @Header("sessionId") String sessionId,
+                                    @Field("movieId") int movieId,
+                                    @Field("commentContent") String commentContent);
+
     //查看影院排期
     @GET("movie/v1/findMovieScheduleList")
     Observable<Result<List<CinemaRecy>>> cinemaRecy(@Query("cinemasId") int cinemasId,
