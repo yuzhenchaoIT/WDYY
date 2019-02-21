@@ -50,27 +50,6 @@ public class ShowActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
         ButterKnife.bind(this);
-
-//        //  main_rg.getBackground().mutate().setAlpha(12);
-//        //定义RadioButton数组用来装RadioButton，改变drawableTop大小
-//        rb = new RadioButton[3];
-//        main_vp = (FrameLayout) findViewById(R.id.show_frame_layout);
-//        main_rg = (RadioGroup) findViewById(R.id.rg);
-////将RadioButton装进数组中
-//        rb[0] = (RadioButton) findViewById(R.id.rb_movie);
-//        rb[1] = (RadioButton) findViewById(R.id.rb_cinema);
-//        rb[2] = (RadioButton) findViewById(R.id.rb_user);
-////for循环对每一个RadioButton图片进行缩放
-//        for (int i = 0; i <rb.length; i++) {
-//            //给每个RadioButton加入drawable限制边距以控制显示大小
-//            drawables = rb[i].getCompoundDrawables();
-//            //获取drawables，2/5表示图片要缩小的比例
-//            Rect r = new Rect(0, 0, drawables[1].getMinimumWidth() * 2 / 3, drawables[1].getMinimumHeight() * 2 / 3);
-//            //定义一个Rect边界
-//            drawables[1].setBounds(r);
-//            //给每一个RadioButton设置图片大小
-//            rb[i].setCompoundDrawables(null, drawables[1], null, null);
-//        }
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 

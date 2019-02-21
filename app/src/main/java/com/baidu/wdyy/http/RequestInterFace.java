@@ -350,5 +350,8 @@ public interface RequestInterFace {
                                                             @Query("count") int count,
                                                             @Query("status") int status);
 
-
+    @GET("tool/v1/findNewVersion")
+    Observable<Result> versions(@Header("userId") int userId,
+                                @Header("sessionId") String sessionId,
+                                @Header("ak") String ak);
 }

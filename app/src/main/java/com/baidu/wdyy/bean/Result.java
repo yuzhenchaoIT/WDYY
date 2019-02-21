@@ -17,7 +17,25 @@ public class Result<T> {
      * packageValue : Sign=WXPay
      */
     private String orderId;
+    private int flag;
 
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    private String downloadUrl;
     public String getOrderId() {
         return orderId;
     }

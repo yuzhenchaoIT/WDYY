@@ -2,6 +2,7 @@ package com.baidu.wdyy.fragment;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ import com.baidu.wdyy.MyAttentionActivity;
 import com.baidu.wdyy.MyFeedBackActivity;
 import com.baidu.wdyy.MyInfoActivity;
 import com.baidu.wdyy.MyRemindActivity;
+import com.baidu.wdyy.Utils.DownLoadService;
 import com.baidu.wdyy.bean.Result;
 import com.baidu.wdyy.bean.UserInfo;
 import com.baidu.wdyy.bean.UserInfoBean;
@@ -38,6 +41,7 @@ import com.baidu.wdyy.core.app.WDYYApp;
 import com.baidu.wdyy.core.db.DBDao;
 import com.baidu.wdyy.http.DataCall;
 import com.baidu.wdyy.presenter.UploadPicPresenter;
+import com.baidu.wdyy.presenter.VersionsPresenter;
 import com.baidu.wdyy.presenter.my.SignInPresenter;
 import com.bw.movie.R;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -84,9 +88,12 @@ public class UserFragment extends Fragment {
     private static String path = "/sdcard/myHead/";// sd路径
     private UploadPicPresenter uploadPicPresenter = new UploadPicPresenter(new UploadDataCall());
     private SignInPresenter signInPresenter = new SignInPresenter(new SignDataCall());
+   private VersionsPresenter versionsPresenter=new VersionsPresenter(new versionCall());
     private Dao<UserInfo, String> userDao;
     private List<UserInfo> list;
-
+    private int userId = WDYYApp.getShare().getInt("userId", 0);
+    private String sessionId = WDYYApp.getShare().getString("sessionId", "");
+    private String info;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -235,7 +242,26 @@ public class UserFragment extends Fragment {
                 }
                 break;
             case R.id.my_zuixinbanben:
-                Toast.makeText(getContext(), "当前已经是最新版本啦", Toast.LENGTH_SHORT).show();
+
+                if (userDao != null) {
+
+                    try {
+                        String versionCode = getActivity().getPackageManager().
+                                getPackageInfo(getContext().getPackageName(), 0).versionName;
+
+                        Log.e("zmz","版本："+versionCode);
+                        versionsPresenter.request(userId,sessionId,versionCode);
+
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                }else {
+                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+
                 break;
         }
     }
@@ -394,6 +420,30 @@ public class UserFragment extends Fragment {
         }
     }
 
+    private void showUpdataDialog() {
+        AlertDialog.Builder builer = new AlertDialog.Builder(getContext()) ;
+        builer.setTitle("版本升级");
+        builer.setMessage("发现新版本");
+        //当点确定按钮时从服务器上下载 新的apk 然后安装
+        builer.setPositiveButton("下载", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent=new Intent(getContext(),DownLoadService.class);
+                intent.putExtra("download_url",info);
+                getActivity().startService(intent);
+            }
+        });
+        //当点取消按钮时进行登录
+        builer.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                //LoginMain();
+            }
+        });
+        AlertDialog dialog = builer.create();
+        dialog.show();
+
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -406,4 +456,28 @@ public class UserFragment extends Fragment {
         super.onDestroy();
         uploadPicPresenter.unBind();
     }
+
+     class versionCall implements DataCall<Result>  {
+         @Override
+         public void success(Result data) {
+             if (data.getStatus().equals("0000")) {
+                 int flag = data.getFlag();
+
+                 if (flag != 1){
+                     Toast.makeText(getContext(), "已是最新版本", Toast.LENGTH_SHORT).show();
+                 }else {
+
+                     info = data.getDownloadUrl();
+
+                     showUpdataDialog();
+                     //Toast.makeText(getContext(), "发现新版本", Toast.LENGTH_SHORT).show();
+                 }
+             }
+         }
+
+         @Override
+         public void fail(ApiException e) {
+
+         }
+     }
 }

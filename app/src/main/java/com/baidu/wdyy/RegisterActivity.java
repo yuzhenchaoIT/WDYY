@@ -20,6 +20,8 @@ import com.bw.movie.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,11 +92,51 @@ public class RegisterActivity extends AppCompatActivity {
                     sexInt = 1;
                 } else if (sex.equals("女")) {
                     sexInt = 2;
+                }else {
+                    Toast.makeText(RegisterActivity.this,
+                            "请输入正确性别", Toast.LENGTH_SHORT).show();
                 }
                 String birthDate = mEdRegBirthDate.getText().toString();
                 String phone = mEdRegPhone.getText().toString();
                 String mail = mEdRegMail.getText().toString();
                 String pwd = mEdRegPwd.getText().toString();
+                String RULE = "([\u4e00-\u9fa5]+|[a-zA-Z]+)";
+                Pattern pattern = Pattern.compile(RULE);
+                Matcher matcher = pattern.matcher(nickName);
+                if (!matcher.matches()) {
+                    Toast.makeText(this, "昵称不能包含特殊字符", Toast.LENGTH_SHORT).show();
+                    //不包含特殊字符
+                    return;
+                }
+
+                Pattern p = Pattern.compile("^1(3|5|7|8|4)\\d{9}");
+                Matcher m = p.matcher(phone);
+                if (!m.matches()) {
+                    Toast.makeText(this, "输入正确的手机号", Toast.LENGTH_SHORT).show();
+                    //不包含特殊字符
+                    return;
+                }
+                boolean isDigit = false;//定义一个boolean值，用来表示是否包含数字
+                boolean isLowerCase = false;//定义一个boolean值，用来表示是否包含字母
+                boolean isUpperCase = false;
+                for (int i = 0; i < pwd.length(); i++) {
+                    if (Character.isDigit(pwd.charAt(i))) {   //用char包装类中的判断数字的方法判断每一个字符
+                        isDigit = true;
+                    } else if (Character.isLowerCase(pwd.charAt(i))) {  //用char包装类中的判断字母的方法判断每一个字符
+                        isLowerCase = true;
+                    } else if (Character.isUpperCase(pwd.charAt(i))) {
+                        isUpperCase = true;
+                    }
+                }
+                String regex = "^[a-zA-Z0-9]+$";
+                boolean isRight = isDigit && isLowerCase && isUpperCase && pwd.matches(regex);
+                boolean nRight=!isRight;
+                if (nRight&&pwd.length()<=7){
+                    Toast.makeText(RegisterActivity.this,
+                            "密码大于8位且包含字母数字", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 //加密
                 String encryptpwd = EncryptUtil.encrypt(pwd);
                 regPresenter.request(nickName, phone, encryptpwd, encryptpwd,
